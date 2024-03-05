@@ -1,4 +1,5 @@
-### 설명 1
+## ISSUE: Feat or Fix or Docs :white_check_mark:
+- 이슈 설명 1
 - 이슈 설명 2
 ### TODO
 - 할일 1
