@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.a701.nongstradamus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
