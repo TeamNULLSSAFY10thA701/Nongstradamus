@@ -5,5 +5,5 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 public interface ProductDataService {
-    public void updateProductData() throws IOException, ParserConfigurationException, SAXException;
+    void updateProductData() throws IOException, ParserConfigurationException, SAXException;
 }
