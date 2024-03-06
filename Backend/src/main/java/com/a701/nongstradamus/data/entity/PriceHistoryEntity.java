@@ -36,6 +36,9 @@ public class PriceHistoryEntity {
     @Column(name = "ratio", nullable = false)
     private Double ratio;
 
+    @Column(name = "grade", nullable = false)
+    private Integer grade;
+
     @ManyToOne
     @JoinColumn(name = "productId")
     ProductEntity product;
