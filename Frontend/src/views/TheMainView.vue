@@ -1,10 +1,11 @@
 <template>
     <div>
-        <h1>메인페이지</h1>
+        <TheMain></TheMain>
     </div>
 </template>
 
 <script setup>
+import TheMain from '@/components/main/TheMain.vue';
 </script>
 
 <style></style>
