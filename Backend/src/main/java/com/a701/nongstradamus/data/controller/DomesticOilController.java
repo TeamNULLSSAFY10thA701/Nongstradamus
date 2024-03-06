@@ -1,8 +1,8 @@
-package com.a701.nongstradamus.controller;
+package com.a701.nongstradamus.data.controller;
 
-import com.a701.nongstradamus.domain.DomesticOilDto;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.a701.nongstradamus.data.domain.DomesticOilDto;
+import com.a701.nongstradamus.data.service.DomesticOilService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,11 +20,19 @@ import org.json.JSONObject;
 
 @RestController
 @RequestMapping("/oil")
-public class test {
-    private String callBackUrl = "https://www.opinet.co.kr/api/avgAllPrice.do";
-    private String serviceKey = "F240229054";
+public class DomesticOilController {
+
+    @Value("${key.oil.url}")
+    private String callBackUrl;
+    @Value("${key.oil.servicekey}")
+    private String serviceKey;
     private String dataType = "json";
 
+    private final DomesticOilService oilService;
+
+    public DomesticOilController(DomesticOilService oilService) {
+        this.oilService = oilService;
+    }
 
 
     @Scheduled(cron="0/5 * * * * ?")
@@ -66,15 +74,18 @@ public class test {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
             LocalDate date = LocalDate.parse(resultObject.getString("TRADE_DT"), formatter);
 
-            Double avgPrice = resultObject.getDouble("PRODCD");
+            Double avgPrice = resultObject.getDouble("PRICE");
+
 
 //            {"TRADE_DT":"20240305","PRODCD":"B027","PRICE":"1639.41","DIFF":"+0.46","PRODNM":"?��발유"}
 
             // Extract values and populate your DomesticOilDto
-//            DomesticOilDto domesticOilDto = new DomesticOilDto();
-//
-//            domesticOilDto.setDomesticOilPriceId(jsonObject.getInt("PRODNM"));
-//            domesticOilDto.setAvgPrice(jsonObject.getInt("PRICE"));
+
+            DomesticOilDto domesticOilDto = new DomesticOilDto();
+            domesticOilDto.setDomesticOilPriceId(1);
+            domesticOilDto.setAvgPrice(avgPrice);
+            domesticOilDto.setDate(date);
+            System.out.println(oilService.createDomesticOil(domesticOilDto));
 
 //////////////////////////////////////////////////////////////////////////////
 
