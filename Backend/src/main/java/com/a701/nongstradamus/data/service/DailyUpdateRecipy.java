@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class DailyUpdateRecipy {
 
-    @Value("${API_KEY}")
+    @Value("${api.key}")
     private String apiKey;
 
     WebClient webClient = WebClient.create("https://openapi.foodsafetykorea.go.kr");
@@ -25,7 +25,7 @@ public class DailyUpdateRecipy {
         // 여기에 데이터베이스 업데이트 로직을 작성
         // 예를 들어, JPA를 사용하여 엔터티를 가져와 업데이트하는 코드를 작성
         // EntityManager 또는 JpaRepository를 사용하는 방법을 선택할 수 있습니다.
-
+        //System.out.println(result);
     }
 
 }
