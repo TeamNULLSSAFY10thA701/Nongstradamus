@@ -25,6 +25,6 @@ public class ProductEntity {
     @Column(name = "productName", nullable = false)
     private String name;
 
-    @Column(name = "productUnit", nullable = false)
+    @Column(name = "productUnit")
     private String unit;
 }
