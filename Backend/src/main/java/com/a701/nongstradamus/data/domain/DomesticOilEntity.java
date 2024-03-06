@@ -15,7 +15,8 @@ public class DomesticOilEntity {
 
     private static ModelMapper modelMapper;
 
-    @Id @GeneratedValue @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer domesticOilPriceId;
     @Column
     private Double avgPrice;
