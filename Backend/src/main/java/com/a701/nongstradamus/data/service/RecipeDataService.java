@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-public class DailyUpdateRecipy {
+public class RecipeDataService {
 
     @Value("${api.key}")
     private String apiKey;
