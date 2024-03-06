@@ -1,4 +1,4 @@
-package com.a701.nongstradamus.config;
+package com.a701.nongstradamus.data.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
