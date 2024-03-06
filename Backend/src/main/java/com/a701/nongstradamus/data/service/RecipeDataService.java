@@ -1,5 +1,10 @@
 package com.a701.nongstradamus.data.service;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -13,19 +18,49 @@ public class RecipeDataService {
 
     WebClient webClient = WebClient.create("https://openapi.foodsafetykorea.go.kr");
 
+
+
+
     // 매달 1일 0시에 실행
 //    @Scheduled(cron = "0 0 0 1 * ?")
+
+    //10초마다 실행(테스트용)
     @Scheduled(fixedDelay = 10000)
-    public void dailyUpdate() {
+    public void updateRecipeData() {
         String result = webClient.get()
             .uri("/api/" + apiKey + "/COOKRCP01/json/1/2")
-            .retrieve()         // HTTP 요청을 시작하고 응답을 가져옴
-            .bodyToMono(String.class)  // 응답의 본문을 Mono로 변환
+            .retrieve()
+            .bodyToMono(String.class)
             .block();
-        // 여기에 데이터베이스 업데이트 로직을 작성
-        // 예를 들어, JPA를 사용하여 엔터티를 가져와 업데이트하는 코드를 작성
-        // EntityManager 또는 JpaRepository를 사용하는 방법을 선택할 수 있습니다.
         //System.out.println(result);
+
+        // JSON 파싱
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(result);
+            JsonNode rowArray = jsonNode.path("COOKRCP01").path("row");
+            for(JsonNode row : rowArray){
+                String title = row.path("RCP_NM").asText();
+                String ingredient = row.path("RCP_PARTS_DTLS").asText();
+                String image = row.path("ATT_FILE_NO_MAIN").asText();
+                StringBuilder content = new StringBuilder();
+                for (int i = 1; i <= 20; i++) {
+                    String manualValue = jsonNode.path("MANUAL" + String.format("%02d", i)).asText();
+                    if (!manualValue.isEmpty()) {
+                        content.append(manualValue).append("\n");
+                    }
+                }
+                System.out.println(title);
+                System.out.println(ingredient);
+                System.out.println(image);
+                System.out.println(content);
+
+
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+//        System.out.println(result);
     }
 
 }
