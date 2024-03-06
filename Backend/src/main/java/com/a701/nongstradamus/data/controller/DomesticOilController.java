@@ -19,12 +19,12 @@ import java.time.format.DateTimeFormatter;
 import org.json.JSONObject;
 
 @RestController
-@RequestMapping("/oil")
+@RequestMapping("/oil/domestic")
 public class DomesticOilController {
 
-    @Value("${key.oil.url}")
+    @Value("${key.domesticOil.url}")
     private String callBackUrl;
-    @Value("${key.oil.servicekey}")
+    @Value("${key.domesticOil.servicekey}")
     private String serviceKey;
     private String dataType = "json";
 
@@ -82,7 +82,7 @@ public class DomesticOilController {
             // Extract values and populate your DomesticOilDto
 
             DomesticOilDto domesticOilDto = new DomesticOilDto();
-            domesticOilDto.setDomesticOilPriceId(1);
+            domesticOilDto.setDomesticOilPriceId(0);
             domesticOilDto.setAvgPrice(avgPrice);
             domesticOilDto.setDate(date);
             System.out.println(oilService.createDomesticOil(domesticOilDto));
