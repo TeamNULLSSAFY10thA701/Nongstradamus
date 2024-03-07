@@ -1,7 +1,9 @@
-package com.a701.nongstradamus.data.domain;
+package com.a701.nongstradamus.data.dto;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,6 +17,9 @@ import java.time.LocalDate;
 public class GlobalOilDto {
 
     private Integer globalOilPriceId;
-    private Double avgPrice;
+    private Double wtiPrice;
+    private Double brentPrice;
+    private Double dxlPrice;
+    private Double gasolinePrice;
     private LocalDate date;
 }
