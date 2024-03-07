@@ -59,62 +59,77 @@ public class ProductDataServiceImpl implements ProductDataService{
             throw new EntityNotFoundException("농산물 데이터가 없습니다.");
         }
         for(ProductEntity product : productList) {
-            // oopen api 검색 url 생성
-            StringBuilder urlFull = new StringBuilder();
-            urlFull.append(urlBase).append("?id=").append(id).append("&passwd=").append(password); // url, id, password
-            urlFull.append("&dataid=data52")
-                .append("&pagesize=100").append("&pageidx=1")
-                .append("&portal.templet=false");
-            LocalDate today = LocalDate.now().minusDays(1);
-            LocalDate yesterday = today.minusDays(1);
-            LocalDate lastYear = today.minusYears(1);
-            urlFull.append("&p_ymd=").append(today.format(DateTimeFormatter.ofPattern("yyyyMMdd"))) // 어제 날짜
-                .append("&p_jymd=").append(yesterday.format(DateTimeFormatter.ofPattern("yyyyMMdd"))) // 그제 날짜
-                .append("&d_cd=2") // 청과
-                .append("&p_jjymd=").append(lastYear.format(DateTimeFormatter.ofPattern("yyyyMMdd"))) // 지난해 날짜
-                .append("&p_pos_gubun=1") // 가락시장
-                .append("&pum_nm=").append(product.getName()); // 품목명
-            // api 검색
-            ResponseEntity<String> res = OpenAPIManager.fetch(urlFull.toString());
-            // 데이터 파싱
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new InputSource(new StringReader(res.getBody())));
-            NodeList lists = document.getElementsByTagName("list");
-            NodeList price = document.getElementsByTagName("PUM_CD");
-            NodeList ratio = document.getElementsByTagName("A_B");
-            NodeList grade = document.getElementsByTagName("G_NAME_A");
-            NodeList unit = document.getElementsByTagName("U_NAME");
-            // 단위가 없다면 단위 먼저 저장
-            if(product.getUnit() == null || product.getUnit().isEmpty()) {
-                product.setUnit(unit.item(0).getFirstChild().getNodeValue());
-                productRepository.save(product);
-            }
-            List<PriceHistoryDto> dtos = new ArrayList<PriceHistoryDto>();
-            for(int i=0; i<lists.getLength();i++){
-                PriceHistoryDto dto = new PriceHistoryDto();
-                dto.setProduct(product);
-                dto.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
-                dto.setPrice(Long.parseLong(price.item(i).getFirstChild().getNodeValue()));
-                dto.setRatio(Double.parseDouble(ratio.item(i).getFirstChild().getNodeValue()));
-                switch(grade.item(i).getFirstChild().getNodeValue()) {
-                    case "특":
-                        dto.setGrade(4);
-                        break;
-                    case "상":
-                        dto.setGrade(3);
-                        break;
-                    case "중":
-                        dto.setGrade(2);
-                        break;
-                    case "하":
-                        dto.setGrade(1);
-                        break;
+            // 날짜를 어제부터 하루씩 뒤로 가면서
+            for (int d = 1; ; d++) {
+                // 이 날짜의 데이터가 있는지 확인
+                LocalDate today = LocalDate.now().minusDays(d);
+                List<PriceHistoryEntity> priceHistories = priceHistoryRepository.findAllByProductIdAndDate(
+                    product.getId(), java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                if (!priceHistories.isEmpty())
+                    break;
+                // oopen api 검색 url 생성
+                StringBuilder urlFull = new StringBuilder();
+                urlFull.append(urlBase).append("?id=").append(id).append("&passwd=")
+                    .append(password); // url, id, password
+                urlFull.append("&dataid=data52")
+                    .append("&pagesize=100").append("&pageidx=1")
+                    .append("&portal.templet=false");
+
+                LocalDate yesterday = today.minusDays(1);
+                LocalDate lastYear = today.minusYears(1);
+                urlFull.append("&p_ymd=")
+                    .append(today.format(DateTimeFormatter.ofPattern("yyyyMMdd"))) // 어제 날짜
+                    .append("&p_jymd=")
+                    .append(yesterday.format(DateTimeFormatter.ofPattern("yyyyMMdd"))) // 그제 날짜
+                    .append("&d_cd=2") // 청과
+                    .append("&p_jjymd=")
+                    .append(lastYear.format(DateTimeFormatter.ofPattern("yyyyMMdd"))) // 지난해 날짜
+                    .append("&p_pos_gubun=1") // 가락시장
+                    .append("&pum_nm=").append(product.getName()); // 품목명
+                // api 검색
+                ResponseEntity<String> res = OpenAPIManager.fetch(urlFull.toString());
+                // 데이터 파싱
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document document = builder.parse(new InputSource(new StringReader(res.getBody())));
+                NodeList lists = document.getElementsByTagName("list");
+                if(lists.getLength()==0)
+                    break;
+                NodeList price = document.getElementsByTagName("PUM_CD");
+                NodeList ratio = document.getElementsByTagName("A_B");
+                NodeList grade = document.getElementsByTagName("G_NAME_A");
+                NodeList unit = document.getElementsByTagName("U_NAME");
+                // 단위가 없다면 단위 먼저 저장
+                if (product.getUnit() == null || product.getUnit().isEmpty()) {
+                    product.setUnit(unit.item(0).getFirstChild().getNodeValue());
+                    productRepository.save(product);
                 }
-                dtos.add(dto);
+                List<PriceHistoryDto> dtos = new ArrayList<PriceHistoryDto>();
+                for (int i = 0; i < lists.getLength(); i++) {
+                    PriceHistoryDto dto = new PriceHistoryDto();
+                    dto.setProduct(product);
+                    dto.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                    dto.setPrice(Long.parseLong(price.item(i).getFirstChild().getNodeValue()));
+                    dto.setRatio(Double.parseDouble(ratio.item(i).getFirstChild().getNodeValue()));
+                    switch (grade.item(i).getFirstChild().getNodeValue()) {
+                        case "특":
+                            dto.setGrade(4);
+                            break;
+                        case "상":
+                            dto.setGrade(3);
+                            break;
+                        case "중":
+                            dto.setGrade(2);
+                            break;
+                        case "하":
+                            dto.setGrade(1);
+                            break;
+                    }
+                    dtos.add(dto);
+                }
+                // 데이터 저장
+                priceHistoryRepository.saveAll(dtos.stream().map(PriceHistoryMapper.INSTANCE::fromDtoToEntity).collect(Collectors.toList()));
             }
-            // 데이터 저장
-            priceHistoryRepository.saveAll(dtos.stream().map(PriceHistoryMapper.INSTANCE::fromDtoToEntity).collect(Collectors.toList()));
         }
     }
 
