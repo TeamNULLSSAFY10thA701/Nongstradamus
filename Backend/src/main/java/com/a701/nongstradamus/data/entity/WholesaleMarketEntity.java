@@ -11,14 +11,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "wholeMarket")
+@Table(name = "wholeslaeMarket")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class WholesaleMarketEntity {
 
     @Id
-    @Column(name = "wholeMarketId", nullable = false)
+    @Column(name = "wholesaleMarketId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 }
