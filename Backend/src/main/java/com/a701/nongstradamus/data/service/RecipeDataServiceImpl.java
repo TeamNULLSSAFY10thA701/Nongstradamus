@@ -32,12 +32,14 @@ public class RecipeDataServiceImpl implements RecipeDataService {
 
     //테스트용
     //@Override
-    //Scheduled(fixedDelay = 10000000)
+    //@Scheduled(fixedDelay = 10000000)
+//    @Override
+//    @Scheduled(cron = "0 0 0 1 1 ?")
 
     // 매년 1월 1일 0시에 실행
     // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
     @Override
-    @Scheduled(cron = "0 0 0 1 1 ?")
+    @Scheduled(fixedDelay = 10000000)
     public void updateRecipeData(){
 
         //지우고 새로 다 받는방식
