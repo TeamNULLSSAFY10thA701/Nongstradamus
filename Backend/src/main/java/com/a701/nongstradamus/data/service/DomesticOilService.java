@@ -74,7 +74,7 @@ public class DomesticOilService {
         return null;
     }
 
-    @Scheduled(cron="0/5 * * * * ?") // 매일 12시
+    @Scheduled(cron="0 0 12 * * ?") // 매일 12시
     public ResponseEntity<String> callForecastApi(
 //            @RequestParam(value="base_time") String baseTime,
 //            @RequestParam(value="base_date") String baseDate,
