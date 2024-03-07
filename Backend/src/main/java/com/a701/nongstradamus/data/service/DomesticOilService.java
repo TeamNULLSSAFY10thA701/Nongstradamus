@@ -5,11 +5,9 @@ import com.a701.nongstradamus.data.entity.DomesticOilEntity;
 import com.a701.nongstradamus.data.dto.DomesticOilDto;
 import com.a701.nongstradamus.data.mapper.DomesticOilMapper;
 import com.a701.nongstradamus.data.repository.DomesticOilRepository;
-import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -41,11 +38,6 @@ public class DomesticOilService {
         this.domesticOilRepository = domesticOilRepository;
     }
 
-    public DomesticOilDto getDomesticOilByDate(DomesticOilEntity domesticOil) {
-
-        return null;
-    }
-
     public List<DomesticOilDto> getAllDomesticOil() {
 
         List<DomesticOilEntity> lst = domesticOilRepository.findAll();
@@ -64,22 +56,8 @@ public class DomesticOilService {
         return dto;
     }
 
-    public DomesticOilDto updateDomesticOilByDate(DomesticOilDto dto) {
-
-        return null;
-    }
-
-    public DomesticOilDto deleteDomesticOilByDate() {
-
-        return null;
-    }
-
-    @Scheduled(cron="0 0 12 * * ?") // 매일 12시
-    public ResponseEntity<String> callForecastApi(
-//            @RequestParam(value="base_time") String baseTime,
-//            @RequestParam(value="base_date") String baseDate,
-//            @RequestParam(value="beach_num") String beachNum
-    ){
+    @Scheduled(cron="0/5 * * * * ?") // 매일 12시
+    public void callForecastApi(){
         HttpURLConnection urlConnection = null;
         InputStream stream = null;
         String result = null;
@@ -88,12 +66,11 @@ public class DomesticOilService {
         String urlStr = callBackUrl +
                 "?out=" + dataType +
                 "&code=" + serviceKey;
+
         try {
             ResponseEntity<String> response = OpenAPIManager.fetchXML(urlStr);
 
             stream = new ByteArrayInputStream(response.getBody().getBytes());
-
-//////////////////////////////////////////////////////////////////////////////
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder stringBuilder = new StringBuilder();
@@ -119,12 +96,6 @@ public class DomesticOilService {
             );
             System.out.println(createDomesticOil(domesticOilDto));
 
-//            {"TRADE_DT":"20240305","PRODCD":"B027","PRICE":"1639.41","DIFF":"+0.46","PRODNM":"?��발유"}
-
-            // Extract values and populate your DomesticOilDto
-
-//////////////////////////////////////////////////////////////////////////////
-
             if (stream != null) stream.close();
 
         } catch(IOException e) {
@@ -134,6 +105,36 @@ public class DomesticOilService {
                 urlConnection.disconnect();
             }
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /* URLConnection 을 전달받아 연결정보 설정 후 연결, 연결 후 수신한 InputStream 반환 */
+    private InputStream getNetworkConnection(HttpURLConnection urlConnection) throws IOException {
+        urlConnection.setConnectTimeout(6000);
+        urlConnection.setReadTimeout(6000);
+        urlConnection.setRequestMethod("GET");
+        urlConnection.setDoInput(true);
+
+        if(urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            throw new IOException("HTTP error code : " + urlConnection.getResponseCode());
+        }
+
+        return urlConnection.getInputStream();
+    }
+
+    /* InputStream을 전달받아 문자열로 변환 후 반환 */
+    private String readStreamToString(InputStream stream) throws IOException {
+        StringBuilder result = new StringBuilder();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+
+        String readLine;
+        while((readLine = br.readLine()) != null) {
+            result.append(readLine);
+        }
+
+        br.close();
+
+        return result.toString();
     }
 }

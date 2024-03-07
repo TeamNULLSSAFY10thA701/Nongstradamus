@@ -40,11 +40,6 @@ public class GlobalOilService {
         this.globalOilRepository = globalOilRepository;
     }
 
-    public GlobalOilDto getGlobalOilByDate(GlobalOilEntity domesticOil) {
-
-        return null;
-    }
-
     public List<GlobalOilDto> getAllGlobalOil() {
 
         List<GlobalOilEntity> lst = globalOilRepository.findAll();
@@ -63,21 +58,8 @@ public class GlobalOilService {
         return dto;
     }
 
-    public GlobalOilDto updateGlobalOilByDate(GlobalOilDto dto) {
-
-        return null;
-    }
-
-    public GlobalOilDto deleteGlobalOilByDate() {
-
-        return null;
-    }
      @Scheduled(cron="0 0 12 * * ?") // 매일 12시
-    public ResponseEntity<String> callForecastApi(
-//            @RequestParam(value="base_time") String baseTime,
-//            @RequestParam(value="base_date") String baseDate,
-//            @RequestParam(value="beach_num") String beachNum
-    ){
+    public void callForecastApi(){
         HttpURLConnection urlConnection = null;
         InputStream stream = null;
         String result = null;
@@ -93,8 +75,6 @@ public class GlobalOilService {
              ResponseEntity<String> response = OpenAPIManager.fetchXML(urlStr);
 
              stream = new ByteArrayInputStream(response.getBody().getBytes());
-
-//////////////////////////////////////////////////////////////////////////////
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             StringBuilder stringBuilder = new StringBuilder();
@@ -138,9 +118,7 @@ public class GlobalOilService {
                     nodeMap.get("EER_EPMRU_PF4_RGC_DPG").get("value").asDouble(),
                     LocalDate.now()
             );
-            System.out.println(createGlobalOil(dto));
-//            createGlobalOil(dto);
+            createGlobalOil(dto);
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
