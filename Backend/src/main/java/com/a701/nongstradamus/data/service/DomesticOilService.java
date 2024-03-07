@@ -1,5 +1,6 @@
 package com.a701.nongstradamus.data.service;
 
+import com.a701.nongstradamus.common.OpenAPIManager;
 import com.a701.nongstradamus.data.entity.DomesticOilEntity;
 import com.a701.nongstradamus.data.dto.DomesticOilDto;
 import com.a701.nongstradamus.data.mapper.DomesticOilMapper;
@@ -14,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
@@ -76,7 +74,7 @@ public class DomesticOilService {
         return null;
     }
 
-    @Scheduled(cron="0 0 12 * * ?") // 매일 12시
+    @Scheduled(cron="0/5 * * * * ?") // 매일 12시
     public ResponseEntity<String> callForecastApi(
 //            @RequestParam(value="base_time") String baseTime,
 //            @RequestParam(value="base_date") String baseDate,
@@ -91,11 +89,9 @@ public class DomesticOilService {
                 "?out=" + dataType +
                 "&code=" + serviceKey;
         try {
-            URL url = new URL(urlStr);
+            ResponseEntity<String> response = OpenAPIManager.fetchXML(urlStr);
 
-            urlConnection = (HttpURLConnection) url.openConnection();
-            stream = getNetworkConnection(urlConnection);
-//            result = readStreamToString(stream);
+            stream = new ByteArrayInputStream(response.getBody().getBytes());
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -105,17 +101,7 @@ public class DomesticOilService {
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
             }
-//            String jsonString = stringBuilder.toString();
-//
-//            // Parse JSON string using org.json.JSONObject
-//            JSONObject jsonObject = new JSONObject(jsonString);
-//            JSONObject resultObject = jsonObject.getJSONObject("RESULT")
-//                                                .getJSONArray("OIL").getJSONObject(1);
-//
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-//            LocalDate date = LocalDate.parse(resultObject.getString("TRADE_DT"), formatter);
-//
-//            Double avgPrice = resultObject.getDouble("PRICE");
+
             String jsonString = stringBuilder.toString();
 
             // Parse JSON string using org.json.JSONObject
@@ -149,35 +135,5 @@ public class DomesticOilService {
             }
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    /* URLConnection 을 전달받아 연결정보 설정 후 연결, 연결 후 수신한 InputStream 반환 */
-    private InputStream getNetworkConnection(HttpURLConnection urlConnection) throws IOException {
-        urlConnection.setConnectTimeout(6000);
-        urlConnection.setReadTimeout(6000);
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setDoInput(true);
-
-        if(urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-            throw new IOException("HTTP error code : " + urlConnection.getResponseCode());
-        }
-
-        return urlConnection.getInputStream();
-    }
-
-    /* InputStream을 전달받아 문자열로 변환 후 반환 */
-    private String readStreamToString(InputStream stream) throws IOException {
-        StringBuilder result = new StringBuilder();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-
-        String readLine;
-        while((readLine = br.readLine()) != null) {
-            result.append(readLine);
-        }
-
-        br.close();
-
-        return result.toString();
     }
 }

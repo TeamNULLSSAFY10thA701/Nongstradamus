@@ -1,5 +1,6 @@
 package com.a701.nongstradamus.data.service;
 
+import com.a701.nongstradamus.common.OpenAPIManager;
 import com.a701.nongstradamus.data.entity.GlobalOilEntity;
 import com.a701.nongstradamus.data.dto.GlobalOilDto;
 import com.a701.nongstradamus.data.mapper.GlobalOilMapper;
@@ -13,10 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
@@ -74,7 +72,7 @@ public class GlobalOilService {
 
         return null;
     }
-     @Scheduled(cron="0 0 12 * * ?") // 매일 12시
+     @Scheduled(cron="0/5 * * * * ?") // 매일 12시
     public ResponseEntity<String> callForecastApi(
 //            @RequestParam(value="base_time") String baseTime,
 //            @RequestParam(value="base_date") String baseDate,
@@ -91,12 +89,10 @@ public class GlobalOilService {
                 + today + "&end=" + today
                 + "&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=5000&api_key="
                 + serviceKey;
-        try {
-            URL url = new URL(urlStr);
+         try {
+             ResponseEntity<String> response = OpenAPIManager.fetchXML(urlStr);
 
-            urlConnection = (HttpURLConnection) url.openConnection();
-            stream = getNetworkConnection(urlConnection);
-//            result = readStreamToString(stream);
+             stream = new ByteArrayInputStream(response.getBody().getBytes());
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -146,35 +142,5 @@ public class GlobalOilService {
 //            createGlobalOil(dto);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    /* URLConnection 을 전달받아 연결정보 설정 후 연결, 연결 후 수신한 InputStream 반환 */
-    private InputStream getNetworkConnection(HttpURLConnection urlConnection) throws IOException {
-        urlConnection.setConnectTimeout(3000);
-        urlConnection.setReadTimeout(3000);
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setDoInput(true);
-
-        if(urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-            throw new IOException("HTTP error code : " + urlConnection.getResponseCode());
-        }
-
-        return urlConnection.getInputStream();
-    }
-
-    /* InputStream을 전달받아 문자열로 변환 후 반환 */
-    private String readStreamToString(InputStream stream) throws IOException {
-        StringBuilder result = new StringBuilder();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-
-        String readLine;
-        while((readLine = br.readLine()) != null) {
-            result.append(readLine);
-        }
-
-        br.close();
-
-        return result.toString();
     }
 }
