@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto">
+  <div class="all-font max-w-md mx-auto">
     <!-- startheader -->
     <div class="grid grid-cols-3 gap-4 ml-4 mr-4 mt-8">
       <div>
@@ -53,4 +53,8 @@ import { ref } from "vue";
 const foodDatas = [1, 2, 3, 4];
 </script>
 
-<style scoped></style>
+<style scoped>
+.all-font {
+  font-family: "HSBombaram3.0";
+}
+</style>
