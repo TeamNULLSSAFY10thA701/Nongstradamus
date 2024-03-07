@@ -9,5 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface RecipeMapper {
     public static RecipeMapper INSTANCE = Mappers.getMapper(RecipeMapper.class);
 
-    RecipeEntity fromDtoToEntity(RecipeDto priceHistoryDto);
+    RecipeEntity fromDtoToEntity(RecipeDto recipeDto);
 }
