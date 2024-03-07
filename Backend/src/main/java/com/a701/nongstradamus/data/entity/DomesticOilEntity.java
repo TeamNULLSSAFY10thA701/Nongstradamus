@@ -1,8 +1,7 @@
-package com.a701.nongstradamus.data.domain;
+package com.a701.nongstradamus.data.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
 
@@ -13,13 +12,15 @@ import java.time.LocalDate;
 @Getter
 public class DomesticOilEntity {
 
-    private static ModelMapper modelMapper;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer domesticOilPriceId;
     @Column
-    private Double avgPrice;
+    private Double dieselPrice;
+    @Column
+    private Double kerosenePrice;
+    @Column
+    private Double gasolinePrice;
     @Column
     private LocalDate date;
 
@@ -27,9 +28,11 @@ public class DomesticOilEntity {
     }
 
     @Builder
-    public DomesticOilEntity(Integer domesticOilPriceId, Double avgPrice, LocalDate date) {
+    public DomesticOilEntity(Integer domesticOilPriceId, Double dieselPrice, Double kerosenePrice, Double gasolinePrice, LocalDate date) {
         this.domesticOilPriceId = domesticOilPriceId;
-        this.avgPrice = avgPrice;
+        this.dieselPrice = dieselPrice;
+        this.kerosenePrice = kerosenePrice;
+        this.gasolinePrice = gasolinePrice;
         this.date = date;
     }
 }
