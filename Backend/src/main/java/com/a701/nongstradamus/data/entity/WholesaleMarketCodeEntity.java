@@ -20,5 +20,5 @@ public class WholesaleMarketCodeEntity {
     private Long id;
 
     @Column(name = "code", nullable = false)
-    private Long code;
+    private String code;
 }

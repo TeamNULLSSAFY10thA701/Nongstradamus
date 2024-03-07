@@ -57,7 +57,7 @@ public class ProductDataServiceImpl implements ProductDataService{
         }
         for(ProductEntity product : productList) {
             // 날짜를 어제부터 하루씩 뒤로 가면서
-            for (int d = 1; ; d++) {
+            for (int d = 1; d <= 100; d++) {
                 // 이 날짜의 데이터가 있는지 확인
                 LocalDate today = LocalDate.now().minusDays(d);
                 List<PriceHistoryEntity> priceHistories = priceHistoryRepository.findAllByProductIdAndDate(
