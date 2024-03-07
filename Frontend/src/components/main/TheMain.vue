@@ -56,20 +56,110 @@
             </a>
         </div>
         <!-- 오늘의 추천 레시피 이동 -->
+        <div class="mt-12">
+            <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+                <Slide v-for="slide in 10" :key="slide">
+                    <div>
 
-        <div>
+                        <a
+                            class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {{ slide
+                                }}
+                            </h5>
+                            <p class="font-normal text-gray-700 dark:text-gray-400">현재 가격 표시</p>
+                        </a>
+                    </div>
+                </Slide>
+
+            </Carousel>
         </div>
+        <!-- 현재가격 carousel -->
+
+
+        <div class="mt-12">
+            <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+                <Slide v-for="slide in 10" :key="slide">
+                    <div>
+
+                        <a
+                            class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {{ slide
+                                }}
+                            </h5>
+                            <p class="font-normal text-gray-700 dark:text-gray-400">예측 가격 표시</p>
+                        </a>
+                    </div>
+                </Slide>
+
+            </Carousel>
+        </div>
+        <!-- 예측 가격 carousel -->
+
+
     </div>
 
 </template>
 
 <script setup>
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
+
+const name = 'Autoplay'
+
+const components = {
+    Carousel,
+    Slide,
+    Pagination,
+}
 
 </script>
 
 <style scoped>
+/* .carousel__item{
+} */
 .custom {
     font-size: 22.3px;
+}
+
+.carousel__slide {
+    padding: 5px;
+}
+
+.carousel__viewport {
+    perspective: 2000px;
+}
+
+.carousel__track {
+    transform-style: preserve-3d;
+}
+
+.carousel__slide--sliding {
+    transition: 0.5s;
+}
+
+.carousel__slide {
+    opacity: 0.9;
+    transform: rotateY(-20deg) scale(0.9);
+}
+
+.carousel__slide--active~.carousel__slide {
+    transform: rotateY(20deg) scale(0.9);
+}
+
+.carousel__slide--prev {
+    opacity: 1;
+    transform: rotateY(-10deg) scale(0.95);
+}
+
+.carousel__slide--next {
+    opacity: 1;
+    transform: rotateY(10deg) scale(0.95);
+}
+
+.carousel__slide--active {
+    opacity: 1;
+    transform: rotateY(0) scale(1.1);
 }
 </style>
