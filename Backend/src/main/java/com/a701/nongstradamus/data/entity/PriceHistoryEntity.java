@@ -41,6 +41,6 @@ public class PriceHistoryEntity {
 
     @ManyToOne
     @JoinColumn(name = "productId")
-    ProductEntity product;
+    private ProductEntity product;
 
 }

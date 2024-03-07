@@ -38,10 +38,10 @@ public class WholesaleMarketEntity {
 
     @ManyToOne
     @JoinColumn(name = "productId")
-    ProductEntity product;
+    private ProductEntity product;
 
     @ManyToOne
     @JoinColumn(name = "originId")
-    OriginEntity origin;
+    private OriginEntity origin;
 
 }
