@@ -13,7 +13,6 @@ import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilder;
@@ -26,8 +25,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -87,7 +84,7 @@ public class ProductDataServiceImpl implements ProductDataService{
                     .append("&p_pos_gubun=1") // 가락시장
                     .append("&pum_nm=").append(product.getName()); // 품목명
                 // api 검색
-                ResponseEntity<String> res = OpenAPIManager.fetch(urlFull.toString());
+                ResponseEntity<String> res = OpenAPIManager.fetchXML(urlFull.toString());
                 // 데이터 파싱
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
