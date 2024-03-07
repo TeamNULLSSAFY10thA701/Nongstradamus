@@ -1,17 +1,15 @@
 package com.a701.nongstradamus.common;
 
-import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.RestTemplate;
 
 public class OpenAPIManager {
 
-    public static ResponseEntity<String> fetch(String url){
+    public static ResponseEntity<String> fetchXML(String url){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -19,4 +17,11 @@ public class OpenAPIManager {
         return result;
     }
 
+    public static ResponseEntity<Map> fetchJSON(String url){
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+        ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
+        return result;
+    }
 }

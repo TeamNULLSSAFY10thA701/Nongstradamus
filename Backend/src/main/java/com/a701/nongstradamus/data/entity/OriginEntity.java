@@ -5,32 +5,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product")
+@Table(name = "origin")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductEntity {
+public class OriginEntity {
 
     @Id
-    @Column(name = "productId", nullable = false)
+    @Column(name = "originId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "productName", nullable = false)
+    @Column(name = "originName")
     private String name;
-
-    @Column(name = "productUnit")
-    private String unit;
-
-    @OneToOne
-    @JoinColumn(name = "productId")
-    private WholesaleMarketCodeEntity wholeMarketCode;
 }
