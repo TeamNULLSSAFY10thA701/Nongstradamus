@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name =  "recipe")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class RecipeEntity {
 
     @Id
@@ -33,4 +32,11 @@ public class RecipeEntity {
 
     @Column(name = "recipeContent")
     private String content;
+
+    public RecipeEntity(String title, String ingredient, String image, String content) {
+        this.title = title;
+        this.ingredient = ingredient;
+        this.image = image;
+        this.content = content;
+    }
 }
