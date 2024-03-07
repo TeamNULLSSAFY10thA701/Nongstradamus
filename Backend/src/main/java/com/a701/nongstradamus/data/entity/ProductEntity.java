@@ -32,5 +32,5 @@ public class ProductEntity {
 
     @OneToOne
     @JoinColumn(name = "productId")
-    private WholeMarketCodeEntity wholeMarketCode;
+    private WholesaleMarketCodeEntity wholeMarketCode;
 }
