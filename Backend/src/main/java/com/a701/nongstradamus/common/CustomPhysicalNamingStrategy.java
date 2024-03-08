@@ -23,7 +23,7 @@ public class CustomPhysicalNamingStrategy implements PhysicalNamingStrategy {
 
     @Override
     public Identifier toPhysicalSequenceName(Identifier identifier,
-                                             JdbcEnvironment jdbcEnvironment) {
+        JdbcEnvironment jdbcEnvironment) {
         return identifier;
     }
 
