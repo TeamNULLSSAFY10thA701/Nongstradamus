@@ -47,7 +47,7 @@ public class TradeDataServiceImpl implements TradeDataService {
     private String key;
 
     @Override
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void updateImportData() throws ParserConfigurationException, IOException, SAXException {
         // 풀목 리스트 조회
         List<ProductEntity> products = productRepository.findAll();
