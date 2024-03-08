@@ -39,17 +39,13 @@ public class RecipeDataServiceImpl implements RecipeDataService {
 
     // 매년 1월 1일 0시에 실행
     // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
-//    @Override
-//    @Scheduled(cron = "0 0 0 1 1 ?")
-
-
-    //테스트용
     @Override
-    @Scheduled(fixedDelay = 10000000)
+    @Scheduled(cron = "0 0 0 1 1 ?")
     public void updateRecipeData() {
 
-        //지우고 새로 다 받는방식
-        recipeRepository.deleteAll();
+        //테이블에 있는 모든 recipeTitle 리스트에 저장
+        //api에서 받은 title이 있으면 저장 안하고, 없으면 저장하는데 사용
+        List<String> existingTitles = recipeRepository.findAllTitles();
 
         //전체 레시피 수 얻으려고 보내는 요청
         StringBuilder urlFull = new StringBuilder();
@@ -73,7 +69,7 @@ public class RecipeDataServiceImpl implements RecipeDataService {
         List<RecipeDto> dtos = new ArrayList<>();
 
         //api에 요청
-        for (int msgOrder = 1; msgOrder <= 1; msgOrder++) {
+        for (int msgOrder = 1; msgOrder <= messagesCnt; msgOrder++) {
             urlFull = new StringBuilder();
             urlFull.append(urlBase).append("/api/").append(apiKey)
                 .append("/COOKRCP01/json/")
@@ -103,13 +99,16 @@ public class RecipeDataServiceImpl implements RecipeDataService {
                     }
                 }
 
-                //파싱한 값들 dto에 저장
-                RecipeDto dto = new RecipeDto();
-                dto.setTitle(title);
-                dto.setIngredient(ingredient);
-                dto.setImage(image);
-                dto.setContent(String.valueOf(content));
-                dtos.add(dto);
+                //지금 얻은 레시피와 같은 제목이 db에 없는경우 저장
+                if(!existingTitles.contains(title)){
+                    System.out.println(title);
+                    RecipeDto dto = new RecipeDto();
+                    dto.setTitle(title);
+                    dto.setIngredient(ingredient);
+                    dto.setImage(image);
+                    dto.setContent(String.valueOf(content));
+                    dtos.add(dto);
+                }
             }
         }
 
