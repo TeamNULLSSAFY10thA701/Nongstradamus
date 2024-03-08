@@ -11,7 +11,7 @@
     <!-- header -->
     <div class="flex items-center justify-center mt-12">
       <a
-        class="block max-w-sm p-6 bg-sky-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        class="bestChoice block max-w-sm p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
           가격이 가장 많이 떨어졌어요!
         </h5>
@@ -28,7 +28,7 @@
     <!-- 가격이 가장 많이 떨어진 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
       <a
-        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        class="predictGood block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="custom mb-2 tracking-tight text-white">
           가격이 가장 많이 떨어질거에요!
         </h5>
@@ -45,7 +45,7 @@
     <!-- 가격이 가장 많이 떨어질 것 같은 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
       <a href="/recipe"
-        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        class="todayRecipe block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="grid grid-cols-3 gap-4">
           <div class="flex items-center justify-center">
             <img src="../../assets/recipe.png" />
@@ -66,8 +66,8 @@
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ slide }}
               </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                현재 가격 표시
+              <p class="text-sm text-gray-700 dark:text-gray-400">
+                현재 가격
               </p>
               <a href="/priceDetail">
                 <button type="button"
@@ -90,8 +90,8 @@
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ slide }}
               </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                예측 가격 표시
+              <p class="text-sm text-gray-700 dark:text-gray-400">
+                예측 가격
               </p>
             </a>
           </div>
@@ -116,6 +116,18 @@ const components = {
 </script>
 
 <style scoped>
+.bestChoice {
+  background-color: #C6AC8F;
+}
+
+.predictGood {
+  background-color: #927E67;
+}
+
+.todayRecipe {
+  background-color: #5E503F;
+}
+
 .all-font {
   font-family: "HSBombaram3.0";
 }
