@@ -14,7 +14,6 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,7 +25,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -48,7 +46,7 @@ public class TradeDataServiceImpl implements TradeDataService {
 
     @Override
     @Scheduled(cron = "0 0 0 * * *")
-    public void updateImportData() throws ParserConfigurationException, IOException, SAXException {
+    public void updateTradeData() throws ParserConfigurationException, IOException, SAXException {
         // 풀목 리스트 조회
         List<ProductEntity> products = productRepository.findAll();
         // 각 품목에 대하여
@@ -56,6 +54,10 @@ public class TradeDataServiceImpl implements TradeDataService {
             // 한달 씩 뒤로 가면서
             for(int month = 1; month <= 12; month++){
                 YearMonth thisMonth = YearMonth.now().minusMonths(month);
+                // 이미 저장된 데이터면 검색 포기
+                List<TradeEntity> trade = tradeRepository.findAllByProductIdAndDate(product.getId(), java.sql.Timestamp.valueOf(thisMonth.atEndOfMonth().atStartOfDay()));
+                if(!trade.isEmpty())
+                    break;
                 // 품목 코드가 null 일경우
                 if(product.getTrade().getCode() == null){
                     List<TradeDto> dtos = new ArrayList<TradeDto>();
