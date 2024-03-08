@@ -47,9 +47,9 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 //    @Override
 //    @Scheduled(cron = "0 0 0 * * ?")
 
-    //테스트용
+    // 매일 0시에 실행
     @Override
-    @Scheduled(fixedDelay = 10000000)
+    @Scheduled(cron = "0 0 0 * * ?")
     public void updateWeatherData() {
 
         LocalDate today = LocalDate.now();
