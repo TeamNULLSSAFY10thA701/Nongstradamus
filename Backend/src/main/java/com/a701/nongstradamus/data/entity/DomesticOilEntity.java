@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Entity
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DomesticOilEntity {
 
     @Id
@@ -24,15 +26,4 @@ public class DomesticOilEntity {
     @Column
     private LocalDate date;
 
-    public DomesticOilEntity() {
-    }
-
-    @Builder
-    public DomesticOilEntity(Integer domesticOilPriceId, Double dieselPrice, Double kerosenePrice, Double gasolinePrice, LocalDate date) {
-        this.domesticOilPriceId = domesticOilPriceId;
-        this.dieselPrice = dieselPrice;
-        this.kerosenePrice = kerosenePrice;
-        this.gasolinePrice = gasolinePrice;
-        this.date = date;
-    }
 }
