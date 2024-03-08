@@ -12,36 +12,32 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "wholesaleMarket")
+@Table(name = "trade")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WholesaleMarketEntity {
+public class TradeEntity {
 
     @Id
-    @Column(name = "wholesaleMarketId", nullable = false)
+    @Column(name = "tradeId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long tradeId;
 
-    @Column(name = "date", nullable = false)
-    @CreationTimestamp
+    @Column(name = "balance")
+    private Integer balance;
+
+    @Column(name = "amount")
+    private Integer amount;
+
+    @Column(name = "volume")
+    private Integer volume;
+
+    @Column(name = "date")
     private Date date;
-
-    @Column(name = "price", nullable = false)
-    private Long price;
-
-    @Column(name = "grade", nullable = false)
-    private Integer grade;
 
     @ManyToOne
     @JoinColumn(name = "productId")
     private ProductEntity product;
-
-    @ManyToOne
-    @JoinColumn(name = "originId")
-    private OriginEntity origin;
-
 }

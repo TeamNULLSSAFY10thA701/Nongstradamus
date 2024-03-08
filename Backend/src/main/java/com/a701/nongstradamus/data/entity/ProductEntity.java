@@ -33,4 +33,8 @@ public class ProductEntity {
     @OneToOne
     @JoinColumn(name = "productId")
     private WholesaleMarketCodeEntity wholeMarketCode;
+
+    @OneToOne
+    @JoinColumn(name = "productId")
+    private TradeCodeEntity trade;
 }

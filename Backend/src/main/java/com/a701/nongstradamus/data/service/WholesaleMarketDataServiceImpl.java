@@ -53,7 +53,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
     private String key;
 
     @Override
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void updateWholeMarketData() {
         List<ProductEntity> products = productRepository.findAll();
         for(ProductEntity product : products) {
