@@ -11,8 +11,7 @@
     <!-- header -->
     <div class="flex items-center justify-center mt-12">
       <a
-        class="block max-w-sm p-6 bg-sky-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-      >
+        class="block max-w-sm p-6 bg-sky-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
           가격이 가장 많이 떨어졌어요!
         </h5>
@@ -20,9 +19,7 @@
           <div class="col-span-3 text-center text-3xl text-white mt-6 mr-4">
             품목
           </div>
-          <div
-            class="col-span-2 text-center price-font font-bold text-xl rounded-lg bg-white border mt-8 mr-2"
-          >
+          <div class="col-span-2 text-center price-font font-bold text-xl rounded-lg bg-white border mt-8 mr-2">
             가격
           </div>
         </div>
@@ -31,8 +28,7 @@
     <!-- 가격이 가장 많이 떨어진 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
       <a
-        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-      >
+        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="custom mb-2 tracking-tight text-white">
           가격이 가장 많이 떨어질거에요!
         </h5>
@@ -40,9 +36,7 @@
           <div class="col-span-3 text-center text-3xl text-white mt-6 mr-4">
             품목
           </div>
-          <div
-            class="col-span-2 text-center price-font font-bold text-xl rounded-lg bg-white border mt-8 mr-2"
-          >
+          <div class="col-span-2 text-center price-font font-bold text-xl rounded-lg bg-white border mt-8 mr-2">
             가격
           </div>
         </div>
@@ -50,17 +44,13 @@
     </div>
     <!-- 가격이 가장 많이 떨어질 것 같은 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
-      <a
-        href="/recipe"
-        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-      >
+      <a href="/recipe"
+        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="grid grid-cols-3 gap-4">
           <div class="flex items-center justify-center">
             <img src="../../assets/recipe.png" />
           </div>
-          <div
-            class="col-span-2 tracking-tight text-white flex items-center justify-center text-2xl"
-          >
+          <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-2xl">
             오늘의 추천 레시피
           </div>
         </div>
@@ -72,16 +62,18 @@
         <Slide v-for="slide in 10" :key="slide">
           <div>
             <a
-              class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-            >
-              <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-              >
+              class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ slide }}
               </h5>
               <p class="font-normal text-gray-700 dark:text-gray-400">
                 현재 가격 표시
               </p>
+              <a href="/priceDetail">
+                <button type="button"
+                  class="button px-3 py-2 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">더보기</button>
+              </a>
+
             </a>
           </div>
         </Slide>
@@ -94,11 +86,8 @@
         <Slide v-for="slide in 10" :key="slide">
           <div>
             <a
-              class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-            >
-              <h5
-                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-              >
+              class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ slide }}
               </h5>
               <p class="font-normal text-gray-700 dark:text-gray-400">
@@ -134,6 +123,7 @@ const components = {
 .price-font {
   font-family: sans-serif;
 }
+
 /* .carousel__item{
 } */
 .custom {
@@ -161,7 +151,7 @@ const components = {
   transform: rotateY(-20deg) scale(0.9);
 }
 
-.carousel__slide--active ~ .carousel__slide {
+.carousel__slide--active~.carousel__slide {
   transform: rotateY(20deg) scale(0.9);
 }
 
@@ -178,5 +168,9 @@ const components = {
 .carousel__slide--active {
   opacity: 1;
   transform: rotateY(0) scale(1.1);
+}
+
+.button {
+  font-size: 10px;
 }
 </style>
