@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class DomesticOilServiceImpl implements DomesticOilService{
 
     @Override
     @Scheduled(cron="0 0 12 * * ?") // 매일s 12시
-    public void callForecastApi(){
+    public void callDomesticOilSheduler(){
         HttpURLConnection urlConnection = null;
         InputStream stream;
         String result = null;

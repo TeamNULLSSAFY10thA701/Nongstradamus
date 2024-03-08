@@ -39,7 +39,7 @@ public class GlobalOilServiceImpl implements GlobalOilService{
 
     @Override
     @Scheduled(cron="0 0 12 * * ?") // 매일 12시
-    public void callForecastApi(){
+    public void callGlobalOilScheduler(){
         HttpURLConnection urlConnection = null;
         InputStream stream = null;
         String result = null;
