@@ -7,6 +7,5 @@ public interface DomesticOilService {
 
     void createDomesticOil(DomesticOilDto dto);
 
-    @Scheduled(cron="0 0 12 * * ?") // 매일 12시
-    void callForecastApi();
+    void callDomesticOilSheduler();
 }
