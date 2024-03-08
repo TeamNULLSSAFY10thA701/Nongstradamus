@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import TheMainView from "/src/views/TheMainView.vue";
 import TheRecipeView from "@/views/TheRecipeView.vue";
+import ThePriceDetailView from "@/views/ThePriceDetailView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: "/recipe",
       name: "recipe",
       component: TheRecipeView,
+    },
+    {
+      path: "/priceDetail",
+      name: "priceDetail",
+      component: ThePriceDetailView,
     },
   ],
 });
