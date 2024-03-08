@@ -1,6 +1,7 @@
 <template>
     <div>
         <ThePriceDetail></ThePriceDetail>
+
     </div>
 </template>
 <script setup>
