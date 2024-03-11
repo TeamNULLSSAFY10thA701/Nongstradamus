@@ -1,5 +1,6 @@
 package com.a701.nongstradamus.data.dto;
 
+import com.a701.nongstradamus.data.entity.OriginEntity;
 import com.a701.nongstradamus.data.entity.ProductEntity;
 import java.time.LocalDate;
 import java.util.Date;
@@ -20,5 +21,5 @@ public class WeatherDto {
     private int humidity;
     private int sunDuration;
     private ProductEntity product;
-//    private OriginEntity origin;
+    private OriginEntity origin;
 }

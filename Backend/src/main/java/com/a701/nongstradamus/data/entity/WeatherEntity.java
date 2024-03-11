@@ -56,7 +56,7 @@ public class WeatherEntity {
     @JoinColumn(name = "productId")
     ProductEntity product;
 
-//    @ManyToOne
-//    @JoinColumn(name = "originId")
-//    OriginEntity origin;
+    @ManyToOne
+    @JoinColumn(name = "originId")
+    OriginEntity origin;
 }
