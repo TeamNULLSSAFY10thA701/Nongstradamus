@@ -33,19 +33,22 @@
           <span class="text-sm text-gray-500 dark:text-gray-400">{{
             data["작성자"]
           }}</span>
+          <!-- 성분 버튼 및 모달 start -->
           <div class="flex mt-4 md:mt-6">
+            <!-- Modal toggle -->
             <button
-              data-modal-target="default-modal"
-              data-modal-toggle="default-modal"
-              class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              data-modal-target="modalEl"
+              data-modal-toggle="modalEl"
+              @click="goToModal(data, '성분')"
+              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mr-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
               성분
             </button>
 
+            <!-- Main modal -->
             <div
-              id="default-modal"
-              data-modal-backdrop="static"
+              id="modalEl"
               tabindex="-1"
               aria-hidden="true"
               class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -62,12 +65,86 @@
                     <h3
                       class="text-xl font-semibold text-gray-900 dark:text-white"
                     >
-                      Terms of Service
+                      재료
+                    </h3>
+                  </div>
+                  <!-- Modal body -->
+                  <div class="p-4 md:p-5 space-y-4">
+                    <p
+                      class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+                    >
+                    <div v-if="selectedData">
+                      <div v-for="item, source in selectedData['성분']">
+                        {{ source }} : {{ item }}
+                      </div>
+                    </div>
+                      <!-- <div v-for="source in selectedData['성분']" :key="source">
+                      {{ source }}
+                    </div> -->
+                    </p>
+                  </div>
+                  <!-- Modal footer -->
+                  <div
+                    class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
+                  >
+                    <button
+                      data-modal-hide="modalEl"
+                      type="button"
+                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      I accept
+                    </button>
+                    <button
+                      data-modal-hide="modalEl"
+                      type="button"
+                      class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                      Decline
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 성분 버튼 및 모달 end -->
+
+            <!-- 조리방법 버튼 및 모달 start -->
+
+            <!-- Modal toggle -->
+            <button
+              data-modal-target="modalEl2"
+              data-modal-toggle="modalEl2"
+              @click="goToModal(data, '조리방법')"
+              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button"
+            >
+              조리방법
+            </button>
+
+            <!-- Main modal -->
+            <div
+              id="modalEl2"
+              tabindex="-1"
+              aria-hidden="true"
+              class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            >
+              <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <!-- Modal content -->
+                <div
+                  class="relative bg-white rounded-lg shadow dark:bg-gray-700"
+                >
+                  <!-- Modal header -->
+                  <div
+                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
+                  >
+                    <h3
+                      class="text-xl font-semibold text-gray-900 dark:text-white"
+                    >
+                      조리방법
                     </h3>
                     <button
                       type="button"
                       class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                      data-modal-hide="default-modal"
+                      data-modal-hide="modalEl2"
                     >
                       <svg
                         class="w-3 h-3"
@@ -92,20 +169,11 @@
                     <p
                       class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
                     >
-                      With less than a month to go before the European Union
-                      enacts new consumer privacy laws for its citizens,
-                      companies around the world are updating their terms of
-                      service agreements to comply.
-                    </p>
-                    <p
-                      class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
-                    >
-                      The European Union’s General Data Protection Regulation
-                      (G.D.P.R.) goes into effect on May 25 and is meant to
-                      ensure a common set of data rights in the European Union.
-                      It requires organizations to notify users as soon as
-                      possible of high-risk data breaches that could personally
-                      affect them.
+                    <div v-if="selectedData">
+                      <div v-for="item in selectedData['조리법']">
+                        {{ item }}
+                      </div>
+                    </div>
                     </p>
                   </div>
                   <!-- Modal footer -->
@@ -113,14 +181,14 @@
                     class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
                   >
                     <button
-                      data-modal-hide="default-modal"
+                      data-modal-hide="modalEl2"
                       type="button"
                       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       I accept
                     </button>
                     <button
-                      data-modal-hide="default-modal"
+                      data-modal-hide="modalEl2"
                       type="button"
                       class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     >
@@ -130,11 +198,6 @@
                 </div>
               </div>
             </div>
-            <button
-              class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            >
-              조리방법
-            </button>
           </div>
         </div>
       </div>
@@ -145,13 +208,22 @@
 
 <script setup>
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { useRouter } from "vue-router";
+import { Modal } from "flowbite";
+
+const goToModal = (data, type) => {
+  selectedData.value = data;
+  selectedType.value = type;
+};
+
+const selectedData = ref(null);
+const selectedType = ref(null);
 
 const foodDatas = {
   1: {
     제목: "맛있는 초콜릿 케이크",
     "사진 파일명": "food1.png",
-    작성자: "뤼튼",
+    작성자: "뤼튼1",
     성분: {
       밀가루: "200g",
       설탕: "150g",
@@ -175,7 +247,7 @@ const foodDatas = {
   2: {
     제목: "상큼한 과일 샐러드",
     "사진 파일명": "food2.png",
-    작성자: "뤼튼",
+    작성자: "뤼튼2",
     성분: {
       사과: "2개",
       바나나: "2개",
@@ -196,7 +268,7 @@ const foodDatas = {
   3: {
     제목: "담백한 샐러드",
     "사진 파일명": "food3.png",
-    작성자: "뤼튼",
+    작성자: "뤼튼3",
     성분: {
       양상추: "1개",
       토마토: "2개",
@@ -216,7 +288,7 @@ const foodDatas = {
   4: {
     제목: "가볍고 건강한 샌드위치",
     "사진 파일명": "food4.png",
-    작성자: "뤼튼",
+    작성자: "뤼튼4",
     성분: {
       식빵: "2장",
       "닭 가슴살": "100g",
