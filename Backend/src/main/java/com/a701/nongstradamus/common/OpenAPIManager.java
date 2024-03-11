@@ -1,6 +1,8 @@
 package com.a701.nongstradamus.common;
 
 import java.util.Map;
+
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,5 +25,11 @@ public class OpenAPIManager {
         HttpEntity<?> entity = new HttpEntity<>(headers);
         ResponseEntity<Map> result = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
         return result;
+    }
+
+    public static JSONObject fetchData(String url) {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return new JSONObject(response.getBody());
     }
 }
