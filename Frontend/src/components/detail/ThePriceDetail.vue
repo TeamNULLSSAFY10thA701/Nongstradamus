@@ -1,17 +1,17 @@
 <template>
     <div class="a flex justify-center items-center h-screen">
         <div
-            class="max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            class=" w-2/5 h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a>
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">해당 품목의 가격 정보</h5>
             </a>
-            <div>
+            <div class="mt-10 h-3/5">
                 <Line :data="chartData" :options="chartOptions" />
             </div>
-            <div class="grid grid-cols-3 gap-4">
-                <div class="col-start-3">
+            <div class="mt-10 grid grid-cols-3 gap-4">
+                <div class="col-start-3 flex items-center justify-end">
                     <a href="/"
-                        class="mt-4 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        class="inline-flex items-center px-6 py-3.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         돌아가기
                         <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -40,8 +40,10 @@ const chartData = {
     datasets: [
         {
             label: '무언가의 가격정보',
+            pointStyle: 'circle',
             backgroundColor: '#f87979',
-            data: [40, 25, 10, 55, 39, 80, 65]
+            radius: 5,
+            data: [4200, 2500, 1000, 1500, 2300, 3500, 5000]
         }
     ]
 }
@@ -57,10 +59,21 @@ const chartOptions = {
             }
         },
         y: {
+            beginAtZero: true, //y축의 최솟값을 0으로 만들어줌.
             grid: {
                 drawOnChartArea: false,
             }
         }
+    },
+    plugins: {
+        legend: {
+            labels: {
+                // pointStyle 속성을 설정하여 원으로 변경
+                pointStyle: 'circle',
+                // 원의 반지름 크기를 조절
+                usePointStyle: true,
+            },
+        },
     },
 
 }
