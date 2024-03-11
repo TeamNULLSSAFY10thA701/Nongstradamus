@@ -1,17 +1,17 @@
 <template>
-  <div class="all-font max-w-md mx-auto">
-    <div class="grid grid-cols-3 gap-4 ml-4 mr-4 mt-8">
-      <div>
+  <div class="all-font max-w-5xl mx-auto">
+    <div class="grid grid-cols-5 gap-4 ml-4 mr-4 mt-8">
+      <div class="col-start-2">
         <img src="../../assets/full_logo1.png" />
       </div>
-      <div class="title col-span-2 flex items-center justify-center text-3xl">
+      <div class="title col-start-3 col-span-3 flex items-center">
         오늘의 꿀 품목
       </div>
     </div>
     <!-- header -->
     <div class="flex items-center justify-center mt-12">
-      <a
-        class="block max-w-sm p-6 bg-sky-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div
+        class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
           가격이 가장 많이 떨어졌어요!
         </h5>
@@ -23,12 +23,12 @@
             가격
           </div>
         </div>
-      </a>
+      </div>
     </div>
     <!-- 가격이 가장 많이 떨어진 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
       <a
-        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        class="predictGood block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="custom mb-2 tracking-tight text-white">
           가격이 가장 많이 떨어질거에요!
         </h5>
@@ -45,7 +45,7 @@
     <!-- 가격이 가장 많이 떨어질 것 같은 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
       <a href="/recipe"
-        class="block max-w-sm p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="grid grid-cols-3 gap-4">
           <div class="flex items-center justify-center">
             <img src="../../assets/recipe.png" />
@@ -57,7 +57,7 @@
       </a>
     </div>
     <!-- 오늘의 추천 레시피 이동 -->
-    <div class="mt-12">
+    <div class="mt-12 w-3/5 mx-auto">
       <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
         <Slide v-for="slide in 10" :key="slide">
           <div>
@@ -66,8 +66,8 @@
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ slide }}
               </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                현재 가격 표시
+              <p class="text-sm text-gray-700 dark:text-gray-400">
+                현재 가격
               </p>
               <a href="/priceDetail">
                 <button type="button"
@@ -81,7 +81,7 @@
     </div>
     <!-- 현재가격 carousel -->
 
-    <div class="mt-12">
+    <div class="mt-12 w-3/5 mx-auto mb-12">
       <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
         <Slide v-for="slide in 10" :key="slide">
           <div>
@@ -90,8 +90,8 @@
               <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ slide }}
               </h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400">
-                예측 가격 표시
+              <p class="text-sm text-gray-700 dark:text-gray-400">
+                예측 가격
               </p>
             </a>
           </div>
@@ -116,6 +116,18 @@ const components = {
 </script>
 
 <style scoped>
+.bestChoice {
+  background-color: #C6AC8F;
+}
+
+.predictGood {
+  background-color: #927E67;
+}
+
+.todayRecipe {
+  background-color: #5E503F;
+}
+
 .all-font {
   font-family: "HSBombaram3.0";
 }
@@ -172,5 +184,9 @@ const components = {
 
 .button {
   font-size: 10px;
+}
+
+.title {
+  font-size: 56px;
 }
 </style>
