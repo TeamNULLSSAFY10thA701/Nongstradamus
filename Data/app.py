@@ -1,13 +1,23 @@
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
-from database import db_connection
+from nongstradmus_database import connection, price_history_get_stmt, product_get_stmt
 from sqlalchemy.orm import Session
+import datetime
+import pandas
 
 app = Flask(__name__)
 
 def calculate_price() :
-  engin = db_connection().get_engin()
+  engin = connection().get_engin()
   session = Session(engin)
+  conn = engin.connect()
+  products = session.execute(product_get_stmt()).fetchall()
+  start_date = datetime.date.today() - datetime.timedelta(days=366)
+  end_date = datetime.date.today() - datetime.timedelta(days=1)
+  for product in products:
+    price_history = pandas.read_sql(price_history_get_stmt(product[0], start_date, end_date), conn)
+
+
 
 
 scheduler = BackgroundScheduler()
