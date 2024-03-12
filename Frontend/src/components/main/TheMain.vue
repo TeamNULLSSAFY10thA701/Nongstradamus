@@ -57,6 +57,20 @@
       </a>
     </div>
     <!-- 오늘의 추천 레시피 이동 -->
+    <div class="flex items-center justify-center mt-8">
+      <a href="/pricedetail"
+        class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="grid grid-cols-3 gap-4">
+          <div class="flex items-center justify-center">
+            <img src="../../assets/crystal ball.png" />
+          </div>
+          <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-2xl">
+            예측가격 보러 가기
+          </div>
+        </div>
+      </a>
+    </div>
+    <!--예측 가격 세부 페이지 이동-->
     <div class="mt-12 w-3/5 mx-auto">
       <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
         <Slide v-for="slide in 10" :key="slide">
@@ -69,10 +83,6 @@
               <p class="text-sm text-gray-700 dark:text-gray-400">
                 현재 가격
               </p>
-              <a href="/priceDetail">
-                <button type="button"
-                  class="button px-3 py-2 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">더보기</button>
-              </a>
 
             </a>
           </div>
@@ -100,6 +110,7 @@
     </div>
     <!-- 예측 가격 carousel -->
   </div>
+
 </template>
 
 <script setup>
@@ -113,9 +124,33 @@ const components = {
   Slide,
   Pagination,
 };
+
 </script>
 
 <style scoped>
+@media (max-width: 1024px) {
+
+  /* 창 폭이 845px 이하로 줄어들 때 적용될 스타일 */
+  .all-font {
+    overflow-x: hidden;
+    /* 가로 스크롤을 숨김 */
+    width: 1024px !important;
+    /* 최소 폭을 845px로 설정 */
+  }
+}
+
+.button {
+  font-size: 10px;
+}
+
+.title {
+  font-size: 56px;
+}
+
+.custom {
+  font-size: 22.3px;
+}
+
 .bestChoice {
   background-color: #C6AC8F;
 }
@@ -134,12 +169,6 @@ const components = {
 
 .price-font {
   font-family: sans-serif;
-}
-
-/* .carousel__item{
-} */
-.custom {
-  font-size: 22.3px;
 }
 
 .carousel__slide {
@@ -180,13 +209,5 @@ const components = {
 .carousel__slide--active {
   opacity: 1;
   transform: rotateY(0) scale(1.1);
-}
-
-.button {
-  font-size: 10px;
-}
-
-.title {
-  font-size: 56px;
 }
 </style>
