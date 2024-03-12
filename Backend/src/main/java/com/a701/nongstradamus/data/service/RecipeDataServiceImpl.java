@@ -20,6 +20,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+/*
+5개 더 db에 넣는 코드 작성할것
+ */
+
 @Service
 @RequiredArgsConstructor
 @EnableScheduling
