@@ -34,8 +34,6 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
 
     private final WholesaleMarketRepository wholesaleMarketRepository;
 
-    private final WholesaleMarketCodeRepository wholesaleMarketCodeRepository;
-
     private final OriginRepository originRepository;
 
     private final ProductRepository productRepository;
@@ -57,7 +55,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
     public void updateWholeMarketData() {
         List<ProductEntity> products = productRepository.findAll();
         for(ProductEntity product : products) {
-            if (product.getWholeMarketCode() == null) { // 농산물 코드가 없으면
+            if (product.getWholesaleMarketCode() == null) { // 농산물 코드가 없으면
                 // 농산물 코드를 가져온다.
                 StringBuilder code = new StringBuilder();
                 for (int p = 1; ; p++) {
@@ -86,10 +84,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                     }
                 }
                 // 품목 코들르 셋팅한다.
-                product.setWholeMarketCode(
-                    new WholesaleMarketCodeEntity(product.getId(), code.toString()));
-                // 품목 코드를 DB에 저장한다.
-                wholesaleMarketCodeRepository.save(product.getWholeMarketCode());
+                product.setWholesaleMarketCode(code.toString());
             }
             // 오늘부터 하루씩 과거로 가면서
             for (int day = 1; day <= 100 ; day++) {
@@ -109,8 +104,8 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                         .append("&pageNo=").append(p)
                         .append("&saleDate=").append(today.format(DateTimeFormatter.ofPattern("yyyyMMdd")))
                         .append("&whsalCd=110001")
-                        .append("&largeCd=").append(product.getWholeMarketCode().getCode().substring(0, 2))
-                        .append("&midCd=").append(product.getWholeMarketCode().getCode().substring(2, 4));
+                        .append("&largeCd=").append(product.getWholesaleMarketCode().substring(0, 2))
+                        .append("&midCd=").append(product.getWholesaleMarketCode().substring(2, 4));
                     System.out.println(urlFull.toString());
                     ResponseEntity<Map> res = OpenAPIManager.fetchJSON(urlFull.toString());
                     List<Map> data = (List<Map>) (res.getBody().get("data"));
