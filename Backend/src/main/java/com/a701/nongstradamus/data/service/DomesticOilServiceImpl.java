@@ -37,7 +37,7 @@ public class DomesticOilServiceImpl implements DomesticOilService{
     }
 
     @Override
-    @Scheduled(cron="* * * * * *") // 매일 자정
+    @Scheduled(cron="0 0 0 * * *") // 매일 자정
     public void callDomesticOilSheduler(){
         LocalDate today = LocalDate.now();
         String dataType = "json";
