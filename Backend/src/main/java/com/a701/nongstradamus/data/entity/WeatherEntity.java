@@ -57,6 +57,6 @@ public class WeatherEntity {
     ProductEntity product;
 
     @ManyToOne
-    @JoinColumn(name = "originId")
+    @JoinColumn(name = "code")
     OriginEntity origin;
 }

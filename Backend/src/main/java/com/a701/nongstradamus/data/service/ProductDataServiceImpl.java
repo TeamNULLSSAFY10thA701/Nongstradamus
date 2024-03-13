@@ -47,8 +47,7 @@ public class ProductDataServiceImpl implements ProductDataService{
     @Value("${key.product.password}")
     private String password;
 
-    // weather 테스트를 위해 스케줄링 중단
-    //    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Override
     public void updateProductData() throws IOException, ParserConfigurationException, SAXException {
         // 검색할 품목을 가져옴

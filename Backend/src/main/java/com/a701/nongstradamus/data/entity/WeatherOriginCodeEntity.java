@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class WeatherOriginCodeEntity {
 
     @Id
-    @Column(name = "productId", nullable = false)
+    @Column(name = "code", nullable = false)
     private String code;
 
     @Column(name = "name", nullable = false)
