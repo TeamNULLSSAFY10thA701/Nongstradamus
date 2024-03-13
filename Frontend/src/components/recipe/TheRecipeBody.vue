@@ -1,284 +1,258 @@
+<!-- TheRecipeBody.vue -->
+
 <template>
-        <!-- start body -->
-        <div v-for="data in foodDatas" :key="data" class="m-12 photo">
-      <div
-        class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-      >
-        <div class="flex flex-col items-center py-10">
-          <img
-            class="w-24 h-24 mb-3 rounded-full shadow-lg"
-            :src="`../../src/assets/${data['사진 파일명']}`"
-            alt="Bonnie image"
-          />
-          <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            {{ data["제목"] }}
-          </h5>
-          <span class="text-sm text-gray-500 dark:text-gray-400">{{
-            data["작성자"]
-          }}</span>
-          <!-- 성분 버튼 및 모달 start -->
-          <div class="flex mt-4 md:mt-6">
-            <!-- Modal toggle -->
-            <button
-              data-modal-target="modalEl"
-              data-modal-toggle="modalEl"
-              @click="goToModal(data, '성분')"
-              class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm mr-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-            >
-              성분
+  <div class="searchbar">
+ 
+<form class="max-w-lg mx-auto">
+    <div class="flex">
+        <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
+        <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">All categories <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+  </svg></button>
+        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design</button>
+            </li>
+            <li>
+                <button type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logos</button>
+            </li>
+            </ul>
+        </div>
+        <div class="relative w-full">
+            <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required />
+            <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+                <span class="sr-only">Search</span>
             </button>
+        </div>
+    </div>
+</form>
 
-            <!-- Main modal -->
-            <div
-              id="modalEl"
-              tabindex="-1"
-              aria-hidden="true"
-              class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-            >
-              <div class="relative p-4 w-full max-w-2xl max-h-full">
-                <!-- Modal content -->
-                <div
-                  class="relative bg-white rounded-lg shadow dark:bg-gray-700"
-                >
-                  <!-- Modal header -->
+</div>
+    <div class="recipe-list">
+      <div v-for="data in filteredRecipes" :key="data.id" class="m-12 photo"> 
+        <!-- 각 레시피 카드 -->
+        <div
+          class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        >
+          <!-- 레시피 정보 표시 -->
+          <div class="flex flex-col items-center py-10">
+            <img
+              class="w-24 h-24 mb-3 rounded-full shadow-lg"
+              :src="`../../src/assets/${data['사진 파일명']}`"
+              alt="Bonnie image"
+            />
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+              {{ data["제목"] }}
+            </h5>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{
+              data["작성자"]
+            }}</span>
+            <!-- 성분 버튼 및 모달 start -->
+            <div class="flex mt-4 md:mt-6">
+              <!-- 성분 버튼 -->
+              <button
+                data-modal-target="modalEl"
+                data-modal-toggle="modalEl"
+                @click="goToModal(data, '성분')"
+                class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm mr-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button"
+              >
+                성분
+              </button>
+              <!-- 모달 -->
+              <div
+                id="modalEl"
+                tabindex="-1"
+                aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+              >
+                <!-- 모달 내용 -->
+                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                  <!-- Modal content -->
                   <div
-                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
+                    class="relative bg-white rounded-lg shadow dark:bg-gray-700"
                   >
-                    <h3
-                      class="text-xl font-semibold text-gray-900 dark:text-white"
+                    <!-- Modal header -->
+                    <div
+                      class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
                     >
-                      재료
-                    </h3>
-                  </div>
-                  <!-- Modal body -->
-                  <div class="p-4 md:p-5 space-y-4">
-                    <p
-                      class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
-                    >
-                    <div v-if="selectedData">
-                      <div v-for="item, source in selectedData['성분']">
-                        {{ source }} : {{ item }}
-                      </div>
-                    </div>
-                      
-                    </p>
-                  </div>
-                  <!-- Modal footer -->
-                  <div
-                    class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
-                  >
-                    <button
-                      data-modal-hide="modalEl"
-                      type="button"
-                      class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      확인
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 성분 버튼 및 모달 end -->
-
-            <!-- 조리방법 버튼 및 모달 start -->
-
-            <!-- Modal toggle -->
-            <button
-              data-modal-target="modalEl2"
-              data-modal-toggle="modalEl2"
-              @click="goToModal(data, '조리방법')"
-              class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-            >
-              조리방법
-            </button>
-
-            <!-- Main modal -->
-            <div
-              id="modalEl2"
-              tabindex="-1"
-              aria-hidden="true"
-              class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-            >
-              <div class="relative p-4 w-full max-w-2xl max-h-full">
-                <!-- Modal content -->
-                <div
-                  class="relative bg-white rounded-lg shadow dark:bg-gray-700"
-                >
-                  <!-- Modal header -->
-                  <div
-                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
-                  >
-                    <h3
-                      class="text-xl font-semibold text-gray-900 dark:text-white"
-                    >
-                      조리방법
-                    </h3>
-                    <button
-                      type="button"
-                      class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                      data-modal-hide="modalEl2"
-                    >
-                      <svg
-                        class="w-3 h-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 14"
+                      <h3
+                        class="text-xl font-semibold text-gray-900 dark:text-white"
                       >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                        />
-                      </svg>
-                      <span class="sr-only">Close modal</span>
-                    </button>
-                  </div>
-                  <!-- Modal body -->
-                  <div class="p-4 md:p-5 space-y-4">
-                    <p
-                      class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
-                    >
-                    <div v-if="selectedData">
-                      <div v-for="item in selectedData['조리법']">
-                        {{ item }}
-                      </div>
+                        재료
+                      </h3>
                     </div>
-                    </p>
-                  </div>
-                  <!-- Modal footer -->
-                  <div
-                    class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
-                  >
-                    <button
-                      data-modal-hide="modalEl2"
-                      type="button"
-                      class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5 space-y-4">
+                      <p
+                        class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+                      >
+                        <!-- 성분 출력 -->
+                        <div v-if="selectedData">
+                          <div v-for="item, source in selectedData['성분']">
+                            {{ source }} : {{ item }}
+                          </div>
+                        </div>
+                      </p>
+                    </div>
+                    <!-- Modal footer -->
+                    <div
+                      class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
                     >
-                      확인
-                    </button>
-                  
+                      <!-- 모달 닫기 버튼 -->
+                      <button
+                        data-modal-hide="modalEl"
+                        type="button"
+                        class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        확인
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- 성분 버튼 및 모달 end -->
+  
+              <!-- 조리방법 버튼 및 모달 start -->
+              <!-- 조리방법 버튼 -->
+              <button
+                data-modal-target="modalEl2"
+                data-modal-toggle="modalEl2"
+                @click="goToModal(data, '조리방법')"
+                class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button"
+              >
+                조리방법
+              </button>
+              <!-- 모달 -->
+              <div
+                id="modalEl2"
+                tabindex="-1"
+                aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+              >
+                <!-- 모달 내용 -->
+                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                  <!-- Modal content -->
+                  <div
+                    class="relative bg-white rounded-lg shadow dark:bg-gray-700"
+                  >
+                    <!-- Modal header -->
+                    <div
+                      class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
+                    >
+                      <h3
+                        class="text-xl font-semibold text-gray-900 dark:text-white"
+                      >
+                        조리방법
+                      </h3>
+                      <!-- 모달 닫기 버튼 -->
+                      <button
+                        type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="modalEl2"
+                      >
+                        <svg
+                          class="w-3 h-3"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 14 14"
+                        >
+                          <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                          />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                      </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-4 md:p-5 space-y-4">
+                      <p
+                        class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+                      >
+                        <!-- 조리법 출력 -->
+                        <div v-if="selectedData">
+                          <div v-for="item in selectedData['조리법']">
+                            {{ item }}
+                          </div>
+                        </div>
+                      </p>
+                    </div>
+                    <!-- Modal footer -->
+                    <div
+                      class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
+                    >
+                      <!-- 모달 닫기 버튼 -->
+                      <button
+                        data-modal-hide="modalEl2"
+                        type="button"
+                        class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      >
+                        확인
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 조리방법 버튼 및 모달 end -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- end body -->
-</template>
-
-<script setup>
-import { ref } from 'vue'
-import { Modal } from "flowbite";
-
-const goToModal = (data, type) => {
-  selectedData.value = data;
-  selectedType.value = type;
-};
-
-const selectedData = ref(null);
-const selectedType = ref(null);
-
-const foodDatas = {
-  1: {
-    제목: "맛있는 초콜릿 케이크",
-    "사진 파일명": "food1.png",
-    작성자: "뤼튼1",
-    성분: {
-      밀가루: "200g",
-      설탕: "150g",
-      "코코아 파우더": "50g",
-      "베이킹 파우더": "10g",
-      소금: "약간",
-      우유: "200ml",
-      버터: "100g",
-      달걀: "2개",
-      "바닐라 추출물": "1작은 숟가락",
-    },
-    조리법: [
-      "1. 밀가루, 설탕, 코코아 파우더, 베이킹 파우더, 소금을 섞어주세요.",
-      "2. 다른 그릇에 우유, 버터, 달걀, 바닐라 추출물을 섞고, 거품기로 잘 풀어주세요.",
-      "3. 1단계에서 만든 건강한 재료를 2단계에 섞고, 부드러운 반죽을 만드세요.",
-      "4. 반죽을 케이크 팬에 부어주세요.",
-      "5. 180도로 예열된 오븐에서 25-30분 동안 구워주세요.",
-      "6. 완전히 식혀서 케이크를 장식하고, 맛있게 즐기세요!",
-    ],
-  },
-  2: {
-    제목: "상큼한 과일 샐러드",
-    "사진 파일명": "food2.png",
-    작성자: "뤼튼2",
-    성분: {
-      사과: "2개",
-      바나나: "2개",
-      딸기: "200g",
-      포도: "150g",
-      "오렌지 주스": "100ml",
-      "레몬 주스": "1큰 숟가락",
-      꿀: "2큰 숟가락",
-    },
-    조리법: [
-      "1. 사과와 바나나를 껍질을 벗기고 썰어주세요.",
-      "2. 딸기와 포도를 깨끗하게 씻은 후, 적절한 크기로 썬 후릇에 담아주세요.",
-      "3. 오렌지 주스와 레몬 주스, 꿀을 잘 섞어 소스를 만들어주세요.",
-      "4. 과일에 소스를 부어 섞어주세요.",
-      "5. 상큼한 과일 샐러드를 그릇에 담아 맛있게 즐기세요!",
-    ],
-  },
-  3: {
-    제목: "담백한 샐러드",
-    "사진 파일명": "food3.png",
-    작성자: "뤼튼3",
-    성분: {
-      양상추: "1개",
-      토마토: "2개",
-      오이: "1개",
-      당근: "1개",
-      "올리브 오일": "2큰 숟가락",
-      "레몬 주스": "1큰 숟가락",
-      소금: "약간",
-      후추: "약간",
-    },
-    조리법: [
-      "1. 양상추, 토마토, 오이, 당근을 깨끗하게 씻어 썰어주세요.",
-      "2. 그릇에 양상추, 토마토, 오이, 당근을 담고, 올리브 오일, 레몬 주스, 소금, 후추를 넣어주세요.",
-      "3. 잘 섞어 담백한 샐러드를 맛있게 즐기세요!",
-    ],
-  },
-  4: {
-    제목: "가볍고 건강한 샌드위치",
-    "사진 파일명": "food4.png",
-    작성자: "뤼튼4",
-    성분: {
-      식빵: "2장",
-      "닭 가슴살": "100g",
-      양파: "1/4개",
-      토마토: "1/2개",
-      양상추: "적당량",
-      마요네즈: "1큰 숟가락",
-      머스타드: "1작은 숟가락",
-      소금: "약간",
-      후추: "약간",
-    },
-    조리법: [
-      "1. 닭 가슴살을 삶아서 잘게 썰어주세요.",
-      "2. 양파와 토마토를 얇게 썰어주세요.",
-      "3. 식빵에 마요네즈와 머스타드를 발라주세요.",
-      "4. 양상추, 닭 가슴살, 양파, 토마토를 식빵에 올려주세요.",
-      "5. 소금과 후추를 뿌리고, 다른 식빵으로 덮어주세요.",
-      "6. 가볍고 건강한 샌드위치를 맛있게 즐기세요!",
-    ],
-  },
-};
-</script>
-
-<style scoped>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted, computed } from 'vue'
+  import { useRecipeStore } from '../../stores/recipe';
+  
+    
+  const selectedData = ref(null);
+  const selectedType = ref(null);
+  const store = useRecipeStore();
+  const recipes = ref(store.recipes)
+  const query = ref(null) // 사용자의 검색어(동적 바인딩)
 
 
-</style>
+  // 각 레시피의 정보들을 위한 변수
+  const goToModal = (data, type) => {
+    selectedData.value = data;
+    selectedType.value = type;
+  };
+
+  // 레시피들을 필터링하는 함수
+  const filteredRecipes = computed(() => {
+    return recipes.value.filter(recipe => {
+      const ingredients = Object.keys(recipe.성분);
+      console.log(ingredients)
+      console.log(query)
+      return ingredients.some(ingredient => ingredient.includes(query.value));
+    });
+  })
+  
+  // 검색어와 일치하는 성분을 포함하는지 확인하는 함수
+  const hasMatchingIngredient = (data, query) => {
+    const ingredients = Object.keys(data.성분);
+    return ingredients.some(ingredient => ingredient.includes(query));
+  };
+  </script>
+  
+  <style scoped>
+  /* 스타일링 */
+  </style>
+  
