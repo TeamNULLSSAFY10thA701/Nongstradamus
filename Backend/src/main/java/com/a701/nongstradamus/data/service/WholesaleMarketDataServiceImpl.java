@@ -85,7 +85,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                 product.setWholesaleMarketCode(code.toString());
             }
             // 오늘부터 하루씩 과거로 가면서
-            for (int day = 1; day <= 100 ; day++) {
+            for (int day = 1; day <= 1825 ; day++) {
                 // 이미 저장된 데이터면 수행하지 않는다.
                 LocalDate today = LocalDate.now().minusDays(day);
                 List<WholesaleMarketEntity> wholesaleMarkets = wholesaleMarketRepository.findAllByProductAndDate(product, java.sql.Timestamp.valueOf(today.atStartOfDay()));

@@ -52,7 +52,7 @@ public class TradeDataServiceImpl implements TradeDataService {
         // 각 품목에 대하여
         for(ProductEntity product : products){
             // 한달 씩 뒤로 가면서
-            for(int month = 1; month <= 12; month++){
+            for(int month = 1; month <= 60; month++){
                 YearMonth thisMonth = YearMonth.now().minusMonths(month);
                 // 이미 저장된 데이터면 검색 포기
                 List<TradeEntity> trade = tradeRepository.findAllByProductIdAndDate(product.getId(), java.sql.Timestamp.valueOf(thisMonth.atEndOfMonth().atStartOfDay()));
