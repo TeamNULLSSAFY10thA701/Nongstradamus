@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
+@EnableScheduling
 public class DomesticOilServiceImpl implements DomesticOilService{
 
     @Value("${key.domesticOil.url}")
@@ -35,7 +37,7 @@ public class DomesticOilServiceImpl implements DomesticOilService{
     }
 
     @Override
-    @Scheduled(cron="0 0 0 * * ?") // 매일 자정
+    @Scheduled(cron="* * * * * *") // 매일 자정
     public void callDomesticOilSheduler(){
         LocalDate today = LocalDate.now();
         String dataType = "json";
@@ -43,7 +45,7 @@ public class DomesticOilServiceImpl implements DomesticOilService{
         String urlStr = callBackUrl +
                 "?out=" + dataType +
                 "&code=" + serviceKey;
-
+        System.out.println(urlStr);
         // Parse JSON string using org.json.JSONObject
         JSONObject jsonObject = OpenAPIManager.fetchData(urlStr);
         JSONArray resultObjects = jsonObject.getJSONObject("RESULT").getJSONArray("OIL");
