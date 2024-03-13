@@ -47,8 +47,8 @@ public class ProductDataServiceImpl implements ProductDataService{
     @Value("${key.product.password}")
     private String password;
 
-    @Override
     @Scheduled(cron = "0 0 0 * * *")
+    @Override
     public void updateProductData() throws IOException, ParserConfigurationException, SAXException {
         // 검색할 품목을 가져옴
         List<ProductEntity> productList = productRepository.findAll();

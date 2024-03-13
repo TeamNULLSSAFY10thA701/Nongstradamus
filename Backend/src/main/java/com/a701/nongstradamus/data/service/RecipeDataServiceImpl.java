@@ -4,11 +4,14 @@ import com.a701.nongstradamus.common.OpenAPIManager;
 import com.a701.nongstradamus.data.dto.RecipeDto;
 import com.a701.nongstradamus.data.mapper.RecipeMapper;
 import com.a701.nongstradamus.data.repository.RecipeRepository;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+/*
+5개 더 db에 넣는 코드 작성할것
+ */
 
 @Service
 @RequiredArgsConstructor
@@ -32,34 +39,32 @@ public class RecipeDataServiceImpl implements RecipeDataService {
 
     //테스트용
     //@Override
-    //Scheduled(fixedDelay = 10000000)
+    //@Scheduled(fixedDelay = 10000000)
 
     // 매년 1월 1일 0시에 실행
     // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
     @Override
     @Scheduled(cron = "0 0 0 1 1 ?")
-    public void updateRecipeData(){
+    public void updateRecipeData() {
 
-        //지우고 새로 다 받는방식
-        recipeRepository.deleteAll();
+        //테이블에 있는 모든 recipeTitle 리스트에 저장
+        //api에서 받은 title이 있으면 저장 안하고, 없으면 저장하는데 사용
+        List<String> existingTitles = recipeRepository.findAllTitles();
 
         //전체 레시피 수 얻으려고 보내는 요청
         StringBuilder urlFull = new StringBuilder();
         urlFull.append(urlBase).append("/api/").append(apiKey).append("/COOKRCP01/json/1/2");
-        ResponseEntity<String> res = OpenAPIManager.fetch(urlFull.toString());
+        ResponseEntity<Map> res = OpenAPIManager.fetchJSON(urlFull.toString());
 
         //전체 레시피 수 초기화
         int recipeCnt = 1;
 
         //전체 레시피 수 계산
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(res.getBody());
+        Map<String, Object> body = res.getBody();
+        Map<String, Object> COOKRCP01Map = (Map<String, Object>) body.get("COOKRCP01");
 
-            recipeCnt = Integer.parseInt(jsonNode.path("COOKRCP01").path("total_count").asText());
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        String total_count = (String) COOKRCP01Map.get("total_count");
+        recipeCnt = Integer.parseInt(total_count);
 
         //api 요청 횟수
         int messagesCnt = ((recipeCnt - 1) / 100) + 1;
@@ -68,40 +73,39 @@ public class RecipeDataServiceImpl implements RecipeDataService {
         List<RecipeDto> dtos = new ArrayList<>();
 
         //api에 요청
-        for(int msgOrder = 1; msgOrder <= messagesCnt; msgOrder++) {
+        for (int msgOrder = 1; msgOrder <= messagesCnt; msgOrder++) {
             urlFull = new StringBuilder();
             urlFull.append(urlBase).append("/api/").append(apiKey)
                 .append("/COOKRCP01/json/")
                 .append(1 + (100 * (msgOrder - 1)))
                 .append("/").append(100 * msgOrder);
-            res = OpenAPIManager.fetch(urlFull.toString());
+            res = OpenAPIManager.fetchJSON(urlFull.toString());
+            body = res.getBody();
+            COOKRCP01Map = (Map<String, Object>) body.get("COOKRCP01");
 
-            //JSON 파싱
-            try {
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode jsonNode = objectMapper.readTree(res.getBody());
-                JsonNode rowArray = jsonNode.path("COOKRCP01").path("row");
+            List<Map<String, Object>> rowList = (List<Map<String, Object>>) COOKRCP01Map.get("row");
 
-                for (JsonNode row : rowArray) {
-                    String title = row.path("RCP_NM").asText();
-                    String ingredient = row.path("RCP_PARTS_DTLS").asText();
-                    String image = row.path("ATT_FILE_NO_MAIN").asText();
-
-                    StringBuilder content = new StringBuilder();
-                    for (int i = 1; i <= 20; i++) {
-                        String manualValue;
-                        if (i < 10) {
-                            manualValue = row.path("MANUAL0" + i).asText();
-                        } else {
-                            manualValue = row.path("MANUAL" + i).asText();
-                        }
-                        if (!manualValue.isEmpty()) {
-                            //레시피 순서 사이마다 "\n"삽입, 프론트 요청시 변경 가능
-                            content.append(manualValue).append("\n");
-                        }
+            for (Map<String, Object> row : rowList) {
+                String title = (String) row.get("RCP_NM");
+                String ingredient = (String) row.get("RCP_PARTS_DTLS");
+                String image = (String) row.get("ATT_FILE_NO_MAIN");
+                StringBuilder content = new StringBuilder();
+                for (int i = 1; i <= 20; i++) {
+                    String manualValue;
+                    if (i < 10) {
+                        manualValue = (String) row.get("MANUAL0" + i);
+                    } else {
+                        manualValue = (String) row.get("MANUAL" + i);
                     }
+                    if (!manualValue.isEmpty()) {
+                        //레시피 순서 사이마다 "\n"삽입, 프론트 요청시 변경 가능
+                        content.append(manualValue).append("\n");
+                    }
+                }
 
-                    //파싱한 값들 dto에 저장
+                //지금 얻은 레시피와 같은 제목이 db에 없는경우 저장
+                if(!existingTitles.contains(title)){
+                    System.out.println(title);
                     RecipeDto dto = new RecipeDto();
                     dto.setTitle(title);
                     dto.setIngredient(ingredient);
@@ -109,13 +113,11 @@ public class RecipeDataServiceImpl implements RecipeDataService {
                     dto.setContent(String.valueOf(content));
                     dtos.add(dto);
                 }
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
             }
         }
 
         //테이블에 저장
         recipeRepository.saveAll(dtos.stream().map(RecipeMapper.INSTANCE::fromDtoToEntity).collect(
             Collectors.toList()));
-    }
-}
+
+    }}

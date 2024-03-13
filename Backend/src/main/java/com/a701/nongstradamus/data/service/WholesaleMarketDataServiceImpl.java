@@ -125,7 +125,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                         OriginEntity origin;
                         if(originList.isEmpty()){
                             OriginDto originDto = new OriginDto(originName);
-                             origin = originRepository.save(OriginMapper.INSTANCE.fromDtoToEntity(originDto));
+                            origin = originRepository.save(OriginMapper.INSTANCE.fromDtoToEntity(originDto));
                         }else{
                             origin = originList.get(0);
                         }
