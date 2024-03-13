@@ -8,23 +8,29 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Getter
+@Table(name = "globalOilPrice")
 @NoArgsConstructor
 @AllArgsConstructor
 public class GlobalOilEntity {
 
     @Id
+    @Column(name = "globalOilPriceId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer globalOilPriceId;
-    @Column
+
+    @Column(name = "wtiPrice")
     private Double wtiPrice;
-    @Column
+
+    @Column(name = "brentPrice")
     private Double brentPrice;
-    @Column
+
+    @Column(name = "dieselPrice")
     private Double dxlPrice;
-    @Column
+
+    @Column(name = "gasolinePrice")
     private Double gasolinePrice;
-    @Column
+
+    @Column(name = "date")
     private LocalDate date;
 
 }

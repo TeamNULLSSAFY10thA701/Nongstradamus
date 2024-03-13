@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@EnableScheduling
 public class GlobalOilServiceImpl implements GlobalOilService {
 
     @Value("${key.globalOil.url}")
@@ -37,7 +39,7 @@ public class GlobalOilServiceImpl implements GlobalOilService {
     }
 
     @Override
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정
+    @Scheduled(cron = "* * * * * *") // 매일 자정
     public void callGlobalOilScheduler() throws JsonProcessingException {
         // 7일 전의 유가를 가져옴
         String today = LocalDate.now().minusDays(7).toString();
