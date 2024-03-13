@@ -59,7 +59,7 @@ public class TradeDataServiceImpl implements TradeDataService {
                 if(!trade.isEmpty())
                     break;
                 // 품목 코드가 null 일경우
-                if(product.getTrade().getCode() == null){
+                if(product.getTradeCode() == null){
                     List<TradeDto> dtos = new ArrayList<TradeDto>();
                     for(int d=1; thisMonth.isValidDay(d); d++){
                         LocalDate today = thisMonth.atDay(d);
@@ -78,7 +78,7 @@ public class TradeDataServiceImpl implements TradeDataService {
                     .append("?serviceKey=").append(key)
                     .append("&strtYymm=").append(thisMonth.format(DateTimeFormatter.ofPattern("yyyyMM")))
                     .append("&endYymm=").append(thisMonth.format(DateTimeFormatter.ofPattern("yyyyMM")))
-                    .append("&hsSgn=").append(product.getTrade().getCode());
+                    .append("&hsSgn=").append(product.getTradeCode());
                 // api 호출
                 ResponseEntity<String> res = OpenAPIManager.fetchXML(urlFull.toString());
                 // 데이터 파싱

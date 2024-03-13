@@ -30,11 +30,9 @@ public class ProductEntity {
     @Column(name = "productUnit")
     private String unit;
 
-    @OneToOne
-    @JoinColumn(name = "productId")
-    private WholesaleMarketCodeEntity wholeMarketCode;
+    @Column(name = "wholesaleMarketCode")
+    private String wholesaleMarketCode;
 
-    @OneToOne
-    @JoinColumn(name = "productId")
-    private TradeCodeEntity trade;
+    @Column(name = "tradeCode")
+    private String tradeCode;
 }
