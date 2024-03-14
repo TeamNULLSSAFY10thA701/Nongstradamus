@@ -43,6 +43,11 @@ public class RecipeDataServiceImpl implements RecipeDataService {
 
     // 매년 1월 1일 0시에 실행
     // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
+//    @Override
+//    @Scheduled(cron = "0 0 0 1 1 ?")
+
+    // 매년 1월 1일 0시에 실행
+    // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
     @Override
     @Scheduled(cron = "0 0 0 1 1 ?")
     public void updateRecipeData() {
@@ -102,6 +107,11 @@ public class RecipeDataServiceImpl implements RecipeDataService {
                         content.append(manualValue).append("\n");
                     }
                 }
+                double energy = Double.parseDouble((String) row.get("INFO_ENG"));
+                double carbohydrate = Double.parseDouble((String) row.get("INFO_CAR"));
+                double protein = Double.parseDouble((String) row.get("INFO_PRO"));
+                double fat = Double.parseDouble((String) row.get("INFO_FAT"));
+                double natrium = Double.parseDouble((String) row.get("INFO_NA"));
 
                 //지금 얻은 레시피와 같은 제목이 db에 없는경우 저장
                 if(!existingTitles.contains(title)){
@@ -111,6 +121,11 @@ public class RecipeDataServiceImpl implements RecipeDataService {
                     dto.setIngredient(ingredient);
                     dto.setImage(image);
                     dto.setContent(String.valueOf(content));
+                    dto.setEnergy(energy);
+                    dto.setCarbohydrate(carbohydrate);
+                    dto.setProtein(protein);
+                    dto.setFat(fat);
+                    dto.setNatrium(natrium);
                     dtos.add(dto);
                 }
             }
@@ -119,5 +134,5 @@ public class RecipeDataServiceImpl implements RecipeDataService {
         //테이블에 저장
         recipeRepository.saveAll(dtos.stream().map(RecipeMapper.INSTANCE::fromDtoToEntity).collect(
             Collectors.toList()));
-
+        System.out.println(123123);
     }}

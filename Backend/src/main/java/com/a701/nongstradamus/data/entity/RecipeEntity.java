@@ -31,7 +31,22 @@ public class RecipeEntity {
     @Column(name = "recipeImage")
     private String image;
 
-    @Column(name = "recipeContent")
+    @Column(name = "recipeContent",nullable = false)
     private String content;
+
+    @Column(name = "energy",nullable = false)
+    private double energy;
+
+    @Column(name = "carbohydrate",nullable = false)
+    private double carbohydrate;
+
+    @Column(name = "protein",nullable = false)
+    private double protein;
+
+    @Column(name = "fat",nullable = false)
+    private double fat;
+
+    @Column(name = "natrium")
+    private double natrium;
 
 }
