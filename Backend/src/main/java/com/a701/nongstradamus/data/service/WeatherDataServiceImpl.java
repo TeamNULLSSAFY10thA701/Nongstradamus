@@ -81,7 +81,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
         List<WeatherDto> dtos = new ArrayList<>();
 
         // 오늘-1일부터 검색, 해당 날짜 데이터 없으면 해당 날짜 -1일 검색, 최대 100일
-        day: for (int minusDay = 1; minusDay <= 100; minusDay++) {
+        day: for (int minusDay = 1; minusDay <= 1825; minusDay++) {
 
             //검색일자
             LocalDate searchDate = today.minusDays(minusDay);
