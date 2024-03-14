@@ -69,7 +69,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
     // 매일 0시에 실행
     @Override
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 0 0 * * *")
     public void updateWeatherData() throws IOException, ParserConfigurationException, SAXException {
 
         List<WeatherOriginCodeEntity> weatherOriginCodes = weatherOriginCodeRepository.findAll();
