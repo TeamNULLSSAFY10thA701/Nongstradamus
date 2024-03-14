@@ -12,4 +12,9 @@ public class RecipeDto {
     private String ingredient;
     private String image;
     private String content;
+    private double energy;
+    private double carbohydrate;
+    private double protein;
+    private double fat;
+    private double natrium;
 }

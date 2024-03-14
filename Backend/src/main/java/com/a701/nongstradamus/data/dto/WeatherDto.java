@@ -2,6 +2,7 @@ package com.a701.nongstradamus.data.dto;
 
 import com.a701.nongstradamus.data.entity.OriginEntity;
 import com.a701.nongstradamus.data.entity.ProductEntity;
+import com.a701.nongstradamus.data.entity.WeatherOriginCodeEntity;
 import java.time.LocalDate;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -21,5 +22,5 @@ public class WeatherDto {
     private int humidity;
     private int sunDuration;
     private ProductEntity product;
-    private OriginEntity origin;
+    private WeatherOriginCodeEntity origin;
 }

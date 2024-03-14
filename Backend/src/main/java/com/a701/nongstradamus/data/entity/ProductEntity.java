@@ -35,4 +35,7 @@ public class ProductEntity {
 
     @Column(name = "tradeCode")
     private String tradeCode;
+
+    @Column(name = "weatherCode")
+    private String weatherCode;
 }
