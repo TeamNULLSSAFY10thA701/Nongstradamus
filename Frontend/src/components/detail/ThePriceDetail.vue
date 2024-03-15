@@ -37,29 +37,54 @@
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="clickEvent">
                         <td class="p-4 w-10">
-                            <img src="../../assets/food1.png" class="w-16 md:w-32 max-w-full max-h-full" alt="onion">
+                            <img src="../../assets/apple.png" class="w-10 max-w-full max-h-full mx-auto" alt="onion">
                         </td>
                         <!-- 이미지 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            양파
+                            사과
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            500원
+                            2000원
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            700원
+                            3000원
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            40%
+                            50%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            100g당
+                            개당
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                        @click="clickEvent">
+                        <td class="p-2 w-10">
+                            <img src="../../assets/redish.png" class="w-10 max-w-full max-h-full mx-auto" alt="onion">
+                        </td>
+                        <!-- 이미지 -->
+                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                            무
+                        </td>
+                        <!-- 농산물이름 -->
+                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                            1000원
+                        </td>
+                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                            2000원
+                        </td>
+                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                            100%
+                        </td>
+                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                            개당
                         </td>
                     </tr>
                 </tbody>
+
             </table>
         </div>
+        <!-- 표에 표시될 내용들 -->
 
         <div v-if="clickState">
             <div class="flex justify-center items-center mt-12">
@@ -76,6 +101,7 @@
                 </div>
             </div>
         </div>
+        <!-- 추후 라디오버튼 필요 -->
     </div>
 
 
@@ -88,10 +114,25 @@ import { Line } from 'vue-chartjs'
 import { ref } from 'vue';
 
 const clickState = ref(false)
+//현재 클릭 상태를 나타내는 변수
 
 const clickEvent = () => {
     clickState.value = !clickState.value
 }
+//클릭 시, 클릭 상태 변수를 switch하는 매서드.
+
+const fourWeeksAgoPrice = ref(5500);
+
+const labelValue = ref('무언가의 가격정보(과거)')
+
+//flow(저장용) 
+// get axios로 정보를 받아옴
+// 각각의 정보를 json형식으로 담고 리스트에 add
+// 리스트를 1번부터 돌며 정보를 저장
+// 클릭 이벤트가 개시되었을 때, 거기에 있는 정보를 변수에 담음
+// 그 정보에 있는 과거가격,현재가격,미래가격을 그래프에 넣음
+// 저장한 값으로 그래프에 표시
+
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
@@ -99,11 +140,11 @@ const chartData = {
     labels: ['4주전', '3주전', '2주전', '1주전', '오늘', '1주 후', '2주 후'],
     datasets: [
         {
-            label: '무언가의 가격정보(과거)',
+            label: labelValue.value,
             pointStyle: 'circle',
             backgroundColor: '#000000',
             radius: 5,
-            data: [4200, 2500, 1000, 1500, 2300, null, null]  //실선영역(과거가격)
+            data: [fourWeeksAgoPrice.value, 2500, 1000, 1500, 2300, null, null]  //실선영역(과거가격)
         },
         {
             label: '무언가의 가격정보(미래)',
