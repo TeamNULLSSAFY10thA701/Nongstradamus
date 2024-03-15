@@ -90,9 +90,9 @@ public class TradeDataServiceImpl implements TradeDataService {
                     continue;
                 }
                 NodeList item = items.item(0).getChildNodes();
-                Integer balance = Integer.parseInt((String) item.item(0).getNodeValue());
-                Integer amount = Integer.parseInt((String) item.item(4).getNodeValue()) - Integer.parseInt((String) item.item(1).getNodeValue());
-                Integer volume = Integer.parseInt((String) item.item(5).getNodeValue()) - Integer.parseInt((String) item.item(2).getNodeValue());
+                Integer balance = Integer.parseInt((String) item.item(0).getTextContent());
+                Integer amount = Integer.parseInt((String) item.item(4).getTextContent()) - Integer.parseInt((String) item.item(1).getTextContent());
+                Integer volume = Integer.parseInt((String) item.item(5).getTextContent()) - Integer.parseInt((String) item.item(2).getTextContent());
                 List<TradeDto> dtos = new ArrayList<TradeDto>();
                 for(int d = 1; thisMonth.isValidDay(d); d++){
                     TradeDto dto = new TradeDto();
