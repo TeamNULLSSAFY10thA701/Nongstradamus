@@ -52,38 +52,39 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
     @Scheduled(cron = "0 0 0 * * *")
     public void updateWholeMarketData() {
         List<ProductEntity> products = productRepository.findAll();
-        for(ProductEntity product : products) {
-            if (product.getWholesaleMarketCode() == null) { // 농산물 코드가 없으면
-                // 농산물 코드를 가져온다.
-                StringBuilder code = new StringBuilder();
-                for (int p = 1; ; p++) {
-                    StringBuilder codeUrlFull = new StringBuilder();
-                    codeUrlFull.append(codeUrl)
-                        .append("?serviceKey=").append(codeKey)
-                        .append("&apiType=json")
-                        .append("&pageNo=").append(p);
-                    ResponseEntity<Map> res = OpenAPIManager.fetchJSON(codeUrlFull.toString());
-                    List<Map> data = (List<Map>) (res.getBody().get("data"));
-                    if (data == null) {
-                        throw new EntityNotFoundException("트래픽 초과");
-                    }
-                    if (data.isEmpty()) {
-                        throw new EntityNotFoundException("데이터를 찾을 수 없습니다.");
-                    }
-                    for (Map d : data) {
-                        if (d.get("midName").equals(product.getName())) { // 품목 코드를 찾았다면
-                            code.append(d.get("large")).append(d.get("mid"))
-                                .append("small"); // 품목코드를 저장하고
-                            break; // 스캔을 멈춘다.
-                        }
-                    }
-                    if (code.length() == 6) { // 코드를 찾았다면
-                        break; // 스캔을 멈춘다.
+        List<Map> data1 = new ArrayList<Map>();
+        for (int p = 1; ; p++) {
+            StringBuilder codeUrlFull = new StringBuilder();
+            codeUrlFull.append(codeUrl)
+                .append("?serviceKey=").append(codeKey)
+                .append("&apiType=json")
+                .append("&pageNo=").append(p);
+            ResponseEntity<Map> res = OpenAPIManager.fetchJSON(codeUrlFull.toString());
+            List<Map> dts = (List<Map>) (res.getBody().get("data"));
+            if (dts == null) {
+                break;
+            }
+            if (dts.isEmpty()) {
+                break;
+            }
+            for(Map dt : dts){
+                data1.add(dt);
+            }
+        }
+        for(ProductEntity product : products){
+            if(product.getWholesaleMarketCode()==null){
+                for(Map dt : data1){
+                    if(dt.get("midName").equals(product.getName())){
+                        StringBuilder code = new StringBuilder().append(dt.get("large")).append(dt.get("mid")).append(dt.get("small"));
+                        product.setWholesaleMarketCode(code.toString());
+                        productRepository.save(product);
+                        break;
                     }
                 }
-                // 품목 코들르 셋팅한다.
-                product.setWholesaleMarketCode(code.toString());
             }
+        }
+        // 품목 코들르 셋팅한다.
+        for(ProductEntity product : products) {
             // 오늘부터 하루씩 과거로 가면서
             for (int day = 1; day <= 1825 ; day++) {
                 // 이미 저장된 데이터면 수행하지 않는다.
@@ -104,7 +105,6 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                         .append("&whsalCd=110001")
                         .append("&largeCd=").append(product.getWholesaleMarketCode().substring(0, 2))
                         .append("&midCd=").append(product.getWholesaleMarketCode().substring(2, 4));
-                    System.out.println(urlFull.toString());
                     ResponseEntity<Map> res = OpenAPIManager.fetchJSON(urlFull.toString());
                     List<Map> data = (List<Map>) (res.getBody().get("data"));
                     if(data==null){
@@ -129,7 +129,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                         }
                         dto.setOrigin(origin);
                         dto.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
-                        dto.setPrice(Long.parseLong((String) d.get("avgAmt")));
+                        dto.setPrice(Long.parseLong( d.get("totAmt").toString()));
                         switch((String) d.get("lvName")){
                             case "특": dto.setGrade(4); break;
                             case "상": dto.setGrade(3); break;
@@ -139,7 +139,8 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                         dtos.add(dto);
                     }
                     // 도매가 데이터를 저장한다.
-                    wholesaleMarketRepository.saveAll(dtos.stream().map(WholesaleMarketMapper.INSTANCE::fromDtoToEntity).collect(Collectors.toList()));
+                    if(!dtos.isEmpty())
+                        wholesaleMarketRepository.saveAll(dtos.stream().map(WholesaleMarketMapper.INSTANCE::fromDtoToEntity).collect(Collectors.toList()));
                 }
             }
         }
