@@ -93,6 +93,7 @@
                     <a>
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">해당 품목의 가격 정보
                         </h5>
+                        <button @click="transValue">값 변경</button>
                     </a>
                     <div class="mt-10 h-4/5">
                         <Line :data="chartData" :options="chartOptions" />
@@ -125,6 +126,12 @@ const fourWeeksAgoPrice = ref(5500);
 
 const labelValue = ref('무언가의 가격정보(과거)')
 
+const transValue = () => {
+    fourWeeksAgoPrice.value = 10000;
+    chartData.datasets[0].data[0] = fourWeeksAgoPrice.value; // 그래프 데이터에 변경된 값 반영
+    console.log(fourWeeksAgoPrice.value)
+}
+
 //flow(저장용) 
 // get axios로 정보를 받아옴
 // 각각의 정보를 json형식으로 담고 리스트에 add
@@ -153,7 +160,6 @@ const chartData = {
             borderDash: [5, 5], //점선
             radius: 5,
             data: [null, null, null, null, 2300, 3500, 5000],  //점선영역(예측가격)
-
         }
     ]
 }
