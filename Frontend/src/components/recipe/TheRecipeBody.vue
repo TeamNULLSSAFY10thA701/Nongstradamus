@@ -246,8 +246,10 @@
 
   // 드롭다운 버튼 클릭 시 버튼의 텍스트 변경
   const dropdownText = ref('분류')
+
   const dropdownTextChange = (name) => {
     dropdownText.value = name
+    isVisible.value = false
   }
 
   // 각 레시피의 정보들을 위한 변수
