@@ -17,13 +17,13 @@
               <button type="button" @click="dropdownTextChange('제목')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제목</button>
             </li>
             <li>
-              <button type="button" @click="dropdownTextChange('제작자')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제작자</button>
+              <button type="button" @click="dropdownTextChange('작성자')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">작성자</button>
             </li>
             <li>
               <button type="button" @click="dropdownTextChange('성분')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">성분</button>
             </li>
             <li>
-              <button type="button" @click="dropdownTextChange('조리방법')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">조리방법</button>
+              <button type="button" @click="dropdownTextChange('조리법')" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">조리법</button>
             </li>
           </ul>
         </div>
@@ -68,7 +68,7 @@
               <button
                 data-modal-target="modalEl"
                 data-modal-toggle="modalEl"
-                @click="goToModal(data, '성분')"
+                @click="goToModal('modalEl', data, '성분')"
                 class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm mr-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
@@ -116,7 +116,7 @@
                     >
                       <!-- 모달 닫기 버튼 -->
                       <button
-                        data-modal-hide="modalEl"
+                        @click="toggleModal('modalEl')"
                         type="button"
                         class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
@@ -133,7 +133,7 @@
               <button
                 data-modal-target="modalEl2"
                 data-modal-toggle="modalEl2"
-                @click="goToModal(data, '조리방법')"
+                @click="goToModal('modalEl2', data, '조리방법')"
                 class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
@@ -204,7 +204,7 @@
                     >
                       <!-- 모달 닫기 버튼 -->
                       <button
-                        data-modal-hide="modalEl2"
+                        @click="toggleModal('modalEl2')"
                         type="button"
                         class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
@@ -222,62 +222,131 @@
     </div>
   </template>
   
-  <script setup>
-  import { ref, onMounted, computed , watch } from 'vue'
-  import { useRecipeStore } from '../../stores/recipe';
-    
-  const selectedData = ref(null);
-  const selectedType = ref(null);
-  const store = useRecipeStore();
-  const recipes = ref(store.recipes)
-  const query = ref('') // 사용자의 검색어(동적 바인딩)
-  const selectedquery = ref('')
-  const filteredRecipe = ref([])
-  const isVisible = ref(false)
+<script setup>
+import { ref, onMounted, computed , watch } from 'vue'
+import { useRecipeStore } from '../../stores/recipe';
+import Swal from 'sweetalert2'
 
-  onMounted(() => {
-    filteredRecipe.value = store.recipes
+const selectedData = ref(null);
+const selectedType = ref(null);
+const store = useRecipeStore();
+const recipes = ref(store.recipes)
+const dropdownText = ref('분류')  // 드롭다운 안의 텍스트
+const query = ref('') // 사용자의 검색어(동적 바인딩)
+const selectedquery = ref('')
+const filteredRecipe = ref([])
+const isVisible = ref(false)
+
+onMounted(() => {
+  filteredRecipe.value = store.recipes
 })
 
-  // 분류 드롭다운 버튼의 보이기, 안보이기 설정
-  const toggleVisibility = () => {
-    isVisible.value = !isVisible.value
+// 분류 드롭다운 버튼의 보이기, 안보이기 설정
+const toggleVisibility = () => {
+  isVisible.value = !isVisible.value
+}
+
+// 드롭다운 메뉴 설정 시 드롭다운의 텍스트 변경 및 드롭다운 숨김 설정
+const dropdownTextChange = (name) => {
+  dropdownText.value = name
+  isVisible.value = false
+}
+
+const toggleModal = (modalId) => {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.toggle('hidden');
+    modal.classList.toggle('flex');
+  }
+};  
+
+// 각 레시피의 정보들을 위한 변수
+const goToModal = (modalId, data, type) => {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.toggle('hidden');
+    modal.classList.toggle('flex');
   }
 
-  // 드롭다운 버튼 클릭 시 버튼의 텍스트 변경
-  const dropdownText = ref('분류')
+  selectedData.value = data;
+  selectedType.value = type;
+};
 
-  const dropdownTextChange = (name) => {
-    dropdownText.value = name
-    isVisible.value = false
-  }
-
-  // 각 레시피의 정보들을 위한 변수
-  const goToModal = (data, type) => {
-    selectedData.value = data;
-    selectedType.value = type;
-  };
-
-  // 레시피들을 필터링하는 함수
-  const filterRecipes = (event) => {
-    event.preventDefault();
-    filteredRecipe.value = []
-    if (!query.value || query.value.trim() === ''){
-      filteredRecipe.value = store.recipes;
-    
-      } 
-    else {
-      filteredRecipe.value = recipes.value.filter(recipe => {
-        const ingredients = Object.keys(recipe['성분']);
-        return ingredients.some(ingredient => ingredient.includes(query.value));
-    })
-    }
-    selectedquery.value = query.value
-  }
-  </script>
+// 레시피들을 필터링하는 함수
+const filterRecipes = (event) => {
+  event.preventDefault();
+  filteredRecipe.value = []
   
-  <style scoped>
+  if (dropdownText.value === '제목') {
+    if (!query.value || query.value.trim() === ''){
+    filteredRecipe.value = store.recipes;
+  
+    } 
+    else {
+    filteredRecipe.value = recipes.value.filter(recipe => {
+      const title = recipe['제목']
+      return title.includes(query.value);
+      })
+    }
+  selectedquery.value = query.value
+  }
+
+  else if (dropdownText.value === '작성자') {
+    if (!query.value || query.value.trim() === ''){
+    filteredRecipe.value = store.recipes;
+  
+    } 
+    else {
+    filteredRecipe.value = recipes.value.filter(recipe => {
+      const writer = recipe['작성자']
+      return writer.includes(query.value);;
+      })
+    }
+  selectedquery.value = query.value
+  }
+
+  else if (dropdownText.value === '성분') {
+    if (!query.value || query.value.trim() === ''){
+    filteredRecipe.value = store.recipes;
+  
+    } 
+    else {
+    filteredRecipe.value = recipes.value.filter(recipe => {
+      const ingredients = Object.keys(recipe['성분']);
+      return ingredients.some(ingredient => ingredient.includes(query.value));
+      })
+    }
+  selectedquery.value = query.value
+  }
+
+  else if (dropdownText.value === '조리법') {
+    if (!query.value || query.value.trim() === ''){
+    filteredRecipe.value = store.recipes;
+  
+    } 
+    else {
+    filteredRecipe.value = recipes.value.filter(recipe => {
+      const method = Object.values(recipe['조리법']);
+      return method.some(ingredient => ingredient.includes(query.value));
+      })
+    }
+  selectedquery.value = query.value
+  }
+
+  else {
+    Swal.fire({
+      title: 'Error!',
+      text: '검색 카테고리를 설정해주세요',
+      icon: 'error',
+      confirmButtonText: '확인'
+    })
+  }
+}
+  
+</script>
+  
+<style scoped>
 
 
-  </style>
+</style>
   
