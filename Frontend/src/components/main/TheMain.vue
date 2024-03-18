@@ -13,36 +13,46 @@
       <div
         class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
-          가격이 가장 많이 떨어졌어요!
+          가격이 가장 많이 떨어질거에요!
         </h5>
-        <div class="grid grid-cols-5 gap-4">
-          <div class="col-span-3 text-center text-3xl text-white mt-6 mr-4">
-            품목
+        <div class="grid grid-cols-5 gap-4 ">
+          <div class="h-4/5">
+            <img src="../../assets/apple.png" />
           </div>
-          <div class="col-span-2 text-center price-font font-bold text-xl rounded-lg bg-white border mt-8 mr-2">
-            가격
+          <div class="col-span-2 text-2xl text-white flex justify-center items-center">
+            방울토마토
+          </div>
+          <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
+            <div class="font-bold text-2xl text-center">
+              2500원
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 가격이 가장 많이 떨어진 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
-      <a
-        class="predictGood block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h5 class="custom mb-2 tracking-tight text-white">
-          가격이 가장 많이 떨어질거에요!
+      <div
+        class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <h5 class="mb-2 text-2xl tracking-tight text-white">
+          가격이 가장 많이 오를거에요!
         </h5>
         <div class="grid grid-cols-5 gap-4">
-          <div class="col-span-3 text-center text-3xl text-white mt-6 mr-4">
-            품목
+          <div class="h-4/5">
+            <img src="../../assets/redish.png" />
           </div>
-          <div class="col-span-2 text-center price-font font-bold text-xl rounded-lg bg-white border mt-8 mr-2">
-            가격
+          <div class="col-span-2 text-2xl text-white flex justify-center items-center">
+            무
+          </div>
+          <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
+            <div class="font-bold text-2xl text-center">
+              5000원
+            </div>
           </div>
         </div>
-      </a>
+      </div>
     </div>
-    <!-- 가격이 가장 많이 떨어질 것 같은 품목 조회 -->
+    <!-- 가격이 가장 많이 오를것 같은 품목 조회 -->
     <div class="flex items-center justify-center mt-8">
       <a href="/recipe"
         class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -76,39 +86,50 @@
         <Slide v-for="slide in 10" :key="slide">
           <div>
             <a
-              class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {{ slide }}
-              </h5>
-              <p class="text-sm text-gray-700 dark:text-gray-400">
-                현재 가격
-              </p>
-
+              class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <div class="w-3/5 mx-auto">
+                <img src="../../assets/apple.png" />
+              </div>
+              <div class="w-full mx-auto mt-2 text-sm">
+                방울토마토
+              </div>
+              <div class="w-full mx-auto mt-1 text-sm">
+                2500원
+              </div>
+              <div class="w-full mx-auto mt-1 text-xs">
+                100g
+              </div>
             </a>
           </div>
         </Slide>
       </Carousel>
     </div>
-    <!-- 현재가격 carousel -->
+    <!-- 내일가격 carousel -->
 
     <div class="mt-12 w-3/5 mx-auto mb-12">
       <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
         <Slide v-for="slide in 10" :key="slide">
           <div>
             <a
-              class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {{ slide }}
-              </h5>
-              <p class="text-sm text-gray-700 dark:text-gray-400">
-                예측 가격
-              </p>
+              class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <div class="w-3/5 mx-auto">
+                <img src="../../assets/redish.png" />
+              </div>
+              <div class="w-full mx-auto mt-2 text-sm">
+                무
+              </div>
+              <div class="w-full mx-auto mt-1 text-sm">
+                5000원
+              </div>
+              <div class="w-full mx-auto mt-1 text-xs">
+                20키로상자
+              </div>
             </a>
           </div>
         </Slide>
       </Carousel>
     </div>
-    <!-- 예측 가격 carousel -->
+    <!-- 지난 주 가격 carousel -->
   </div>
 
 </template>
