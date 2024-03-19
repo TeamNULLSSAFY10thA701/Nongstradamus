@@ -2,6 +2,16 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useVegetableTableStore = defineStore("vegetableStore", () => {
+  //difineStore를 시키고, store식별 id를 붙임.
+
+  const clickState = ref(false);
+  //현재 클릭 상태를 나타내는 변수
+
+  const clickEvent = () => {
+    clickState.value = !clickState.value;
+  };
+  //클릭 시, 클릭 상태 변수를 switch하는 매서드.
+
   const categoryVegetableLeafState = ref(false);
   //채소-잎의 라디오버튼이 눌렸을 때, 상태
 
@@ -73,4 +83,22 @@ export const useVegetableTableStore = defineStore("vegetableStore", () => {
     categoryFruitState.value = false;
     categoryYellowCropState.value = true;
   };
+
+  return {
+    clickState,
+    categoryVegetableLeafState,
+    categoryVegetableFruitState,
+    categoryVegetableRootState,
+    categoryFruitState,
+    categoryGrainState,
+    categoryYellowCropState,
+    clickEvent,
+    transferVegetableReaf,
+    transferVegetableFruit,
+    transferVegetableRoot,
+    transferGrain,
+    transferFruit,
+    transferYellowCrop,
+  };
+  //store는 return을 해줘야함!!!
 });

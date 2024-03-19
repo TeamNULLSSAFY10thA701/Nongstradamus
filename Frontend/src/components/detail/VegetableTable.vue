@@ -15,9 +15,9 @@
             <div class="flex items-center ps-3">
                 <input id="VegetableReaf" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    @click="transferVegetableReaf">
+                    @click="store.transferVegetableReaf">
                 <label for="VegetableReaf" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    @click="transferVegetableReaf">채소-잎
+                    @click="store.transferVegetableReaf">채소-잎
                 </label>
             </div>
         </li>
@@ -25,10 +25,10 @@
             <div class="flex items-center ps-3">
                 <input id="VegetableFruit" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    @click="transferVegetableFruit">
+                    @click="store.transferVegetableFruit">
                 <label for="VegetableFruit"
                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    @click="transferVegetableFruit">채소-열매
+                    @click="store.transferVegetableFruit">채소-열매
                 </label>
             </div>
         </li>
@@ -36,37 +36,37 @@
             <div class="flex items-center ps-3">
                 <input id="transferVegetableRoot" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    @click="transferVegetableRoot">
+                    @click="store.transferVegetableRoot">
                 <label for="transferVegetableRoot"
                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    @click="transferVegetableRoot">채소-뿌리</label>
+                    @click="store.transferVegetableRoot">채소-뿌리</label>
             </div>
         </li>
         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
             <div class="flex items-center ps-3">
                 <input id="Grain" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    @click="transferGrain">
+                    @click="store.transferGrain">
                 <label for="Grain" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    @click="transferGrain">곡물</label>
+                    @click="store.transferGrain">곡물</label>
             </div>
         </li>
         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
             <div class="flex items-center ps-3">
                 <input id="Fruit" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    @click="transferFruit">
+                    @click="store.transferFruit">
                 <label for="Fruit" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    @click="transferFruit">과일</label>
+                    @click="store.transferFruit">과일</label>
             </div>
         </li>
         <li class="w-full dark:border-gray-600">
             <div class="flex items-center ps-3">
                 <input id="YellowCrop" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    @click="transferYellowCrop">
+                    @click="store.transferYellowCrop">
                 <label for="YellowCrop" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    @click="transferYellowCrop">구황작물</label>
+                    @click="store.transferYellowCrop">구황작물</label>
             </div>
         </li>
 
@@ -97,10 +97,10 @@
                     </th>
                 </tr>
             </thead>
-            <tbody v-if="categoryVegetableLeafState">
+            <tbody v-if="store.categoryVegetableLeafState">
                 <tr v-for="category in 5" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="clickEvent">
+                    @click="store.clickEvent">
                     <td class="p-4 w-10">
                         <img src="../../assets/sesame.png" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
@@ -125,10 +125,10 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody v-if="categoryVegetableFruitState">
+            <tbody v-if="store.categoryVegetableFruitState">
                 <tr v-for="category in 5" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="clickEvent">
+                    @click="store.clickEvent">
                     <td class="p-4 w-10">
                         <img src="../../assets/pepper.png" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
@@ -153,10 +153,10 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody v-if="categoryVegetableRootState">
+            <tbody v-if="store.categoryVegetableRootState">
                 <tr v-for="category in 5" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="clickEvent">
+                    @click="store.clickEvent">
                     <td class="p-4 w-10">
                         <img src="../../assets/potato.png" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
@@ -181,10 +181,10 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody v-if="categoryGrainState">
+            <tbody v-if="store.categoryGrainState">
                 <tr v-for="category in 5" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="clickEvent">
+                    @click="store.clickEvent">
                     <td class="p-4 w-10">
                         <img src="../../assets/rice.png" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
@@ -209,10 +209,10 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody v-if="categoryFruitState">
+            <tbody v-if="store.categoryFruitState">
                 <tr v-for="category in 5" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="clickEvent">
+                    @click="store.clickEvent">
                     <td class="p-4 w-10">
                         <img src="../../assets/apple.png" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
@@ -237,10 +237,10 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody v-if="categoryYellowCropState">
+            <tbody v-if="store.categoryYellowCropState">
                 <tr v-for="category in 5" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="clickEvent">
+                    @click="store.clickEvent">
                     <td class="p-4 w-10">
                         <img src="../../assets/sweetPotato.png" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
@@ -273,6 +273,13 @@
 
 import { useVegetableTableStore } from '@/stores/VegetableTable';
 const store = useVegetableTableStore();
+//정의한 store를 사용하는 과정.
+//이제 변수명(여기서는 store).store에저장된변수로 꺼내쓰기 가능.
+
 
 </script>
-<style scoped></style>
+<style scoped>
+.title {
+    font-size: 38px;
+}
+</style>
