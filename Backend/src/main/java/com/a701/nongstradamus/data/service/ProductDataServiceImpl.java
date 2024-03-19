@@ -59,6 +59,8 @@ public class ProductDataServiceImpl implements ProductDataService{
                     case "하품":
                         dto.setGrade(1);
                         break;
+                    default:
+                        dto.setGrade(0);
                 }
                 dtos.add(dto);
                 priceHistoryRaw.setIsSaved(true);
