@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +41,7 @@ public class GlobalOilServiceImpl implements GlobalOilService {
 
     @Override
     @Scheduled(cron = "0 0 0 * * *") // 매일 자정
+    @Transactional
     public void callGlobalOilScheduler() throws JsonProcessingException {
         // 7일 전의 유가를 가져옴
         String today = LocalDate.now().minusDays(7).toString();

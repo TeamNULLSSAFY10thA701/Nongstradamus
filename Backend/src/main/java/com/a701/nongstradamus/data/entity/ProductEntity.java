@@ -38,4 +38,7 @@ public class ProductEntity {
 
     @Column(name = "weatherCode")
     private String weatherCode;
+
+    @Column(name = "category")
+    private Integer category;
 }

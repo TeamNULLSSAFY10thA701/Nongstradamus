@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +39,7 @@ public class DomesticOilServiceImpl implements DomesticOilService{
 
     @Override
     @Scheduled(cron="0 0 0 * * *") // 매일 자정
+    @Transactional
     public void callDomesticOilSheduler(){
         LocalDate today = LocalDate.now();
         String dataType = "json";
