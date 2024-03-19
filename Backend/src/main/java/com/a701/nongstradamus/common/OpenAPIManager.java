@@ -1,7 +1,6 @@
 package com.a701.nongstradamus.common;
 
 import java.util.Map;
-
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class OpenAPIManager {
 
-    public static ResponseEntity<String> fetchXML(String url){
+    public static ResponseEntity<String> fetchXML(String url) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<?> entity = new HttpEntity<>(headers);
