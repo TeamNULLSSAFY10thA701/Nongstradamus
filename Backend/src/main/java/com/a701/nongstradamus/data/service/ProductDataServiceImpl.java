@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,8 @@ public class ProductDataServiceImpl implements ProductDataService{
 
     private final PriceHistoryRawRepository priceHistoryRawRepository;
 
-    @Scheduled(cron = "0 53 11 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
     @Override
     public void updateProductData()  {
         List<ProductEntity> products = productRepository.findAll();

@@ -39,6 +39,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -70,6 +71,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
     // 매일 0시에 실행
     @Override
     @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
     public void updateWeatherData() throws IOException, ParserConfigurationException, SAXException {
 
         List<WeatherOriginCodeEntity> weatherOriginCodes = weatherOriginCodeRepository.findAll();
