@@ -1,6 +1,6 @@
 import { localAxios } from "@/util/http-commons";
 import { fail } from "./fail.js";
-const url = `https://i10a701.p.ssafy.io/api/main`;
+const url = `http://j10a701.p.ssafy.io/api/main`;
 
 const local = localAxios();
 
