@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WeatherDto {
     private LocalDate date;
-    private int avgTemperature;
-    private int maxTemperature;
-    private int minTemperature;
-    private int rain;
-    private int wind;
-    private int humidity;
-    private int sunDuration;
+    private Integer avgTemperature;
+    private Integer maxTemperature;
+    private Integer minTemperature;
+    private Integer rain;
+    private Integer wind;
+    private Integer humidity;
+    private Integer sunDuration;
     private ProductEntity product;
     private WeatherOriginCodeEntity origin;
 }

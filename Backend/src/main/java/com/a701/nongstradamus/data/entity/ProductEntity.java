@@ -41,4 +41,8 @@ public class ProductEntity {
 
     @Column(name = "category")
     private Integer category;
+
+    @Column(name = "nickname")
+    private String nickname;
 }
+

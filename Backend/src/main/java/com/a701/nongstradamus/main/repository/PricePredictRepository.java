@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PricePredictRepository extends JpaRepository<PricePredictEntity, Long> {
+    List<PricePredictEntity> findAllByDate(LocalDate date);
 
-    List<com.a701.nongstradamus.main.entity.PricePredictEntity> findAllByDate(LocalDate date);
 }
