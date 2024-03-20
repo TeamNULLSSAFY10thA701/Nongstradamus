@@ -13,7 +13,7 @@
       <div
         class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
-          가격이 가장 많이 떨어질거에요!
+          내일 가격이 가장 많이 떨어질거에요!
         </h5>
         <div class="grid grid-cols-5 gap-4 ">
           <div class="h-4/5">
@@ -35,7 +35,7 @@
       <div
         class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
-          가격이 가장 많이 오를거에요!
+          내일 가격이 가장 많이 오를거에요!
         </h5>
         <div class="grid grid-cols-5 gap-4">
           <div class="h-4/5">
@@ -81,55 +81,108 @@
       </a>
     </div>
     <!--예측 가격 세부 페이지 이동-->
+
     <div class="mt-12 w-3/5 mx-auto">
-      <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
-        <Slide v-for="slide in 10" :key="slide">
-          <div>
-            <a
-              class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <div class="w-3/5 mx-auto">
-                <img src="../../assets/apple.png" />
-              </div>
-              <div class="w-full mx-auto mt-2 text-sm">
-                방울토마토
-              </div>
-              <div class="w-full mx-auto mt-1 text-sm">
-                2500원
-              </div>
-              <div class="w-full mx-auto mt-1 text-xs">
-                100g
-              </div>
-            </a>
-          </div>
-        </Slide>
-      </Carousel>
+      <button @click="toggleDropdown" id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        {{ nowInfo }}
+        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 4 4 4-4" />
+        </svg>
+      </button>
+
+      <div id="dropdown" :class="{ 'hidden': !isDropdownOpen }"
+        class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <li>
+            <div class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              @click="transferLastWeekState">지난 주</div>
+          </li>
+          <li>
+            <div class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              @click="transferToDayState">오늘</div>
+          </li>
+          <li>
+            <div class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              @click="trnasferTommorowState">내일</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-4" v-if="lastWeekState">
+        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+          <Slide v-for="slide in 10" :key="slide">
+            <div>
+              <a
+                class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div class="w-3/5 mx-auto">
+                  <img src="../../assets/bae.png" />
+                </div>
+                <div class="w-full mx-auto mt-2 text-sm">
+                  배
+                </div>
+                <div class="w-full mx-auto mt-1 text-sm">
+                  2500원
+                </div>
+                <div class="w-full mx-auto mt-1 text-xs">
+                  100g
+                </div>
+              </a>
+            </div>
+          </Slide>
+        </Carousel>
+      </div>
+      <div class="mt-4" v-if="toDayState">
+        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+          <Slide v-for="slide in 10" :key="slide">
+            <div>
+              <a
+                class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div class="w-3/5 mx-auto">
+                  <img src="../../assets/apple.png" />
+                </div>
+                <div class="w-full mx-auto mt-2 text-sm">
+                  사과
+                </div>
+                <div class="w-full mx-auto mt-1 text-sm">
+                  2500원
+                </div>
+                <div class="w-full mx-auto mt-1 text-xs">
+                  100g
+                </div>
+              </a>
+            </div>
+          </Slide>
+        </Carousel>
+      </div>
+      <div class="mt-4" v-if="tommorowState">
+        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+          <Slide v-for="slide in 10" :key="slide">
+            <div>
+              <a
+                class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div class="w-3/5 mx-auto">
+                  <img src="../../assets/sweetPotato.png" />
+                </div>
+                <div class="w-full mx-auto mt-2 text-sm">
+                  고구마
+                </div>
+                <div class="w-full mx-auto mt-1 text-sm">
+                  2500원
+                </div>
+                <div class="w-full mx-auto mt-1 text-xs">
+                  100g
+                </div>
+              </a>
+            </div>
+          </Slide>
+        </Carousel>
+      </div>
     </div>
     <!-- 내일가격 carousel -->
-
-    <div class="mt-12 w-3/5 mx-auto mb-12">
-      <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
-        <Slide v-for="slide in 10" :key="slide">
-          <div>
-            <a
-              class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <div class="w-3/5 mx-auto">
-                <img src="../../assets/redish.png" />
-              </div>
-              <div class="w-full mx-auto mt-2 text-sm">
-                무
-              </div>
-              <div class="w-full mx-auto mt-1 text-sm">
-                5000원
-              </div>
-              <div class="w-full mx-auto mt-1 text-xs">
-                20키로상자
-              </div>
-            </a>
-          </div>
-        </Slide>
-      </Carousel>
-    </div>
-    <!-- 지난 주 가격 carousel -->
   </div>
 
 </template>
@@ -137,14 +190,78 @@
 <script setup>
 import { Carousel, Pagination, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
+import { ref, onMounted } from 'vue';
+import { getBiggestDropped, getBiggestIncreased, getLastWeekPrices, getToDayPrices, getTommorrowPrices } from "@/api/mainhome";
 
 const name = "Autoplay";
+//무한 캐러셀을 가능하게 만들어줌.
 
 const components = {
   Carousel,
   Slide,
   Pagination,
 };
+//캐러셀 관련 변수(건들지마셈)
+
+const isDropdownOpen = ref(false);
+
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+//드롭다운 스위치 겸 스위치 기능  
+
+const lastWeekState = ref(false)
+
+const toDayState = ref(false)
+
+const tommorowState = ref(false)
+
+//현재 드롭다운 클릭 상태를 나타내는 변수
+
+const transferLastWeekState = () => {
+  lastWeekState.value = true
+  toDayState.value = false
+  tommorowState.value = false
+  nowInfo.value = '지난주'
+}
+
+const transferToDayState = () => {
+  lastWeekState.value = false
+  toDayState.value = true
+  tommorowState.value = false
+  nowInfo.value = '오늘'
+}
+
+const trnasferTommorowState = () => {
+  lastWeekState.value = false
+  toDayState.value = false
+  tommorowState.value = true
+  nowInfo.value = '내일'
+}
+//드롭다운 상태를 변환시키는 매서드
+
+const nowInfo = ref('날짜를 선택해주세요')
+
+const bestDropPrice = ref('')
+
+const lastWeekPrice = ref({
+  data: [
+  ],
+  msg: '',
+  code: '',
+})
+
+onMounted(() => {
+  callLastWeekPrices()
+})
+
+const callLastWeekPrices = () => {
+  getLastWeekPrices((data) => {
+    lastWeekPrice.value = data.data
+  })
+}
+
 
 </script>
 

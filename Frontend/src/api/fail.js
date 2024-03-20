@@ -1,5 +1,4 @@
 import swal from "sweetalert";
-import VueCookies from "vue-cookies";
 const fail = ({ response }) => {
   if (response.status == 500) {
     swal({

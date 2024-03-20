@@ -39,7 +39,7 @@ const store = useVegetableTableStore();
 
 const fourWeeksAgoPrice = ref(5500);
 
-const labelValue = ref('무언가의 가격정보(과거)')
+const labelValue = ref('(과거, 최소)')
 
 const transValue = () => {
     fourWeeksAgoPrice.value = 10000;
@@ -66,16 +66,33 @@ const chartData = {
             pointStyle: 'circle',
             backgroundColor: '#000000',
             radius: 5,
-            data: [fourWeeksAgoPrice.value, 2500, 1000, 1500, 2300, null, null]  //실선영역(과거가격)
+            data: [5500, 2500, 1000, 1500, 2300, null, null]  //실선영역(과거가격)
         },
         {
-            label: '무언가의 가격정보(미래)',
+            label: '(미래, 최소)',
             pointStyle: 'circle',
             backgroundColor: '#f87979',
             borderDash: [5, 5], //점선
             radius: 5,
             data: [null, null, null, null, 2300, 3500, 5000],  //점선영역(예측가격)
-        }
+        },
+        {
+            label: '(미래, 평균)',
+            pointStyle: 'circle',
+            backgroundColor: '#248123',
+            borderDash: [5, 5], //점선
+            radius: 5,
+            data: [null, null, null, null, 2300, 4000, 6000],  //점선영역(예측가격)
+        },
+        {
+            label: '(미래, 최대)',
+            pointStyle: 'circle',
+            backgroundColor: '#abcdef',
+            borderDash: [5, 5], //점선
+            radius: 5,
+            data: [null, null, null, null, 2300, 4000, 6000],  //점선영역(예측가격)
+        },
+
     ]
 }
 
@@ -102,6 +119,7 @@ const chartOptions = {
                 // pointStyle 속성을 설정하여 원으로 변경
                 pointStyle: 'circle',
                 usePointStyle: true,
+
             },
         },
     },
