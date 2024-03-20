@@ -23,4 +23,9 @@ public class RecipeController {
         return new ResponseEntity<CommonDto>(recipeService.findRecipesList(pageNumber),
             HttpStatus.OK);
     }
+
+    @GetMapping("/detail/{recipe-id}")
+    public ResponseEntity<CommonDto> recipeDetail(@PathVariable("recipe-id") Long id){
+        return new ResponseEntity<CommonDto>(recipeService.findRecipe(id), HttpStatus.OK);
+    }
 }

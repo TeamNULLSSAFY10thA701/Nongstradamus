@@ -13,4 +13,6 @@ public class RecipeTitleDto {
 
     private String image;
 
+    private Long idx;
+
 }

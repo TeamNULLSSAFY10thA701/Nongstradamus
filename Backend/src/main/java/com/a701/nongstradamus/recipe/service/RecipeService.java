@@ -6,4 +6,6 @@ public interface RecipeService {
 
     CommonDto findRecipesList(int pageNumber);
 
+    CommonDto findRecipe(Long id);
+
 }
