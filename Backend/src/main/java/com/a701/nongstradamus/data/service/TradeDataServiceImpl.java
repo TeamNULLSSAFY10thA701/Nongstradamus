@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -46,6 +47,7 @@ public class TradeDataServiceImpl implements TradeDataService {
 
     @Override
     @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
     public void updateTradeData() throws ParserConfigurationException, IOException, SAXException {
         // 풀목 리스트 조회
         List<ProductEntity> products = productRepository.findAll();

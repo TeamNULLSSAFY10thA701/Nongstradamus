@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /*
 5개 더 db에 넣는 코드 작성할것
@@ -45,6 +46,7 @@ public class RecipeDataServiceImpl implements RecipeDataService {
     // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
     @Override
     @Scheduled(cron = "0 0 0 1 1 ?")
+    @Transactional
     public void updateRecipeData() {
 
         //테이블에 있는 모든 recipeTitle 리스트에 저장
