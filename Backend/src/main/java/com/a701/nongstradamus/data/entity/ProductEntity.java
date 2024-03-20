@@ -45,3 +45,4 @@ public class ProductEntity {
     @Column(name = "nickname")
     private String nickname;
 }
+

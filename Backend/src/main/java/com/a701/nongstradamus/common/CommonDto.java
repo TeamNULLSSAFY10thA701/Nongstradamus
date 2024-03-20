@@ -11,4 +11,5 @@ public class CommonDto<T> {
     private T data;
     private String msg;
     private int code;
+
 }
