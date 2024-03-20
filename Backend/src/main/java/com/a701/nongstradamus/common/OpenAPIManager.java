@@ -28,7 +28,9 @@ public class OpenAPIManager {
 
     public static JSONObject fetchData(String url) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange(url,HttpMethod.GET, entity, String.class);
         return new JSONObject(response.getBody());
     }
 }
