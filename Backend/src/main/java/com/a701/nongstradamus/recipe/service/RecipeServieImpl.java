@@ -6,7 +6,6 @@ import com.a701.nongstradamus.recipe.dto.RecipeTitleDto;
 import com.a701.nongstradamus.recipe.entity.RecipeRecommandEntity;
 import com.a701.nongstradamus.recipe.repository.RecipeRecommandRepository;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
