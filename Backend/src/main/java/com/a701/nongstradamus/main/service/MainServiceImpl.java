@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@EnableScheduling //테스트
 public class MainServiceImpl implements MainService{
 
     private final PricePredictRepository pricePredictRepository;
@@ -31,7 +30,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     @Transactional(readOnly=true)
-    @Scheduled(fixedDelay = 10000000) //테스트용
     public CommonDto findHighestRatioDecreaseProduct() throws EntityNotFoundException {
 
         CommonDto response = new CommonDto();
@@ -71,7 +69,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     @Transactional(readOnly=true)
-    @Scheduled(fixedDelay = 10000000) //테스트용
     public CommonDto findHighestRatioIncreaseProduct() throws EntityNotFoundException {
 
         CommonDto response = new CommonDto();
@@ -110,7 +107,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     @Transactional(readOnly=true)
-    @Scheduled(fixedDelay = 10000000) //테스트용
     public CommonDto findPredictCard() throws EntityNotFoundException {
 
         CommonDto response = new CommonDto();
@@ -145,7 +141,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     @Transactional(readOnly=true)
-    @Scheduled(fixedDelay = 10000000) //테스트용
     public CommonDto findPresentCard() throws EntityNotFoundException {
 
         CommonDto response = new CommonDto();
@@ -177,7 +172,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     @Transactional(readOnly=true)
-    @Scheduled(fixedDelay = 10000000) //테스트용
     public CommonDto findPastCard() throws EntityNotFoundException {
         CommonDto response = new CommonDto();
 
