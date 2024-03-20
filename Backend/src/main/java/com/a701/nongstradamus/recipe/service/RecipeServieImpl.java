@@ -50,6 +50,7 @@ public class RecipeServieImpl implements RecipeService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommonDto findRecipe(Long id) {
         Optional<RecipeEntity> recipe = recipeRepository.findById(id);
         if(recipe.isEmpty()){
@@ -59,6 +60,7 @@ public class RecipeServieImpl implements RecipeService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CommonDto findRecipesListBy(String sortBase, boolean sortMethod, int pageNumber) {
         Sort sort = sortMethod ? Sort.by(sortBase).ascending() : Sort.by(sortBase).descending();
         Page<RecipeViewEntity> page = recipeViewRepository.findAll(
