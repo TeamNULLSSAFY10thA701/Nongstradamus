@@ -39,7 +39,7 @@
         </h5>
         <div class="grid grid-cols-5 gap-4">
           <div class="h-4/5">
-            <img src="../../assets/redish.png" />
+            <img src="../../assets/moo.png" />
           </div>
           <div class="col-span-2 text-2xl text-white flex justify-center items-center">
             무
@@ -114,21 +114,21 @@
 
       <div class="mt-4" v-if="lastWeekState">
         <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
-          <Slide v-for="slide in 10" :key="slide">
+          <Slide v-for="slide in lastWeekPrice.data" :key="slide">
             <div>
               <a
                 class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div class="w-3/5 mx-auto">
-                  <img src="../../assets/bae.png" />
+                  <img :src="getImageUrl(slide.nickname)" />
                 </div>
                 <div class="w-full mx-auto mt-2 text-sm">
-                  배
+                  {{ slide.name }}
                 </div>
                 <div class="w-full mx-auto mt-1 text-sm">
-                  2500원
+                  {{ slide.price }}원
                 </div>
                 <div class="w-full mx-auto mt-1 text-xs">
-                  100g
+                  {{ (slide.ratio >= 0 ? slide.ratio : -slide.ratio) + (slide.ratio >= 0 ? '%상승' : '%하락') }}
                 </div>
               </a>
             </div>
@@ -192,6 +192,7 @@ import { Carousel, Pagination, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import { ref, onMounted } from 'vue';
 import { getBiggestDropped, getBiggestIncreased, getLastWeekPrices, getToDayPrices, getTommorrowPrices } from "@/api/mainhome";
+import { random } from "lodash";
 
 const name = "Autoplay";
 //무한 캐러셀을 가능하게 만들어줌.
@@ -243,7 +244,10 @@ const trnasferTommorowState = () => {
 
 const nowInfo = ref('날짜를 선택해주세요')
 
-const bestDropPrice = ref('')
+
+onMounted(() => {
+  callLastWeekPrices()
+})
 
 const lastWeekPrice = ref({
   data: [
@@ -251,16 +255,25 @@ const lastWeekPrice = ref({
   msg: '',
   code: '',
 })
+//지난 주 가격정보를 담을 변수
 
-onMounted(() => {
-  callLastWeekPrices()
-})
+const getImageUrl = (nickname) => {
+  return `src/assets/${nickname}.png`;
+};
+//지난 주 사진을 가져올 변수.
 
 const callLastWeekPrices = () => {
   getLastWeekPrices((data) => {
-    lastWeekPrice.value = data.data
+    lastWeekPrice.value.data = data.data.data
+    lastWeekPrice.value.msg = data.data.msg
+    lastWeekPrice.value.code = data.data.code
+    // console.log(lastWeekPrice.value)`
+    // console.log(lastWeekPrice.value.data[0].nickname)
   })
 }
+
+//지난 주 가격정보를 불러오는 메서드
+
 
 
 </script>
