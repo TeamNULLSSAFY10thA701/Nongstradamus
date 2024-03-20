@@ -125,7 +125,7 @@
                   {{ slide.name }}
                 </div>
                 <div class="w-full mx-auto mt-1 text-sm">
-                  {{ slide.price }}원입니다.
+                  {{ slide.price }}원
                 </div>
                 <div class="w-full mx-auto mt-1 text-xs">
                   {{ (slide.ratio >= 0 ? slide.ratio : -slide.ratio) + (slide.ratio >= 0 ? '%상승' : '%하락') }}
