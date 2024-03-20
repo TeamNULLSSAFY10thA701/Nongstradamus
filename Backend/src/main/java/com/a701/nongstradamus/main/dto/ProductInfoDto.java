@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductInfoDto {
     private String name;
-    private Integer price;
+    private Long price;
     private Double ratio;
+    private String nickname;
 }
