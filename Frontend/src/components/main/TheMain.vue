@@ -140,7 +140,7 @@
           <Slide v-for="slide in 10" :key="slide">
             <div>
               <a
-                class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                class="block h-40 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div class="w-3/5 mx-auto">
                   <img src="../../assets/apple.png" />
                 </div>
@@ -149,6 +149,9 @@
                 </div>
                 <div class="w-full mx-auto mt-1 text-sm">
                   2500원
+                </div>
+                <div class="w-full mx-auto mt-1 text-xs">
+                  1%상승
                 </div>
                 <div class="w-full mx-auto mt-1 text-xs">
                   100g
