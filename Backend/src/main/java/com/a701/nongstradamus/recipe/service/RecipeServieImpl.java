@@ -5,6 +5,7 @@ import com.a701.nongstradamus.data.repository.RecipeRepository;
 import com.a701.nongstradamus.recipe.dto.RecipeTitleDto;
 import com.a701.nongstradamus.recipe.entity.RecipeRecommandEntity;
 import com.a701.nongstradamus.recipe.repository.RecipeRecommandRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,9 @@ public class RecipeServieImpl implements RecipeService{
     public CommonDto findRecipesList(int pageNumber) {
 
         Page<RecipeRecommandEntity> page = recipeRecommandRepository.findAll(PageRequest.of(pageNumber, 5));
+        if(page.getSize()==0){
+            throw new EntityNotFoundException("404");
+        }
         List<RecipeTitleDto> list = page.get().map(recipeRecommandEntity -> {
             return new RecipeTitleDto(recipeRecommandEntity.getRecipe().getTitle(), recipeRecommandEntity.getRecipe().getImage());
         }).collect(Collectors.toList());
