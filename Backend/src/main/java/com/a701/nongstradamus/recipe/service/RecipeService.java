@@ -8,4 +8,6 @@ public interface RecipeService {
 
     CommonDto findRecipe(Long id);
 
+    CommonDto findRecipesListBy(String sortBase, boolean sortMethod, int pageNumber);
+
 }

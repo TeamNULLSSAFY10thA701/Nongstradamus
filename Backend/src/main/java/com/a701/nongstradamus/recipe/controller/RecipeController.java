@@ -28,4 +28,9 @@ public class RecipeController {
     public ResponseEntity<CommonDto> recipeDetail(@PathVariable("recipe-id") Long id){
         return new ResponseEntity<CommonDto>(recipeService.findRecipe(id), HttpStatus.OK);
     }
+
+    @GetMapping("/sort/{sort-base}/{sort-method}/{page-number}")
+    public ResponseEntity<CommonDto> recipeSortedList(@PathVariable("sort-base") String sortBase, @PathVariable("sort-method") boolean sortMethod, @PathVariable("page-number") int pageNumber) {
+        return new ResponseEntity<CommonDto>(recipeService.findRecipesListBy(sortBase, sortMethod, pageNumber), HttpStatus.OK);
+    }
 }
