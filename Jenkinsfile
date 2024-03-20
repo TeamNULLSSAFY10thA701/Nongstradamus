@@ -17,7 +17,10 @@ pipeline {
                         } catch (Exception e) {
                             echo "컨테이너 제거 중 에러가 발생했습니다: ${e.getMessage()}"
                         }
-                    } 
+                    }
+                    withCredentials([file(credentialsId: 'FE-Environment', variable: 'metaenv')]) {
+                        sh 'cp $metaenv ./meta.env'
+                    }      
                     sh "docker build -t frontend ."
                     sh "docker run --name frontend frontend"
                     sh "docker cp frontend:/app/dist /data"
