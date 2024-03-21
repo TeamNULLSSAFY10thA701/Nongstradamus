@@ -1,5 +1,6 @@
 import { localAxios } from "@/util/http-commons";
-const url = `http://70.12.115.41:8080/api/main`;
+// const url = `http://70.12.115.41:8080/api/main`;
+const url = "http://j10a701.p.ssafy.io:8080/api/main";
 
 const local = localAxios();
 
@@ -24,7 +25,7 @@ function getToDayPrices(success, fail) {
 }
 
 // 내일 가격(card) 조회
-function getTommorrowPrices(success) {
+function getTommorrowPrices(success, fail) {
   local.get(`${url}/predict/card`).then(success).catch(fail);
 }
 

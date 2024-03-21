@@ -13,18 +13,20 @@
       <div
         class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h5 class="mb-2 text-2xl tracking-tight text-white">
-          내일 가격이 가장 많이 떨어질거에요!
+          내일 가격이 가장 많이 떨어질거에요!(아마)
         </h5>
-        <div class="grid grid-cols-5 gap-4 ">
+        <div class="grid grid-cols-5 gap-4">
           <div class="h-4/5">
-            <img :src=getImageUrl(BiggestDroppedPrice.data.nickname) />
+            <img :src="getImageUrl(BiggestDroppedPrice.data.nickname)" />
+            <!-- <img src="../../assets/apple.png" class="hover:scale-125 transition-transform duration-300 ease-in-out"> -->
           </div>
           <div class="col-span-2 text-2xl text-white flex justify-center items-center">
             {{ BiggestDroppedPrice.data.name }}
           </div>
-          <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
+          <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center" @mouseover="showOne()"
+            @mouseleave="resetPrice()">
             <div class="font-bold text-2xl text-center">
-              {{ BiggestDroppedPrice.data.price }}원
+              {{ showDroppedPrice }}
             </div>
           </div>
         </div>
@@ -361,6 +363,24 @@ const callBiggestDroppedPrice = () => {
   )
 }
 //내일 가장 가격하락폭이 큰 품목을 불러올 메서드.
+
+const showDroppedPrice = ref(BiggestDroppedPrice.value.data.price);
+//보여줄 값 변수
+
+function showOne() {
+  if (BiggestDroppedPrice.value.data.ratio > 0) {
+    showDroppedPrice.value = `${BiggestDroppedPrice.value.data.ratio}%상승`
+  }
+  else {
+    showDroppedPrice.value = `${BiggestDroppedPrice.value.data.ratio * -1}%하락`
+  }
+}
+//호버 시, 보여줄 값을 변환
+
+function resetPrice() {
+  showDroppedPrice.value = BiggestDroppedPrice.value.data.price
+}
+//호버가 끝나면, 다시 원래값으로 변환
 
 // -----------------------------------------------------------------------가장가격하락품목---------------------------------------------------------------
 
