@@ -1,61 +1,37 @@
 <!-- TheRecipeBody.vue -->
 
 <template>
-  <!-- 검색창 start -->
-  <div class="searchbar form-container">
-    <form class="max-w-lg mx-auto flex">
-      <div class="flex items-center w-full">
-        <div style="position:relative">
-          <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"></label>
-          <button id="dropdown-button" @click="toggleVisibility"
-            class="flex-shrink-0 inline-flex items-center justify-center py-2.5 px-4 text-sm font-normal text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
-            type="button">{{ dropdownText }} <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 4 4 4-4" />
-            </svg>
-          </button>
-          <div v-if="isVisible" id="categories"
-            class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-            style="position: absolute; top: 100%;">
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-              <li>
-                <button type="button" @click="dropdownTextChange('제목')"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제목</button>
-              </li>
-              <li>
-                <button type="button" @click="dropdownTextChange('작성자')"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">작성자</button>
-              </li>
-              <li>
-                <button type="button" @click="dropdownTextChange('성분')"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">성분</button>
-              </li>
-              <li>
-                <button type="button" @click="dropdownTextChange('조리법')"
-                  class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">조리법</button>
-              </li>
-            </ul>
-          </div>
+  <!-- 라디오버튼 start -->
+  
+<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">정렬 기준</h3>
+<ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex">
+    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="horizontal-list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
+            <label for="horizontal-list-radio-license" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">칼로리</label>
         </div>
-        <div class="relative flex-1">
-          <input v-model.lazy="query" type="search" id="search-dropdown"
-            class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-            placeholder="Search" required />
-          <button @click="filterRecipes($event)" type="submit"
-            class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
-            <span class="sr-only">Search</span>
-          </button>
+    </li>
+    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="horizontal-list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
+            <label for="horizontal-list-radio-id" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">단백질</label>
         </div>
-      </div>
-    </form>
-  </div>
-  <p class="text-center m-3">'{{ selectedquery }}'로 검색한 결과</p>
-  <!-- 검색창 end-->
+    </li>
+    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="horizontal-list-radio-military" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
+            <label for="horizontal-list-radio-military" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">지방</label>
+        </div>
+    </li>
+    <li class="w-full dark:border-gray-600">
+        <div class="flex items-center ps-3">
+            <input id="horizontal-list-radio-passport" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300">
+            <label for="horizontal-list-radio-passport" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">나트륨</label>
+        </div>
+    </li>
+</ul>
+
+  <!-- 라디오버튼 end -->
 
   <div class="recipe-list">
     <div v-for="data in filteredRecipe" :key="data.id" class="m-12 photo">
@@ -281,15 +257,6 @@ const filterRecipes = (event) => {
     }
     selectedquery.value = query.value
   }
-
-  // else {
-  //   Swal.fire({
-  //     title: 'Error!',
-  //     text: '검색 카테고리를 설정해주세요',
-  //     icon: 'error',
-  //     confirmButtonText: '확인'
-  //   })
-  // }
 }
 
 </script>
