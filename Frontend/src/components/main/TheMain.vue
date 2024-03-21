@@ -17,14 +17,14 @@
         </h5>
         <div class="grid grid-cols-5 gap-4 ">
           <div class="h-4/5">
-            <img src="../../assets/apple.png" />
+            <img :src=getImageUrl(BiggestDroppedPrice.data.nickname) />
           </div>
           <div class="col-span-2 text-2xl text-white flex justify-center items-center">
-            방울토마토
+            {{ BiggestDroppedPrice.data.name }}
           </div>
           <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
             <div class="font-bold text-2xl text-center">
-              2500원
+              {{ BiggestDroppedPrice.data.price }}원
             </div>
           </div>
         </div>
@@ -39,14 +39,14 @@
         </h5>
         <div class="grid grid-cols-5 gap-4">
           <div class="h-4/5">
-            <img src="../../assets/redish.png" />
+            <img :src=getImageUrl(BiggestIncreasedPrice.data.nickname) />
           </div>
           <div class="col-span-2 text-2xl text-white flex justify-center items-center">
-            무
+            {{ BiggestIncreasedPrice.data.name }}
           </div>
           <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
             <div class="font-bold text-2xl text-center">
-              5000원
+              {{ BiggestIncreasedPrice.data.price }}원
             </div>
           </div>
         </div>
@@ -114,41 +114,46 @@
 
       <div class="mt-4" v-if="lastWeekState">
         <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
-          <Slide v-for="slide in 10" :key="slide">
+          <Slide v-for="slide in lastWeekPrice.data" :key="slide">
             <div>
               <a
                 class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div class="w-3/5 mx-auto">
-                  <img src="../../assets/bae.png" />
+                  <img :src="getImageUrl(slide.nickname)" />
                 </div>
                 <div class="w-full mx-auto mt-2 text-sm">
-                  배
+                  품목: {{ slide.name }}
                 </div>
                 <div class="w-full mx-auto mt-1 text-sm">
-                  2500원
+                  가격: {{ slide.price }}원
                 </div>
                 <div class="w-full mx-auto mt-1 text-xs">
-                  100g
+                  전날대비 {{ (slide.ratio >= 0 ? slide.ratio : -slide.ratio) + (slide.ratio >= 0 ? '%상승' : '%하락') }}
                 </div>
               </a>
             </div>
           </Slide>
         </Carousel>
       </div>
+      <!-- 지난주 가격 캐러셀 -->
+
       <div class="mt-4" v-if="toDayState">
         <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
-          <Slide v-for="slide in 10" :key="slide">
+          <Slide v-for="slide in toDayPrice.data" :key="slide">
             <div>
               <a
-                class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                class="block h-40 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div class="w-3/5 mx-auto">
-                  <img src="../../assets/apple.png" />
+                  <img :src="getImageUrl(slide.nickname)" />
                 </div>
                 <div class="w-full mx-auto mt-2 text-sm">
-                  사과
+                  품목: {{ slide.name }}
                 </div>
                 <div class="w-full mx-auto mt-1 text-sm">
-                  2500원
+                  가격: {{ slide.price }}원
+                </div>
+                <div class="w-full mx-auto mt-1 text-xs">
+                  전날대비 {{ (slide.ratio >= 0 ? slide.ratio : -slide.ratio) + (slide.ratio >= 0 ? '%상승' : '%하락') }}
                 </div>
                 <div class="w-full mx-auto mt-1 text-xs">
                   100g
@@ -158,23 +163,25 @@
           </Slide>
         </Carousel>
       </div>
+      <!-- 오늘 가격 예측 캐러셀 -->
+
       <div class="mt-4" v-if="tommorowState">
         <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
-          <Slide v-for="slide in 10" :key="slide">
+          <Slide v-for="slide in tomorrowPrice.data" :key="slide">
             <div>
               <a
                 class="block h-36 p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div class="w-3/5 mx-auto">
-                  <img src="../../assets/sweetPotato.png" />
+                  <img :src="getImageUrl(slide.nickname)" />
                 </div>
                 <div class="w-full mx-auto mt-2 text-sm">
-                  고구마
+                  {{ slide.name }}
                 </div>
                 <div class="w-full mx-auto mt-1 text-sm">
-                  2500원
+                  {{ slide.price }}원
                 </div>
                 <div class="w-full mx-auto mt-1 text-xs">
-                  100g
+                  {{ (slide.ratio >= 0 ? slide.ratio : -slide.ratio) + (slide.ratio >= 0 ? '%상승' : '%하락') }}
                 </div>
               </a>
             </div>
@@ -182,7 +189,7 @@
         </Carousel>
       </div>
     </div>
-    <!-- 내일가격 carousel -->
+    <!-- 내일가격 캐러셀 -->
   </div>
 
 </template>
@@ -192,6 +199,7 @@ import { Carousel, Pagination, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import { ref, onMounted } from 'vue';
 import { getBiggestDropped, getBiggestIncreased, getLastWeekPrices, getToDayPrices, getTommorrowPrices } from "@/api/mainhome";
+import { random } from "lodash";
 
 const name = "Autoplay";
 //무한 캐러셀을 가능하게 만들어줌.
@@ -243,7 +251,22 @@ const trnasferTommorowState = () => {
 
 const nowInfo = ref('날짜를 선택해주세요')
 
-const bestDropPrice = ref('')
+
+onMounted(() => {
+  callLastWeekPrices()
+  callToDayPrices()
+  callTomorrowPrices()
+  callBiggestDroppedPrice()
+  callBiggestIncreasedPrice()
+})
+
+const getImageUrl = (nickname) => {
+  return `src/assets/${nickname}.png`;
+};
+//사진을 가져올 메서드
+
+// -----------------------------------------------------------------------공통---------------------------------------------------------------
+
 
 const lastWeekPrice = ref({
   data: [
@@ -251,17 +274,115 @@ const lastWeekPrice = ref({
   msg: '',
   code: '',
 })
+//지난 주 가격정보를 담을 변수
 
-onMounted(() => {
-  callLastWeekPrices()
-})
 
 const callLastWeekPrices = () => {
   getLastWeekPrices((data) => {
-    lastWeekPrice.value = data.data
-  })
+    lastWeekPrice.value.data = data.data.data
+    lastWeekPrice.value.msg = data.data.msg
+    lastWeekPrice.value.code = data.data.code
+    // console.log(lastWeekPrice.value)`
+    // console.log(lastWeekPrice.value.data[0].nickname)
+  },
+    (error) => {
+      console.error(error)
+    }
+  )
+}
+//지난 주 가격정보를 불러오는 메서드
+
+// -----------------------------------------------------------------------지난주---------------------------------------------------------------
+
+const toDayPrice = ref({
+  data: [
+  ],
+  msg: '',
+  code: '',
+})
+//오늘 가격정보를 담을 변수.
+
+
+const callToDayPrices = () => {
+  getToDayPrices((data) => {
+    toDayPrice.value.data = data.data.data
+    toDayPrice.value.msg = data.data.msg
+    toDayPrice.value.code = data.data.code
+  },
+    (error) => {
+      console.error(error)
+    }
+  )
+}
+//오늘 가격정보를 불러올 메서드
+
+// -----------------------------------------------------------------------오늘---------------------------------------------------------------
+
+const tomorrowPrice = ref({
+  data: [
+  ],
+  msg: '',
+  code: '',
+})
+//내일 가격정보를 담을 변수.
+
+
+const callTomorrowPrices = () => {
+  getTommorrowPrices((data) => {
+    tomorrowPrice.value.data = data.data.data
+    tomorrowPrice.value.msg = data.data.msg
+    tomorrowPrice.value.code = data.data.code
+  },
+    (error) => {
+      console.error(error)
+    }
+  )
+}
+//내일 가격정보를 불러올 메서드
+
+// -----------------------------------------------------------------------내일---------------------------------------------------------------
+
+const BiggestDroppedPrice = ref({
+  data: '',
+  msg: '',
+  code: '',
+})
+//내일 가장 가격하락폭이 큰 품목을 담을 변수.
+
+const callBiggestDroppedPrice = () => {
+  getBiggestDropped((data) => {
+    BiggestDroppedPrice.value.data = data.data.data
+    BiggestDroppedPrice.value.msg = data.data.msg
+    BiggestDroppedPrice.value.code = data.data.code
+  },
+    (error) => {
+      console.error(error)
+    }
+  )
+}
+//내일 가장 가격하락폭이 큰 품목을 불러올 메서드.
+
+// -----------------------------------------------------------------------가장가격하락품목---------------------------------------------------------------
+
+const BiggestIncreasedPrice = ref({
+  data: '',
+  msg: '',
+  code: '',
+})
+
+const callBiggestIncreasedPrice = () => {
+  getBiggestIncreased((data) => {
+    BiggestIncreasedPrice.value.data = data.data.data
+    BiggestIncreasedPrice.value.msg = data.data.msg
+    BiggestIncreasedPrice.value.code = data.data.code
+  },
+    (error) => {
+      console.error(error)
+    }
+  )
 }
 
+// -----------------------------------------------------------------------가장가격상승품목---------------------------------------------------------------
 
 </script>
 
