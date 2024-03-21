@@ -20,70 +20,35 @@ public class MainController {
     // 가격 하락율이 가장 클 농산물 조회
     @GetMapping("/best-decrease")
     public ResponseEntity<CommonDto> findHighestRatioDecreaseProduct() {
-        try {
-            CommonDto response = mainService.findHighestRatioDecreaseProduct();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            CommonDto errorResponse = new CommonDto();
-            errorResponse.setMsg(e.getMessage());
-            errorResponse.setCode(404);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
+        CommonDto response = mainService.findHighestRatioDecreaseProduct();
+        return ResponseEntity.ok(response);
     }
 
     // 가격 상승율이 가장 큰 농산물 조회
     @GetMapping("/best-increase")
     public ResponseEntity<CommonDto> findHighestRatioIncreaseProduct() throws EntityNotFoundException {
-        try {
-            CommonDto response = mainService.findHighestRatioIncreaseProduct();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            CommonDto errorResponse = new CommonDto();
-            errorResponse.setMsg(e.getMessage());
-            errorResponse.setCode(404);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
+        CommonDto response = mainService.findHighestRatioIncreaseProduct();
+        return ResponseEntity.ok(response);
     }
 
     // 내일 가격 조회
     @GetMapping("/predict/card")
     public ResponseEntity<CommonDto> findPredictCard() throws EntityNotFoundException {
-        try {
-            CommonDto response = mainService.findPredictCard();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            CommonDto errorResponse = new CommonDto();
-            errorResponse.setMsg(e.getMessage());
-            errorResponse.setCode(404);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
+        CommonDto response = mainService.findPredictCard();
+        return ResponseEntity.ok(response);
     }
 
     // 오늘 가격 조회
     @GetMapping("/present/card")
     public ResponseEntity<CommonDto> findPresentCard() throws EntityNotFoundException {
-        try {
-            CommonDto response = mainService.findPresentCard();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            CommonDto errorResponse = new CommonDto();
-            errorResponse.setMsg(e.getMessage());
-            errorResponse.setCode(404);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
+        CommonDto response = mainService.findPresentCard();
+        return ResponseEntity.ok(response);
     }
 
     // 지난주 가격 조회
     @GetMapping("/past/card")
-    public ResponseEntity<CommonDto> findPastCard() throws EntityNotFoundException {
-        try {
-            CommonDto response = mainService.findPastCard();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            CommonDto errorResponse = new CommonDto();
-            errorResponse.setMsg(e.getMessage());
-            errorResponse.setCode(404);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-        }
+    public ResponseEntity<CommonDto> findPastCard() {
+        CommonDto response = mainService.findPastCard();
+        return ResponseEntity.ok(response);
     }
 }

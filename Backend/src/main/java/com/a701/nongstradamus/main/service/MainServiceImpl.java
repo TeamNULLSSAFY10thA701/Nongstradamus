@@ -38,8 +38,7 @@ public class MainServiceImpl implements MainService{
         List<PricePredictEntity> pricePredictList = pricePredictRepository.findAllByDate(LocalDate.now().plusDays(1));
 
         if(pricePredictList.isEmpty()){
-            response.setMsg("가격 하락율이 가장 클 농산물을 조회할 수 없습니다");
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("가격 하락율이 가장 클 농산물을 조회할 수 없습니다");
         }
 
         PricePredictEntity highestPriceDecreaseProduct = null;
@@ -56,8 +55,7 @@ public class MainServiceImpl implements MainService{
         dto.setPrice(highestPriceDecreaseProduct.getPrice());
         dto.setRatio(highestPriceDecreaseProduct.getRatio());
         dto.setNickname(highestPriceDecreaseProduct.getProduct().getNickname());
-
-//        System.out.println(dto);//테스트
+        dto.setUnit(highestPriceDecreaseProduct.getProduct().getUnit());
 
         response.setData(dto);
         response.setMsg("good");
@@ -76,8 +74,7 @@ public class MainServiceImpl implements MainService{
 
         List<PricePredictEntity> pricePredictList = pricePredictRepository.findAllByDate(LocalDate.now().plusDays(1));
         if(pricePredictList.isEmpty()){
-            response.setMsg("가격 상승율이 가장 클 농산물을 조회할 수 없습니다");
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("가격 상승율이 가장 클 농산물을 조회할 수 없습니다");
         }
 
         PricePredictEntity highestPriceIncreaseProduct = null;
@@ -94,9 +91,7 @@ public class MainServiceImpl implements MainService{
         dto.setPrice(highestPriceIncreaseProduct.getPrice());
         dto.setRatio(highestPriceIncreaseProduct.getRatio());
         dto.setNickname(highestPriceIncreaseProduct.getProduct().getNickname());
-
-//        System.out.println(dto);//테스트
-
+        dto.setUnit(highestPriceIncreaseProduct.getProduct().getUnit());
 
         response.setData(dto);
         response.setMsg("good");
@@ -114,23 +109,17 @@ public class MainServiceImpl implements MainService{
         List<PricePredictEntity> pricePredictList = pricePredictRepository.findAllByDate(LocalDate.now().plusDays(1));
 
         if(pricePredictList.isEmpty()){
-            response.setMsg("농산물의 1일 뒤 예상 가격을 조회할 수 없습니다");
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("농산물의 1일 뒤 예상 가격을 조회할 수 없습니다");
         }
 
-        List<ProductInfoDto> predictList = new ArrayList<>();
-
-        for (PricePredictEntity pricePredict : pricePredictList) {
-            if(pricePredict.getGrade()==2){
-                ProductInfoDto dto = new ProductInfoDto();
-                dto.setName(pricePredict.getProduct().getName());
-                dto.setPrice(pricePredict.getPrice());
-                dto.setRatio(pricePredict.getRatio());
-                dto.setNickname(pricePredict.getProduct().getNickname());
-                predictList.add(dto);
-//                System.out.println(dto); //테스트
-            }
-        }
+        List<ProductInfoDto> predictList;
+        predictList = pricePredictList.stream().filter(pricePredictEntity -> (
+            pricePredictEntity.getGrade()==2
+        )).map(entity-> new ProductInfoDto(entity.getProduct().getName(),
+            entity.getPrice(),
+            entity.getRatio(),
+            entity.getProduct().getNickname(),
+            entity.getProduct().getUnit())).collect(Collectors.toList());
 
         response.setData(predictList);
         response.setMsg("good");
@@ -148,20 +137,17 @@ public class MainServiceImpl implements MainService{
         List<PricePredictEntity> pricePresentList = pricePredictRepository.findAllByDate(LocalDate.now());
 
         if(pricePresentList.isEmpty()){
-            response.setMsg("농산물의 오늘의 예상 가격을 조회할 수 없습니다");
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("농산물의 오늘의 예상 가격을 조회할 수 없습니다");
         }
 
         List<ProductInfoDto> presentList;
         presentList = pricePresentList.stream().filter(pricePredictEntity -> (
             pricePredictEntity.getGrade()==2
-        )).map(entity->{
-            return new ProductInfoDto(entity.getProduct().getName(), entity.getPrice(), entity.getRatio(), entity.getProduct().getNickname());
-        }).collect(Collectors.toList());
-
-//        for(ProductInfoDto p : presentList){
-//            System.out.println(p);
-//        } //테스트
+        )).map(entity-> new ProductInfoDto(entity.getProduct().getName(),
+            entity.getPrice(),
+            entity.getRatio(),
+            entity.getProduct().getNickname(),
+            entity.getProduct().getUnit())).collect(Collectors.toList());
 
         response.setData(presentList);
         response.setMsg("good");
@@ -181,23 +167,17 @@ public class MainServiceImpl implements MainService{
         List<PriceHistoryEntity> priceHistoryList = priceHistoryRepository.findAllByDate(date);
 
         if(priceHistoryList.isEmpty()){
-            response.setMsg("농산물의 7일 전 예상 가격을 조회할 수 없습니다");
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("농산물의 7일 전 예상 가격을 조회할 수 없습니다");
         }
 
-        List<ProductInfoDto> pastList = new ArrayList<>();
-
-        for (PriceHistoryEntity pricePast : priceHistoryList) {
-            if(pricePast.getGrade()==2){
-                ProductInfoDto dto = new ProductInfoDto();
-                dto.setName(pricePast.getProduct().getName());
-                dto.setPrice(pricePast.getPrice());
-                dto.setRatio(pricePast.getRatio());
-                dto.setNickname(pricePast.getProduct().getNickname());
-                pastList.add(dto);
-//                System.out.println(dto); //테스트
-            }
-        }
+        List<ProductInfoDto> pastList;
+        pastList = priceHistoryList.stream().filter(pricePredictEntity -> (
+            pricePredictEntity.getGrade()==2
+        )).map(entity-> new ProductInfoDto(entity.getProduct().getName(),
+            entity.getPrice(),
+            entity.getRatio(),
+            entity.getProduct().getNickname(),
+            entity.getProduct().getUnit())).collect(Collectors.toList());
 
         response.setData(pastList);
         response.setMsg("good");

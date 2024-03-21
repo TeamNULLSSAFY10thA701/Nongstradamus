@@ -12,4 +12,9 @@ public class CommonDto<T> {
     private String msg;
     private int code;
 
+    public CommonDto(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
 }
