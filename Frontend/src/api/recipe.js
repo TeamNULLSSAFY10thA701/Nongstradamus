@@ -1,8 +1,5 @@
 import { localAxios, localSessionAxios } from "@/util/http-commons";
-// import { fail } from "./fail.js";
 const url = `https://i10a701.p.ssafy.io/api/recipe`;
-
-const localSession = localSessionAxios();
 
 const local = localAxios();
 
