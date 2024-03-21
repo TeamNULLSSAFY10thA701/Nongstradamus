@@ -58,6 +58,7 @@ public class MainServiceImpl implements MainService{
         dto.setPrice(highestPriceDecreaseProduct.getPrice());
         dto.setRatio(highestPriceDecreaseProduct.getRatio());
         dto.setNickname(highestPriceDecreaseProduct.getProduct().getNickname());
+        dto.setUnit(highestPriceDecreaseProduct.getProduct().getUnit());
 
 //        System.out.println(dto);//테스트
 
@@ -97,6 +98,7 @@ public class MainServiceImpl implements MainService{
         dto.setPrice(highestPriceIncreaseProduct.getPrice());
         dto.setRatio(highestPriceIncreaseProduct.getRatio());
         dto.setNickname(highestPriceIncreaseProduct.getProduct().getNickname());
+        dto.setUnit(highestPriceIncreaseProduct.getProduct().getUnit());
 
 //        System.out.println(dto);//테스트
 
@@ -131,6 +133,7 @@ public class MainServiceImpl implements MainService{
                 dto.setPrice(pricePredict.getPrice());
                 dto.setRatio(pricePredict.getRatio());
                 dto.setNickname(pricePredict.getProduct().getNickname());
+                dto.setUnit(pricePredict.getProduct().getUnit());
                 predictList.add(dto);
 //                System.out.println(dto); //테스트
             }
@@ -161,7 +164,11 @@ public class MainServiceImpl implements MainService{
         presentList = pricePresentList.stream().filter(pricePredictEntity -> (
             pricePredictEntity.getGrade()==2
         )).map(entity->{
-            return new ProductInfoDto(entity.getProduct().getName(), entity.getPrice(), entity.getRatio(), entity.getProduct().getNickname());
+            return new ProductInfoDto(entity.getProduct().getName(),
+                entity.getPrice(),
+                entity.getRatio(),
+                entity.getProduct().getNickname(),
+                entity.getProduct().getUnit());
         }).collect(Collectors.toList());
 
 //        for(ProductInfoDto p : presentList){
@@ -200,6 +207,7 @@ public class MainServiceImpl implements MainService{
                 dto.setPrice(pricePast.getPrice());
                 dto.setRatio(pricePast.getRatio());
                 dto.setNickname(pricePast.getProduct().getNickname());
+                dto.setUnit(pricePast.getProduct().getUnit());
                 pastList.add(dto);
 //                System.out.println(dto); //테스트
             }

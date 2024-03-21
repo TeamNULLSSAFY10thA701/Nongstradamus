@@ -13,4 +13,5 @@ public class ProductInfoDto {
     private Long price;
     private Double ratio;
     private String nickname;
+    private String unit;
 }
