@@ -1,11 +1,31 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import {
+  getFutureVegetableLeafPrices,
+  getFutureVegetableFruitPrices,
+  getFutureVegetableRootPrices,
+  getFutureGrainPrices,
+  getFutureFruitPrices,
+  getFutureYellowCropPrices,
+} from "@/api/predictAllPrices";
+import { data } from "autoprefixer";
 
 export const useVegetableTableStore = defineStore("vegetableStore", () => {
   //difineStore를 시키고, store식별 id를 붙임.
 
-  const clickState = ref(false);
-  //현재 클릭 상태를 나타내는 변수
+  onMounted(() => {
+    callFutureVegetableLeafPricesAllData();
+  });
+
+  const basket = ref("");
+
+  const bestClick = () => {};
+
+  const goodClick = () => {};
+
+  const midClick = () => {};
+
+  const lowClick = () => {};
 
   const clickEvent = () => {
     clickState.value = !clickState.value;
@@ -84,14 +104,82 @@ export const useVegetableTableStore = defineStore("vegetableStore", () => {
     categoryYellowCropState.value = true;
   };
 
+  const FutureVegetableLeafPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+  });
+  //채소-잎의 모든 정보를 담아올 변수.
+
+  const FutureVegetableFruitPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+  });
+  //채소-과일의 모든 정보를 담아올 변수
+
+  const FutureVegetableRootPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+  });
+  //채소-뿌리의 모든 정보를 담아올 변수
+
+  const FutureGrainPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+  });
+  //곡물의 모든 정보를 담아올 변수
+
+  const FutureFruitPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+  });
+  //과일의 모든 정보를 담아올 변수
+
+  const FutureYellowCropPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+  });
+  //구황작물의 모든 정보를 담아올 변수
+
+  const callFutureVegetableLeafPricesAllData = () => {
+    getFutureVegetableLeafPrices(
+      (data) => {
+        FutureVegetableLeafPricesAllData.value.data = data.data.data;
+        FutureVegetableLeafPricesAllData.value.msg = data.data.msg;
+        FutureVegetableLeafPricesAllData.value.code = data.data.code;
+        FutureVegetableLeafPricesAllData.value.table = data.data.data.table;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  };
+
   return {
-    clickState,
     categoryVegetableLeafState,
     categoryVegetableFruitState,
     categoryVegetableRootState,
     categoryFruitState,
     categoryGrainState,
     categoryYellowCropState,
+    FutureVegetableLeafPricesAllData,
+    FutureVegetableFruitPricesAllData,
+    FutureVegetableRootPricesAllData,
+    FutureGrainPricesAllData,
+    FutureFruitPricesAllData,
+    FutureYellowCropPricesAllData,
+    basket,
     clickEvent,
     transferVegetableReaf,
     transferVegetableFruit,
@@ -99,6 +187,11 @@ export const useVegetableTableStore = defineStore("vegetableStore", () => {
     transferGrain,
     transferFruit,
     transferYellowCrop,
+    callFutureVegetableLeafPricesAllData,
+    bestClick,
+    goodClick,
+    midClick,
+    lowClick,
   };
   //store는 return을 해줘야함!!!
 });
