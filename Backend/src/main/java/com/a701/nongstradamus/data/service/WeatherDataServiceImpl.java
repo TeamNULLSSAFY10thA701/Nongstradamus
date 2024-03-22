@@ -35,6 +35,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -80,13 +81,14 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
         LocalDate today = LocalDate.now();
         DateTimeFormatter onlyNumber = DateTimeFormatter.ofPattern("yyyyMMdd");
-        List<WeatherDto> dtos = new ArrayList<>();
 
-        // 오늘-1일부터 검색, 해당 날짜 데이터 없으면 해당 날짜 -1일 검색, 최대 100일
-        day: for (int minusDay = 1; minusDay <= 1825; minusDay++) {
+        // 오늘-1일부터 검색, 해당 날짜 데이터 없으면 해당 날짜 -1일 검색, 최대 5년
+        day: for (int minusDay = 1; minusDay <= 1850; minusDay++) {
 
             //검색일자
             LocalDate searchDate = today.minusDays(minusDay);
+            System.out.print(searchDate);
+            System.out.println("날씨 데이터 찾는 중");
 
             //해당 날짜의 데이터가 있는지 검색
             List<WeatherEntity> weatherList = weatherRepository.findByDate(searchDate);
@@ -105,7 +107,6 @@ public class WeatherDataServiceImpl implements WeatherDataService {
                         .append("&AREA_ID=999999999")
                         .append("&PA_CROP_SPE_ID=")
                         .append(productCode);
-                    System.out.println(urlFull.toString());
 
                     ResponseEntity<String> res = OpenAPIManager.fetchXML(urlFull.toString());
 
@@ -121,7 +122,6 @@ public class WeatherDataServiceImpl implements WeatherDataService {
                         doc.getDocumentElement().normalize();
 
                         NodeList itemList = doc.getElementsByTagName("item");
-                        System.out.println(itemList.getLength());
 
                         //지역코드가 이전과 같은 경우 같은 것들 평균내서 데이터 하나로 만든다
                         String beforeAreaId = "00";
@@ -161,81 +161,82 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 
 
                         for(Node node : nodeList){
-                                Element element = (Element) node;
+                            Element element = (Element) node;
 
-                                // areaName과 dayAvgRhm 값을 가져옵니다.
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-                                    "yyyy-MM-dd HH:mm:ss");
-                                String ymd = element.getElementsByTagName("ymd").item(0)
-                                    .getTextContent();
-                                LocalDate date = LocalDate.parse(ymd, formatter);
+                            // areaName과 dayAvgRhm 값을 가져옵니다.
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                                "yyyy-MM-dd HH:mm:ss");
+                            String ymd = element.getElementsByTagName("ymd").item(0)
+                                .getTextContent();
+                            LocalDate date = LocalDate.parse(ymd, formatter);
 
-                                String avgTemperature = element.getElementsByTagName("dayAvgTa")
-                                    .item(0).getTextContent();
-                                String maxTemperature = element.getElementsByTagName("dayMaxTa")
-                                    .item(0).getTextContent();
-                                String minTemperature = element.getElementsByTagName("dayMinTa")
-                                    .item(0).getTextContent();
-                                String rain = element.getElementsByTagName("daySumRn").item(0)
-                                    .getTextContent();
-                                String wind = element.getElementsByTagName("dayAvgWs").item(0)
-                                    .getTextContent();
-                                String humidity = element.getElementsByTagName("dayAvgRhm").item(0)
-                                    .getTextContent();
-                                String sunDuration = element.getElementsByTagName("daySumSs")
-                                    .item(0).getTextContent();
+                            String avgTemperature = element.getElementsByTagName("dayAvgTa")
+                                .item(0).getTextContent();
+                            String maxTemperature = element.getElementsByTagName("dayMaxTa")
+                                .item(0).getTextContent();
+                            String minTemperature = element.getElementsByTagName("dayMinTa")
+                                .item(0).getTextContent();
+                            String rain = element.getElementsByTagName("daySumRn").item(0)
+                                .getTextContent();
+                            String wind = element.getElementsByTagName("dayAvgWs").item(0)
+                                .getTextContent();
+                            String humidity = element.getElementsByTagName("dayAvgRhm").item(0)
+                                .getTextContent();
+                            String sunDuration = element.getElementsByTagName("daySumSs")
+                                .item(0).getTextContent();
 
-                                String areaId = element.getElementsByTagName("areaId").item(0)
-                                    .getTextContent().substring(0,2);
+                            String areaId = element.getElementsByTagName("areaId").item(0)
+                                .getTextContent().substring(0,2);
 
-                                avgTemperatureSum += Integer.parseInt(avgTemperature);
-                                maxTemperatureSum += Integer.parseInt(maxTemperature);
-                                minTemperatureSum += Integer.parseInt(minTemperature);
-                                rainSum += Integer.parseInt(rain);
-                                windSum += Integer.parseInt(wind);
-                                humiditySum += Integer.parseInt(humidity);
-                                sunDurationSum += Integer.parseInt(sunDuration);
+                            avgTemperatureSum += Integer.parseInt(avgTemperature);
+                            maxTemperatureSum += Integer.parseInt(maxTemperature);
+                            minTemperatureSum += Integer.parseInt(minTemperature);
+                            rainSum += Integer.parseInt(rain);
+                            windSum += Integer.parseInt(wind);
+                            humiditySum += Integer.parseInt(humidity);
+                            sunDurationSum += Integer.parseInt(sunDuration);
 
-                                if(areaId.equals(beforeAreaId)){
-                                    stack++;
-                                }
-                                else{
-                                    WeatherDto dto = new WeatherDto();
-                                    dto.setDate(date);
-                                    dto.setAvgTemperature(avgTemperatureSum/stack);
-                                    dto.setMaxTemperature(maxTemperatureSum/stack);
-                                    dto.setMinTemperature(minTemperatureSum/stack);
-                                    dto.setRain(rainSum/stack);
-                                    dto.setWind(windSum/stack);
-                                    dto.setHumidity(humiditySum/stack);
-                                    dto.setSunDuration(sunDurationSum/stack);
-                                    dto.setProduct(product);
-                                    for(WeatherOriginCodeEntity w : weatherOriginCodes){
-                                        if(areaId.equals(w.getCode())){
-                                            dto.setOrigin(w);
-                                        }
-                                    }
-                                    dtos.add(dto);
-                                    beforeAreaId = areaId;
-
-                                    //초기화
-                                    avgTemperatureSum = 0;
-                                    maxTemperatureSum = 0;
-                                    minTemperatureSum = 0;
-                                    rainSum = 0;
-                                    windSum = 0;
-                                    humiditySum = 0;
-                                    sunDurationSum = 0;
-
-                                }
+                            if(areaId.equals(beforeAreaId)){
+                                stack++;
                             }
+                            else{
+                                WeatherEntity dto = new WeatherEntity();
+                                dto.setDate(date);
+                                dto.setAvgTemperature(avgTemperatureSum/stack);
+                                dto.setMaxTemperature(maxTemperatureSum/stack);
+                                dto.setMinTemperature(minTemperatureSum/stack);
+                                dto.setRain(rainSum/stack);
+                                dto.setWind(windSum/stack);
+                                dto.setHumidity(humiditySum/stack);
+                                dto.setSunDuration(sunDurationSum/stack);
+                                dto.setProduct(product);
+                                for(WeatherOriginCodeEntity w : weatherOriginCodes){
+                                    if(areaId.equals(w.getCode())){
+                                        dto.setOrigin(w);
+                                    }
+                                }
+
+                                weatherRepository.save(dto);
+
+                                beforeAreaId = areaId;
+
+                                //초기화
+                                avgTemperatureSum = 0;
+                                maxTemperatureSum = 0;
+                                minTemperatureSum = 0;
+                                rainSum = 0;
+                                windSum = 0;
+                                humiditySum = 0;
+                                sunDurationSum = 0;
+
+                            }
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
-        weatherRepository.saveAll(dtos.stream().map(WeatherMapper.INSTANCE::fromDtoToEntity).collect(
-            Collectors.toList()));
+        System.out.println("날씨 데이터 수집 완료");
     }
 }
