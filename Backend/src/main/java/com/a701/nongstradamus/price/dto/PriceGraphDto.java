@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PriceDetailDto {
+public class PriceGraphDto {
 
     private Long price;
 
