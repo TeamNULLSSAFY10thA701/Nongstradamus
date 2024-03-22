@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-5 gap-4 mt-8">
-        <div class="col-start-2">
+        <div class="w-4/5 mx-auto col-start-2">
             <img src="../../assets/full_logo1.png" />
         </div>
         <div class="title col-start-3 col-span-3 flex items-center">
@@ -98,30 +98,30 @@
                 </tr>
             </thead>
             <tbody v-if="store.categoryVegetableLeafState">
-                <tr v-for="category in 5" :key="category"
+                <tr v-for="category in store.FutureVegetableLeafPricesAllData.table" :key="category"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    @click="store.clickEvent">
+                    @click="vegetableLeafclickEvent(category.nickname, category.name)">
                     <td class="p-4 w-10">
-                        <img src="../../assets/sesame.png" class="w-10 max-w-full max-h-full mx-auto">
+                        <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
                     </td>
                     <!-- 이미지 -->
                     <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                        깻잎
+                        {{ category.name }}
                     </td>
                     <!-- 농산물이름 -->
                     <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                        2000원
+                        {{ category.present }}
                     </td>
                     <!-- 현재가격 -->
                     <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                        3000원
+                        {{ category.future }}
                     </td>
                     <!-- 다음 주 가격 -->
                     <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                        50%
+                        {{ category.ratio }}
                     </td>
                     <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                        개당
+                        {{ category.unit }}
                     </td>
                 </tr>
             </tbody>
@@ -272,10 +272,53 @@
 <script setup>
 
 import { useVegetableTableStore } from '@/stores/VegetableTable';
+import { onMounted, ref } from 'vue';
+import {
+    getFutureVegetableLeafPrices,
+    getFutureVegetableFruitPrices,
+    getFutureVegetableRootPrices,
+    getFutureGrainPrices,
+    getFutureFruitPrices,
+    getFutureYellowCropPrices,
+} from "@/api/predictAllPrices";
+
+onMounted(() => {
+    callFutureVegetableLeafPricesAllData()
+});
+
 const store = useVegetableTableStore();
 //정의한 store를 사용하는 과정.
 //이제 변수명(여기서는 store).store에저장된변수로 꺼내쓰기 가능.
 
+const getImageUrl = (nickname) => {
+    return `src/assets/${nickname}.png`;
+};
+
+const FutureVegetableLeafPricesAllData = ref({
+    data: "",
+    msg: "",
+    code: "",
+    table: [],
+});
+//채소-잎의 모든 정보를 담아올 변수.
+
+const callFutureVegetableLeafPricesAllData = () => {
+    getFutureVegetableLeafPrices(
+        (data) => {
+            FutureVegetableLeafPricesAllData.value.data = data.data.data;
+            FutureVegetableLeafPricesAllData.value.msg = data.data.msg;
+            FutureVegetableLeafPricesAllData.value.code = data.data.code;
+            FutureVegetableLeafPricesAllData.value.table = data.data.data.table;
+        },
+        (error) => {
+            console.error(error);
+        }
+    );
+}
+
+const vegetableLeafclickEvent = (nickname, aname) => {
+    console.log(FutureVegetableLeafPricesAllData.value.data[nickname])
+}
 
 </script>
 <style scoped>
