@@ -1,7 +1,7 @@
 <template>
   <div class="all-font max-w-5xl mx-auto">
     <div class="grid grid-cols-5 gap-4 ml-4 mr-4 mt-8">
-      <div class="col-start-2">
+      <div class="w-4/5 mx-auto col-start-2">
         <img src="../../assets/full_logo1.png" />
       </div>
       <div class="title col-start-3 col-span-3 flex items-center">
@@ -9,6 +9,13 @@
       </div>
     </div>
     <!-- header -->
+
+    <div class="w-2/5 mx-auto p-4 mt-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+      role="alert" v-if="isMaintenanceTime()">
+      <span class="font-medium">점검 공지</span> 점검시간(오전12시~오전1시30분)에는 서비스 이용이 원활하지 않습니다.
+    </div>
+    <!-- 서비스 점검 시간을 알려주는 alert bar -->
+
     <div class="flex items-center justify-center mt-12">
       <div
         class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
@@ -33,6 +40,7 @@
       </div>
     </div>
     <!-- 가격이 가장 많이 떨어진 품목 조회 -->
+
     <div class="flex items-center justify-center mt-8">
       <div
         class="bestChoice block w-2/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
@@ -57,6 +65,7 @@
       </div>
     </div>
     <!-- 가격이 가장 많이 오를것 같은 품목 조회 -->
+
     <div class="flex items-center justify-center mt-8">
       <a href="/recipe"
         class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -71,6 +80,7 @@
       </a>
     </div>
     <!-- 오늘의 추천 레시피 이동 -->
+
     <div class="flex items-center justify-center mt-8">
       <a href="/pricedetail"
         class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -203,6 +213,7 @@
       </div>
     </div>
     <!-- 내일가격 캐러셀 -->
+
   </div>
 
 </template>
@@ -213,6 +224,14 @@ import "vue3-carousel/dist/carousel.css";
 import { ref, onMounted } from 'vue';
 import { getBiggestDropped, getBiggestIncreased, getLastWeekPrices, getToDayPrices, getTommorrowPrices } from "@/api/mainhome";
 import { random } from "lodash";
+
+const isMaintenanceTime = () => {
+  const now = new Date();
+  const startMaintenance = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0); // 12:00 AM
+  const endMaintenance = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 1, 30, 0); // 01:30 AM
+  return now >= startMaintenance && now <= endMaintenance;
+}
+//시스템 점검시간을 확인하여 T/F로 알려주는 메서드.
 
 const name = "Autoplay";
 //무한 캐러셀을 가능하게 만들어줌.

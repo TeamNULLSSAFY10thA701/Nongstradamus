@@ -1,11 +1,43 @@
 import { localAxios } from "@/util/http-commons";
-const url = `http://j10a701.p.ssafy.io/api/all`;
+const url = `http://j10a701.p.ssafy.io:8080/api/all`;
 
 const local = localAxios();
 
-// 예상 전체 가격(표) 조회
-function getFuturePrices(success, fail) {
-  local.get(`${url}`).then(success).catch(fail);
+function getFutureVegetableLeafPrices(success, fail) {
+  local.get(`${url}/1`).then(success).catch(fail);
 }
+//채소-잎
 
-export { getFuturePrices };
+function getFutureVegetableFruitPrices(success, fail) {
+  local.get(`${url}/2`).then(success).catch(fail);
+}
+//채소-열매
+
+function getFutureVegetableRootPrices(success, fail) {
+  local.get(`${url}/3`).then(success).catch(fail);
+}
+//채소-뿌리
+
+function getFutureGrainPrices(success, fail) {
+  local.get(`${url}/4`).then(success).catch(fail);
+}
+//곡물
+
+function getFutureFruitPrices(success, fail) {
+  local.get(`${url}/5`).then(success).catch(fail);
+}
+//과일
+
+function getFutureYellowCropPrices(success, fail) {
+  local.get(`${url}/6`).then(success).catch(fail);
+}
+//구황작물
+
+export {
+  getFutureVegetableLeafPrices,
+  getFutureVegetableFruitPrices,
+  getFutureVegetableRootPrices,
+  getFutureGrainPrices,
+  getFutureFruitPrices,
+  getFutureYellowCropPrices,
+};
