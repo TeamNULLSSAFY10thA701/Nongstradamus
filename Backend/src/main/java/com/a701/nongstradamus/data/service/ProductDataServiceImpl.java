@@ -34,10 +34,10 @@ public class ProductDataServiceImpl implements ProductDataService{
 
     private final PricePredictRepository pricePredictRepository;
 
-//    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     @Override
-    @Scheduled(fixedRate = 1000000000)
+//    @Scheduled(fixedRate = 1000000000)
     public void updateProductData()  {
         System.out.println("소매 가격 데이터 수집 시작");
         List<ProductEntity> products = productRepository.findAll();
