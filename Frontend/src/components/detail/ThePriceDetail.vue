@@ -479,7 +479,7 @@ const bestClick = () => {
     }
     updateChartData();
 }
-//이거 3개 더만들고, 각 항목당 6개의 카테고리 if문 제작 필요.
+//이거 3개 더만들고, 각 항목당 6개의 카테고리 if문 제작 필요함.
 
 const goodClick=()=>{
     bestClickState.value = false
