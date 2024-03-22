@@ -236,9 +236,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
                     }
                 }
             }
-
-
         }
-
+        System.out.println("날씨 데이터 수집 완료");
     }
 }
