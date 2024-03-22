@@ -64,7 +64,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
             ResponseEntity<Map> res = OpenAPIManager.fetchJSON(codeUrlFull.toString());
             List<Map> dts = (List<Map>) (res.getBody().get("data"));
             if (dts == null) {
-                break;
+                throw new EntityNotFoundException("트래픽 초과");
             }
             if (dts.isEmpty()) {
                 break;
@@ -137,6 +137,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                             case "상": dto.setGrade(3); break;
                             case "중": dto.setGrade(2); break;
                             case "하": dto.setGrade(1); break;
+                            default: dto.setGrade(0);
                         }
                         dtos.add(dto);
                     }
