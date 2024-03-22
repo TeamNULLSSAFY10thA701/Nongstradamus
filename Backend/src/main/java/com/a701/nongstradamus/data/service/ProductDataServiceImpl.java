@@ -1,15 +1,20 @@
 package com.a701.nongstradamus.data.service;
 
 import com.a701.nongstradamus.data.dto.PriceHistoryDto;
+import com.a701.nongstradamus.data.entity.PriceHistoryEntity;
 import com.a701.nongstradamus.data.entity.PriceHistoryRawEntity;
 import com.a701.nongstradamus.data.entity.ProductEntity;
 import com.a701.nongstradamus.data.mapper.PriceHistoryMapper;
 import com.a701.nongstradamus.data.repository.PriceHistoryRawRepository;
 import com.a701.nongstradamus.data.repository.PriceHistoryRepository;
 import com.a701.nongstradamus.data.repository.ProductRepository;
+import com.a701.nongstradamus.main.entity.PricePredictEntity;
+import com.a701.nongstradamus.main.repository.PricePredictRepository;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.text.html.parser.Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,19 +32,27 @@ public class ProductDataServiceImpl implements ProductDataService{
 
     private final PriceHistoryRawRepository priceHistoryRawRepository;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    private final PricePredictRepository pricePredictRepository;
+
+//    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     @Override
+    @Scheduled(fixedRate = 1000000000)
     public void updateProductData()  {
+        System.out.println("소매 가격 데이터 수집 시작");
         List<ProductEntity> products = productRepository.findAll();
         for(ProductEntity product : products) {
             List<PriceHistoryRawEntity> priceHistoryRaws = priceHistoryRawRepository.findAllByNameLikeAndIsSavedFalse(
                 "%" + product.getName() + "%");
-            List<PriceHistoryDto> dtos = new ArrayList<PriceHistoryDto>();
+            List<PriceHistoryDto> dtos = new ArrayList<>();
             for (PriceHistoryRawEntity priceHistoryRaw : priceHistoryRaws) {
                 if (product.getUnit() == null) {
                     product.setUnit(priceHistoryRaw.getUnit());
                     productRepository.save(product);
+                }else{
+                   if( !priceHistoryRaw.getUnit().equals(product.getUnit())){
+                       continue;
+                   }
                 }
                 PriceHistoryDto dto = new PriceHistoryDto();
                 dto.setProduct(product);
@@ -63,13 +76,61 @@ public class ProductDataServiceImpl implements ProductDataService{
                         dto.setGrade(0);
                 }
                 dtos.add(dto);
+                System.out.println(dto);
                 priceHistoryRaw.setIsSaved(true);
             }
             priceHistoryRepository.saveAll(
                 dtos.stream().map(PriceHistoryMapper.INSTANCE::fromDtoToEntity)
                     .collect(Collectors.toList()));
             priceHistoryRawRepository.saveAll(priceHistoryRaws);
+            for(int day = 2000; day <= 1; day--){
+                LocalDate today = LocalDate.now().minusDays(day);
+                for(int grade = 1; grade <= 4; grade++) {
+                    List<PriceHistoryEntity> logs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade);
+                    if(logs.isEmpty()){
+                        List<PriceHistoryEntity> previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.minusDays(1).atStartOfDay()), grade);
+                        if(previousLogs.isEmpty()){
+                            previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade - 1);
+                            if(previousLogs.isEmpty()){
+                                previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 1);
+                            }
+                        }
+                        if(!previousLogs.isEmpty()) {
+                            PriceHistoryEntity entity = new PriceHistoryEntity();
+                            entity.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                            entity.setProduct(product);
+                            entity.setRatio(0.0);
+                            entity.setGrade(grade);
+                            entity.setPrice(previousLogs.get(0).getPrice());
+                            priceHistoryRepository.save(entity);
+                            continue;
+                        }
+                        List<PricePredictEntity> futureLogs = pricePredictRepository.findAllByProductAndDateAndGrade(product,today, grade);
+                        if(!futureLogs.isEmpty()){
+                            PriceHistoryEntity entity = new PriceHistoryEntity();
+                            entity.setProduct(product);
+                            entity.setRatio(0.0);
+                            entity.setGrade(grade);
+                            entity.setPrice(futureLogs.get(0).getPrice());
+                            priceHistoryRepository.save(entity);
+                        }
+                        continue;
+                    }
+                    if(logs.size() == 1){
+                        continue;
+                    }
+                    PriceHistoryEntity ett = new PriceHistoryEntity();
+                    ett.setGrade(grade);
+                    ett.setProduct(product);
+                    ett.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                    ett.setPrice((long) logs.stream().mapToDouble(entity->entity.getPrice()).average().getAsDouble());
+                    ett.setRatio(logs.stream().mapToDouble(entity->entity.getRatio()).average().getAsDouble());
+                    priceHistoryRepository.deleteAll(logs);
+                    priceHistoryRepository.save(ett);
+                }
+            }
         }
+        System.out.println("데이터 수집 끝");
     }
 }
 
