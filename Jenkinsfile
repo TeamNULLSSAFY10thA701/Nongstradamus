@@ -24,6 +24,7 @@ pipeline {
                     sh "docker build -t frontend ."
                     sh "docker run --name frontend frontend"
                     sh "docker cp frontend:/app/dist /data"
+                    sh "docker exec nginx nginx -s reload"
                 }
             }
 
