@@ -50,8 +50,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
     private String key;
 
     @Override
-//    @Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(fixedRate = 10000000)
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void updateWholeMarketData() {
         List<ProductEntity> products = productRepository.findAll();
@@ -65,7 +64,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
             ResponseEntity<Map> res = OpenAPIManager.fetchJSON(codeUrlFull.toString());
             List<Map> dts = (List<Map>) (res.getBody().get("data"));
             if (dts == null) {
-                break;
+                throw new EntityNotFoundException("트래픽 초과");
             }
             if (dts.isEmpty()) {
                 break;
