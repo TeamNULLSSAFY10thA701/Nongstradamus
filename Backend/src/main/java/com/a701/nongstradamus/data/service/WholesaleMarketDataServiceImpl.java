@@ -50,7 +50,8 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
     private String key;
 
     @Override
-    @Scheduled(cron = "0 0 0 * * *")
+//    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(fixedRate = 10000000)
     @Transactional
     public void updateWholeMarketData() {
         List<ProductEntity> products = productRepository.findAll();
@@ -137,6 +138,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                             case "상": dto.setGrade(3); break;
                             case "중": dto.setGrade(2); break;
                             case "하": dto.setGrade(1); break;
+                            default: dto.setGrade(0);
                         }
                         dtos.add(dto);
                     }
