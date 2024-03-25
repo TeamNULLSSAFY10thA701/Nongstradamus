@@ -1,5 +1,5 @@
 <template>
-  <div class="all-font max-w-md mx-auto">
+  <div class="parent all-font mx-auto">
     <TheHeader class="recipe-component"></TheHeader>
     <TheRecipeBody class="recipe-component"></TheRecipeBody>
   </div>
@@ -13,6 +13,11 @@ import TheRecipeBody from "@/components/recipe/TheRecipeBody.vue";
 <style scoped>
 .all-font {
   font-family: "HSBombaram3.0";
+}
+
+.parent {
+  width: 80%; /* 부모 요소의 가로 길이 설정 */
+  margin: 0 auto; /* 가운데 정렬을 위한 마진 설정 */
 }
 
 .recipe-component {
