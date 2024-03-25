@@ -3,7 +3,7 @@
 
         <div class="grid grid-cols-5 gap-4 mt-8">
             <div class="w-4/5 mx-auto col-start-2">
-                <img src="/src/assets/full_logo1.png" />
+                <img src="/src/assets/full_logo1.png" @click="goMainPage" />
             </div>
             <div class="title col-start-3 col-span-3 flex items-center">
                 농스트라다무스의 예측
@@ -88,10 +88,10 @@
                             농산물이름
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
-                            현재가격(중)
+                            현재가격(중품)
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
-                            내일가격(중)
+                            내일가격(중품)
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
                             예측등락폭(%)
@@ -114,15 +114,15 @@
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}
+                            {{ category.present }}원
                         </td>
                         <!-- 현재가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}
+                            {{ category.future }}원
                         </td>
                         <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}
+                            {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
@@ -142,15 +142,15 @@
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}
+                            {{ category.present }}원
                         </td>
                         <!-- 현재가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}
+                            {{ category.future }}원
                         </td>
                         <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}
+                            {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
@@ -170,15 +170,15 @@
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}
+                            {{ category.present }}원
                         </td>
                         <!-- 현재가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}
+                            {{ category.future }}원
                         </td>
                         <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}
+                            {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
@@ -198,15 +198,15 @@
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}
+                            {{ category.present }}원
                         </td>
                         <!-- 현재가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}
+                            {{ category.future }}원
                         </td>
                         <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}
+                            {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
@@ -226,15 +226,15 @@
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}
+                            {{ category.present }}원
                         </td>
                         <!-- 현재가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}
+                            {{ category.future }}원
                         </td>
                         <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}
+                            {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
@@ -254,15 +254,15 @@
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}
+                            {{ category.present }}원
                         </td>
                         <!-- 현재가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}
+                            {{ category.future }}원
                         </td>
                         <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}
+                            {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
@@ -278,7 +278,9 @@
                 <div
                     class="w-4/5 h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a>
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">해당 품목의 가격 정보
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ nameBasket
+                            }}의
+                            가격 정보
                         </h5>
                     </a>
                     <ul
@@ -287,7 +289,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="bestClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                                    @click="bestClick">
+                                    @click="bestClick" :checked="bestClickState">
                                 <label for="bestClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">특상
                                 </label>
@@ -297,7 +299,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="goodClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                                    @click="goodClick">
+                                    @click="goodClick" :checked="goodClickState">
                                 <label for="goodClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">상
                                 </label>
@@ -307,7 +309,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="midClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                                    @click="midClick">
+                                    @click="midClick" :checked="midClickState">
                                 <label for="midClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">중</label>
                             </div>
@@ -316,7 +318,7 @@
                             <div class="flex items-center ps-3">
                                 <input id="lowClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                                    @click="lowClick">
+                                    @click="lowClick" :checked="lowClickState">
                                 <label for="lowClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">하</label>
                             </div>
@@ -333,10 +335,11 @@
                     </div>
                     <div class="mt-6 h-4/5" v-if="lowClickState">
                         <Line :data="chartData" :options="chartOptions" />
+
                     </div>
                     <button type="button"
                         class="flex items-center justify-center mx-auto mt-8 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        @click="clickEvent">닫기</button>
+                        @click="cancelClickEvent">닫기</button>
 
                 </div>
 
@@ -361,6 +364,7 @@ import {
     getFutureFruitPrices,
     getFutureYellowCropPrices,
 } from "@/api/predictAllPrices";
+import router from '@/router';
 
 
 // --------------------------------------------------------------------------------import-------------------------------------------------------
@@ -381,6 +385,10 @@ const getImageUrl = (nickname) => {
 };
 //이미지를 불러오는 메서드
 
+const goMainPage = () => {
+    router.push('/')
+}
+
 const clickState = ref(false)
 
 const bestClickState = ref(false)
@@ -392,6 +400,17 @@ const midClickState = ref(false)
 const lowClickState = ref(false)
 
 const clickEvent = () => {
+    if (clickState.value == false) {
+        clickState.value = !clickState.value
+    }
+    bestClickState.value = false
+    goodClickState.value = false
+    midClickState.value = false
+    lowClickState.value = false
+}
+//만약 버그가 생긴다면, 하단의 cancelClickEvent를 지우시고, 위의if문을 지우고 원복하세요. :checked도 지우세요.
+
+const cancelClickEvent = () => {
     clickState.value = !clickState.value
     bestClickState.value = false
     goodClickState.value = false
