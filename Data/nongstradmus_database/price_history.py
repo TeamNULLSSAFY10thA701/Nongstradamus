@@ -11,5 +11,8 @@ price_history = Table(
     Column("productId", Integer, nullable=False)
 )
 
-def price_history_get_stmt(product_id, start_date, end_date):
-  return select(price_history).where(price_history.c.productId == product_id).where(price_history.c.date.between(start_date, end_date)).order_by(price_history.c.date)
+def price_history_get_stmt(product_id, grade, start_date, end_date):
+  return (select(price_history).where(price_history.c.productId == product_id)
+          .where(price_history.c.grade == grade)
+          .where(price_history.c.date.between(start_date, end_date))
+          .order_by(price_history.c.date))
