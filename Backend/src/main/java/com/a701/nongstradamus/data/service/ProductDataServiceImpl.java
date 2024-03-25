@@ -134,10 +134,8 @@ public class ProductDataServiceImpl implements ProductDataService{
                             entity.setGrade(grade);
                             entity.setPrice(previousLogs.get(0).getPrice());
                             priceHistoryRepository.save(entity);
-                            continue;
                         }
-                    }
-                    if (logs.size() >= 2) {
+                    }else if (logs.size() >= 2) {
                         PriceHistoryEntity ett = new PriceHistoryEntity();
                         ett.setGrade(grade);
                         ett.setProduct(product);
