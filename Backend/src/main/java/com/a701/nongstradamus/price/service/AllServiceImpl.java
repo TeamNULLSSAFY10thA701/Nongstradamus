@@ -39,7 +39,7 @@ public class AllServiceImpl implements AllService{
             PriceTableDto tableDto = new PriceTableDto();
             tableDto.setName(product.getName());
             tableDto.setNickname(product.getNickname());
-            tableDto.setUnit(product.getNickname());
+            tableDto.setUnit(product.getUnit());
             Map<String, Map> grade = new HashMap<>();
             grade.put("low", new HashMap<Integer, PriceGraphDto>());
             grade.put("mid", new HashMap<Integer, PriceGraphDto>());
