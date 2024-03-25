@@ -34,10 +34,10 @@ public class ProductDataServiceImpl implements ProductDataService{
 
     private final PricePredictRepository pricePredictRepository;
 
-//    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     @Override
-    @Scheduled(fixedRate = 1000000000)
+//    @Scheduled(cron = "0 46 15 * * *")
     public void updateProductData()  {
         System.out.println("소매 가격 데이터 수집 시작");
         List<ProductEntity> products = productRepository.findAll();
@@ -87,6 +87,7 @@ public class ProductDataServiceImpl implements ProductDataService{
         System.out.println("데이터 수집 끝");
         System.out.println("데이터 정제 시작");
         for (ProductEntity product : products){
+            System.out.println(product);
             for(int day = 2000; day >= 1; day--){
                 LocalDate today = LocalDate.now().minusDays(day);
                 for(int grade = 1; grade <= 4; grade++) {
@@ -103,6 +104,7 @@ public class ProductDataServiceImpl implements ProductDataService{
                             entity.setGrade(grade);
                             entity.setPrice(futureLogs.get(0).getPrice());
                             priceHistoryRepository.save(entity);
+                            System.out.println(entity);
                             continue;
                         }
                         List<PriceHistoryEntity> previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(
@@ -134,6 +136,7 @@ public class ProductDataServiceImpl implements ProductDataService{
                             entity.setGrade(grade);
                             entity.setPrice(previousLogs.get(0).getPrice());
                             priceHistoryRepository.save(entity);
+                            System.out.println(entity);
                         }
                     }else if (logs.size() >= 2) {
                         PriceHistoryEntity ett = new PriceHistoryEntity();
@@ -141,12 +144,13 @@ public class ProductDataServiceImpl implements ProductDataService{
                         ett.setProduct(product);
                         ett.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
                         ett.setPrice(
-                            (long) logs.stream().mapToDouble(entity -> entity.getPrice()).average()
+                            (long) logs.stream().mapToDouble(entity1 -> entity1.getPrice()).average()
                                 .getAsDouble());
                         ett.setRatio(
-                            logs.stream().mapToDouble(entity -> entity.getRatio()).average()
+                            logs.stream().mapToDouble(entity1 -> entity1.getRatio()).average()
                                 .getAsDouble());
                         priceHistoryRepository.deleteAll(logs);
+                        System.out.println(ett);
                         priceHistoryRepository.save(ett);
                     }
                 }
