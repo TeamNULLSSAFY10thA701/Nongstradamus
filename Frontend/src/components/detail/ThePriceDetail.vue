@@ -3,7 +3,7 @@
 
         <div class="grid grid-cols-5 gap-4 mt-8">
             <div class="w-4/5 mx-auto col-start-2">
-                <img src="../../assets/full_logo1.png" />
+                <img src="/src/assets/full_logo1.png" />
             </div>
             <div class="title col-start-3 col-span-3 flex items-center">
                 농스트라다무스의 예측
@@ -131,7 +131,7 @@
                 </tbody>
                 <tbody v-if="categoryVegetableFruitState">
                     <tr v-for="category in FutureVegetableFruitPricesAllData.table" :key="category"
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="vegetableFruitclickEvent(category.nickname, category.name)">
                         <td class="p-4 w-10">
                             <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
@@ -188,7 +188,7 @@
                 <tbody v-if="categoryGrainState">
                     <tr v-for="category in FutureGrainPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                        @click="grianclickEvent(category.nickname, category.name)">
+                        @click="grainclickEvent(category.nickname, category.name)">
                         <td class="p-4 w-10">
                             <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
                         </td>
@@ -284,18 +284,20 @@
                     <ul
                         class="mt-6 items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center ps-3" >
+                            <div class="flex items-center ps-3">
                                 <input id="VegetableReaf" type="radio" name="list-radio"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" @click="bestClick">
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    @click="bestClick">
                                 <label for="VegetableReaf"
-                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300" >특상
+                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">특상
                                 </label>
                             </div>
                         </li>
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
                                 <input id="VegetableFruit" type="radio" name="list-radio"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" @click="goodClick">
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    @click="goodClick">
                                 <label for="VegetableFruit"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">상
                                 </label>
@@ -304,7 +306,8 @@
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
                                 <input id="transferVegetableRoot" type="radio" name="list-radio"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" @click="midClick">
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    @click="midClick">
                                 <label for="transferVegetableRoot"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">중</label>
                             </div>
@@ -312,7 +315,8 @@
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
                                 <input id="Grain" type="radio" name="list-radio"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" @click="lowClick">
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    @click="lowClick">
                                 <label for="Grain"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">하</label>
                             </div>
@@ -369,7 +373,7 @@ onMounted(() => {
 // --------------------------------------------------------------------------------onMounted-------------------------------------------------------
 
 const getImageUrl = (nickname) => {
-    return `src/assets/${nickname}.png`;
+    return `/src/assets/${nickname}.png`;
 };
 //이미지를 불러오는 메서드
 
@@ -429,7 +433,7 @@ const bestClick = () => {
         oneWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].best[1].price
         twoWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].best[2].price
     }
-    else if(categoryBasket.value == 'FutureVegetableFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].best[-4].price
         threeWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].best[-3].price
         twoWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].best[-2].price
@@ -438,7 +442,7 @@ const bestClick = () => {
         oneWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].best[1].price
         twoWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].best[2].price
     }
-    else if(categoryBasket.value=='FutureVegetableRootPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableRootPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].best[-4].price
         threeWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].best[-3].price
         twoWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].best[-2].price
@@ -447,7 +451,7 @@ const bestClick = () => {
         oneWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].best[1].price
         twoWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].best[2].price
     }
-    else if(categoryBasket.value=='FutureGrainPricesAllData'){
+    else if (categoryBasket.value == 'FutureGrainPricesAllData') {
         fourWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].best[-4].price
         threeWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].best[-3].price
         twoWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].best[-2].price
@@ -456,7 +460,7 @@ const bestClick = () => {
         oneWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].best[1].price
         twoWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].best[2].price
     }
-    else if(categoryBasket.value=='FutureFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].best[-4].price
         threeWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].best[-3].price
         twoWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].best[-2].price
@@ -465,7 +469,7 @@ const bestClick = () => {
         oneWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].best[1].price
         twoWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].best[2].price
     }
-    else if(categoryBasket.value=='FutureYellowCropPricesAllData'){
+    else if (categoryBasket.value == 'FutureYellowCropPricesAllData') {
         fourWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].best[-4].price
         threeWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].best[-3].price
         twoWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].best[-2].price
@@ -474,14 +478,14 @@ const bestClick = () => {
         oneWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].best[1].price
         twoWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].best[2].price
     }
-    else{
+    else {
         console.log('오류')
     }
     updateChartData();
 }
-//이거 3개 더만들고, 각 항목당 6개의 카테고리 if문 제작 필요함.
+//
 
-const goodClick=()=>{
+const goodClick = () => {
     bestClickState.value = false
     goodClickState.value = true
     midClickState.value = false
@@ -495,7 +499,7 @@ const goodClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].good[1].price
         twoWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].good[2].price
     }
-    else if(categoryBasket.value == 'FutureVegetableFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].good[-4].price
         threeWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].good[-3].price
         twoWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].good[-2].price
@@ -504,7 +508,7 @@ const goodClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].good[1].price
         twoWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].good[2].price
     }
-    else if(categoryBasket.value=='FutureVegetableRootPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableRootPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].good[-4].price
         threeWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].good[-3].price
         twoWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].good[-2].price
@@ -513,7 +517,7 @@ const goodClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].good[1].price
         twoWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].good[2].price
     }
-    else if(categoryBasket.value=='FutureGrainPricesAllData'){
+    else if (categoryBasket.value == 'FutureGrainPricesAllData') {
         fourWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].good[-4].price
         threeWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].good[-3].price
         twoWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].good[-2].price
@@ -522,7 +526,7 @@ const goodClick=()=>{
         oneWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].good[1].price
         twoWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].good[2].price
     }
-    else if(categoryBasket.value=='FutureFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].good[-4].price
         threeWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].good[-3].price
         twoWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].good[-2].price
@@ -531,7 +535,7 @@ const goodClick=()=>{
         oneWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].good[1].price
         twoWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].good[2].price
     }
-    else if(categoryBasket.value=='FutureYellowCropPricesAllData'){
+    else if (categoryBasket.value == 'FutureYellowCropPricesAllData') {
         fourWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].good[-4].price
         threeWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].good[-3].price
         twoWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].good[-2].price
@@ -540,13 +544,13 @@ const goodClick=()=>{
         oneWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].good[1].price
         twoWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].good[2].price
     }
-    else{
+    else {
         console.log('오류')
     }
     updateChartData();
 }
 
-const midClick=()=>{
+const midClick = () => {
     bestClickState.value = false
     goodClickState.value = false
     midClickState.value = true
@@ -560,7 +564,7 @@ const midClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].mid[1].price
         twoWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].mid[2].price
     }
-    else if(categoryBasket.value == 'FutureVegetableFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].mid[-4].price
         threeWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].mid[-3].price
         twoWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].mid[-2].price
@@ -569,7 +573,7 @@ const midClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].mid[1].price
         twoWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].mid[2].price
     }
-    else if(categoryBasket.value=='FutureVegetableRootPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableRootPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].mid[-4].price
         threeWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].mid[-3].price
         twoWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].mid[-2].price
@@ -578,7 +582,7 @@ const midClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].mid[1].price
         twoWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].mid[2].price
     }
-    else if(categoryBasket.value=='FutureGrainPricesAllData'){
+    else if (categoryBasket.value == 'FutureGrainPricesAllData') {
         fourWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].mid[-4].price
         threeWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].mid[-3].price
         twoWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].mid[-2].price
@@ -587,7 +591,7 @@ const midClick=()=>{
         oneWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].mid[1].price
         twoWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].mid[2].price
     }
-    else if(categoryBasket.value=='FutureFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].mid[-4].price
         threeWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].mid[-3].price
         twoWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].mid[-2].price
@@ -596,7 +600,7 @@ const midClick=()=>{
         oneWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].mid[1].price
         twoWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].mid[2].price
     }
-    else if(categoryBasket.value=='FutureYellowCropPricesAllData'){
+    else if (categoryBasket.value == 'FutureYellowCropPricesAllData') {
         fourWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].mid[-4].price
         threeWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].mid[-3].price
         twoWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].mid[-2].price
@@ -605,13 +609,13 @@ const midClick=()=>{
         oneWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].mid[1].price
         twoWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].mid[2].price
     }
-    else{
+    else {
         console.log('오류')
     }
 
 }
 
-const lowClick=()=>{
+const lowClick = () => {
     bestClickState.value = false
     goodClickState.value = false
     midClickState.value = false
@@ -625,7 +629,7 @@ const lowClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].low[1].price
         twoWeekAfterPrice.value = FutureVegetableLeafPricesAllData.value.data[nickNameBasket.value].low[2].price
     }
-    else if(categoryBasket.value == 'FutureVegetableFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].low[-4].price
         threeWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].low[-3].price
         twoWeekAgoPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].low[-2].price
@@ -634,7 +638,7 @@ const lowClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].low[1].price
         twoWeekAfterPrice.value = FutureVegetableFruitPricesAllData.value.data[nickNameBasket.value].low[2].price
     }
-    else if(categoryBasket.value=='FutureVegetableRootPricesAllData'){
+    else if (categoryBasket.value == 'FutureVegetableRootPricesAllData') {
         fourWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].low[-4].price
         threeWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].low[-3].price
         twoWeekAgoPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].low[-2].price
@@ -643,7 +647,7 @@ const lowClick=()=>{
         oneWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].low[1].price
         twoWeekAfterPrice.value = FutureVegetableRootPricesAllData.value.data[nickNameBasket.value].low[2].price
     }
-    else if(categoryBasket.value=='FutureGrainPricesAllData'){
+    else if (categoryBasket.value == 'FutureGrainPricesAllData') {
         fourWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].low[-4].price
         threeWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].low[-3].price
         twoWeekAgoPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].low[-2].price
@@ -652,7 +656,7 @@ const lowClick=()=>{
         oneWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].low[1].price
         twoWeekAfterPrice.value = FutureGrainPricesAllData.value.data[nickNameBasket.value].low[2].price
     }
-    else if(categoryBasket.value=='FutureFruitPricesAllData'){
+    else if (categoryBasket.value == 'FutureFruitPricesAllData') {
         fourWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].low[-4].price
         threeWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].low[-3].price
         twoWeekAgoPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].low[-2].price
@@ -661,7 +665,7 @@ const lowClick=()=>{
         oneWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].low[1].price
         twoWeekAfterPrice.value = FutureFruitPricesAllData.value.data[nickNameBasket.value].low[2].price
     }
-    else if(categoryBasket.value=='FutureYellowCropPricesAllData'){
+    else if (categoryBasket.value == 'FutureYellowCropPricesAllData') {
         fourWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].low[-4].price
         threeWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].low[-3].price
         twoWeekAgoPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].low[-2].price
@@ -670,11 +674,12 @@ const lowClick=()=>{
         oneWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].low[1].price
         twoWeekAfterPrice.value = FutureYellowCropPricesAllData.value.data[nickNameBasket.value].low[2].price
     }
-    else{
+    else {
         console.log('오류')
     }
 
 }
+//특상,상,중,하의 가격 정보를 그래프에 불러오는 매서드.
 
 const vegetableLeafclickEvent = (nickname, aname) => {
     nameBasket.value = aname
@@ -866,7 +871,7 @@ const callFutureVegetableLeafPricesAllData = () => {
     );
 }
 
-const callFutureVegetableFruitPricesAllData=()=>{
+const callFutureVegetableFruitPricesAllData = () => {
     getFutureVegetableFruitPrices(
         (data) => {
             FutureVegetableFruitPricesAllData.value.data = data.data.data;
@@ -881,7 +886,7 @@ const callFutureVegetableFruitPricesAllData=()=>{
 
 }
 
-const callFutureVegetableRootPricesAllData=()=>{
+const callFutureVegetableRootPricesAllData = () => {
     getFutureVegetableRootPrices(
         (data) => {
             FutureVegetableRootPricesAllData.value.data = data.data.data;
@@ -896,7 +901,7 @@ const callFutureVegetableRootPricesAllData=()=>{
 
 }
 
-const callFutureGrainPricesAllData=()=>{
+const callFutureGrainPricesAllData = () => {
     getFutureGrainPrices(
         (data) => {
             FutureGrainPricesAllData.value.data = data.data.data;
@@ -911,7 +916,7 @@ const callFutureGrainPricesAllData=()=>{
 
 }
 
-const callFutureFruitPricesAllData=()=>{
+const callFutureFruitPricesAllData = () => {
     getFutureFruitPrices(
         (data) => {
             FutureFruitPricesAllData.value.data = data.data.data;
@@ -926,7 +931,7 @@ const callFutureFruitPricesAllData=()=>{
 
 }
 
-const callFutureYellowCropPricesAllData=()=>{
+const callFutureYellowCropPricesAllData = () => {
     getFutureYellowCropPrices(
         (data) => {
             FutureYellowCropPricesAllData.value.data = data.data.data;
@@ -976,7 +981,7 @@ const chartOptions = {
             }
         },
         y: {
-            beginAtZero: true, //y축의 최솟값을 0으로 만들어줌.
+            // beginAtZero: true, //y축의 최솟값을 0으로 만들어줌.
             grid: {
                 drawOnChartArea: false,
             }
