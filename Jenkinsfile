@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // 원래 브랜치와 머지하려는 브랜치를 체크아웃
-                    sh "git fetch origin +refs/heads/*:refs/remotes/origin/*"
+                    // sh "git fetch origin +refs/heads/*:refs/remotes/origin/*"
                     sh "git checkout ${env.TARGET_BRANCH}"
                     sh "git merge origin/${env.CHANGE_BRANCH}"
                     // 이후 Pre Build 과정을 정의
