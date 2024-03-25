@@ -75,7 +75,8 @@ pipeline {
                 expression { env.GIT_BRANCH == 'origin/infra/dev-test' || env.GIT_BRANCH == 'origin/dev-be' || env.GIT_BRANCH == 'origin/dev' || env.GIT_BRANCH == 'origin/master' }
             }
             
-            // steps {    
+            steps {    
+                echo pwd
                 // script {
                 //     try {
                 //         sh "docker rm -f \$(docker ps -aqf \"name=^/backend\$\")"
@@ -84,7 +85,7 @@ pipeline {
                 //     }
                 // }         
                 //     sh "docker run -d -p 8080:8080 -e TZ=Asia/Seoul --name backend backend"
-            // }
+            }
 
             post {
                 success {
@@ -133,7 +134,8 @@ pipeline {
                 expression { env.GIT_BRANCH == 'origin/infra/dev-test' || env.GIT_BRANCH == 'origin/dev-data' || env.GIT_BRANCH == 'origin/dev' || env.GIT_BRANCH == 'origin/master' }
             }
             
-            // steps {    
+            steps {    
+                echo pwd
                 // script {
                 //     try {
                 //         sh "docker rm -f \$(docker ps -aqf \"name=^/flask\$\")"
@@ -142,7 +144,7 @@ pipeline {
                 //     }
                 // }         
                     // sh "docker run -d -p 5000:5000 -e TZ=Asia/Seoul --name flask flask"
-            // }
+            }
 
             post {
                 success {
