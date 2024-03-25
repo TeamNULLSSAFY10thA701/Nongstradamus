@@ -6,7 +6,7 @@ pipeline {
         stage('Pre Build') {
             when {
                 // CHANGE_ID 환경 변수가 존재하는지 확인하여 Merge Request 이벤트인지 판별
-                expression { env.CHANGE_ID != null }
+                expression { env.GIT_BRANCH == 'origin/infra/dev-test' }
             }
             steps {
                 script {
