@@ -323,7 +323,6 @@ const callLastWeekPrices = () => {
     lastWeekPrice.value.msg = data.data.msg
     lastWeekPrice.value.code = data.data.code
     // console.log(lastWeekPrice.value)`
-    // console.log(lastWeekPrice.value.data[0].nickname)
   },
     (error) => {
       console.error(error)
