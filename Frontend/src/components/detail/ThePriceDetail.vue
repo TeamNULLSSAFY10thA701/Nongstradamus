@@ -285,39 +285,39 @@
                         class="mt-6 items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
-                                <input id="VegetableReaf" type="radio" name="list-radio"
+                                <input id="bestClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="bestClick">
-                                <label for="VegetableReaf"
+                                <label for="bestClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">특상
                                 </label>
                             </div>
                         </li>
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
-                                <input id="VegetableFruit" type="radio" name="list-radio"
+                                <input id="goodClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="goodClick">
-                                <label for="VegetableFruit"
+                                <label for="goodClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">상
                                 </label>
                             </div>
                         </li>
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
-                                <input id="transferVegetableRoot" type="radio" name="list-radio"
+                                <input id="midClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="midClick">
-                                <label for="transferVegetableRoot"
+                                <label for="midClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">중</label>
                             </div>
                         </li>
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center ps-3">
-                                <input id="Grain" type="radio" name="list-radio"
+                                <input id="lowClick" type="radio" name="list-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="lowClick">
-                                <label for="Grain"
+                                <label for="lowClick"
                                     class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">하</label>
                             </div>
                         </li>
@@ -759,6 +759,7 @@ const transferVegetableReaf = () => {
     categoryGrainState.value = false;
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
+    clickState.value = false;
 };
 
 const transferVegetableFruit = () => {
@@ -768,6 +769,7 @@ const transferVegetableFruit = () => {
     categoryGrainState.value = false;
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
+    clickState.value = false;
 };
 
 const transferVegetableRoot = () => {
@@ -777,6 +779,7 @@ const transferVegetableRoot = () => {
     categoryGrainState.value = false;
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
+    clickState.value = false;
 };
 
 const transferGrain = () => {
@@ -786,6 +789,7 @@ const transferGrain = () => {
     categoryGrainState.value = true;
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
+    clickState.value = false;
 };
 
 const transferFruit = () => {
@@ -795,6 +799,7 @@ const transferFruit = () => {
     categoryGrainState.value = false;
     categoryFruitState.value = true;
     categoryYellowCropState.value = false;
+    clickState.value = false;
 };
 
 const transferYellowCrop = () => {
@@ -804,6 +809,7 @@ const transferYellowCrop = () => {
     categoryGrainState.value = false;
     categoryFruitState.value = false;
     categoryYellowCropState.value = true;
+    clickState.value = false;
 };
 // 농산물 종류 라디오 버튼을 눌렀을 때, 상태를 나타내는 메서드들
 
