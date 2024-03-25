@@ -136,7 +136,7 @@
               <button
                 data-modal-target="modalEl"
                 data-modal-toggle="modalEl"
-                @click="getRecipeDetail(recipe.idx, 'modalEl')"
+                @click="toggleModal('modalEl')"
                 class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm mr-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
@@ -199,7 +199,7 @@
               <button
                 data-modal-target="modalEl2"
                 data-modal-toggle="modalEl2"
-                @click="getRecipeDetail(recipe.idx, 'modalEl2')"
+                @click="toggleModal('modalEl2')"
                 class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
@@ -274,11 +274,15 @@ import { ref, onMounted, computed } from "vue";
 import { getRecipeData, getRecipeDetailData } from "@/api/recipe";
 
 const selectedData = ref(null);
-const AllRecipes = ref([]); // 모든 레시피들의 정보
+const AllRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 o)
+const unpagedRecipes = ref([]) // 모든 레시피들의 정보(페이지네이션 x)
 const justifiedRecipes = ref([]) // 정렬 기준에 따라 정렬된 레시피들
 
 onMounted(() => {
   getAllRecipeData();
+  console.log(AllRecipes.value)
+  console.log(unpagedRecipes)
+  console.log(AllRecipes.value[0])
 });
 
 // 가격이 가장 많이 하락한 재료를 기반으로 한 20개의 레시피 정보를 가져옴
@@ -289,7 +293,13 @@ const getAllRecipeData = () => {
       i,
       (response) => {
         const tempData = [];
-        tempData.push(response.data.data);
+        for (let i=0; i < response.data.data.length; i++) {
+          const jsonrecipe = response.data.data[i]
+          const detaildata = getRecipeDetail(jsonrecipe.idx)
+          jsonrecipe.details = detaildata
+          tempData.push(jsonrecipe);
+          unpagedRecipes.value.push(jsonrecipe);
+        }
         AllRecipes.value.push(tempData);
       },
       (error) => {
@@ -299,6 +309,7 @@ const getAllRecipeData = () => {
   }
 };
 
+// 모달 창의 상태 변경
 const toggleModal = (modalId) => {
   const modal = document.getElementById(modalId);
   if (modal) {
@@ -308,44 +319,21 @@ const toggleModal = (modalId) => {
 };
 
 // 각 레시피의 상세정보를 가져옴과 동시에, 모달의 상태를 전환
-const getRecipeDetail = (idx, modalname) => {
-  getRecipeDetailData(
-    idx,
-    (response) => {
-      selectedData.value = response.data.data;
-      console.log(selectedData.value);
-      toggleModal(modalname);
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
+const getRecipeDetail = (idx) => {
+  return new Promise((resolve, reject) => {
+    getRecipeDetailData(
+      idx,
+      (response) => {
+        resolve(response.data.data); // 비동기 작업이 성공한 경우 데이터를 resolve로 반환
+      },
+      (error) => {
+        console.log(error);
+        reject(error); // 비동기 작업이 실패한 경우 에러를 reject로 반환
+      }
+    );
+  });
 };
 
-//------------ 성분 기준 데이터 정렬 ------------------
-const alignRecipes = (idx, ) => {
-  const tempRecipes = ref([])
-  for (recipes in AllRecipes.value) {
-    for (recipe in recipes) {
-      tempRecipes.value.push(recipe)
-    }
-  }
-  
-  for (recipe in tempRecipes.value) {
-    if (idx === 0) {  // 칼로리
-      recipe['energy'] 
-    }
-    else if (idx === 1) { // 단백질
-      
-    }
-    else if (idx === 2) { // 지방
-      
-    }
-    else if (idx === 3) { // 나트륨
-      
-    }
-  }
-}
 
 // ---------------- 라디오버튼 조작 ------------------
 
@@ -387,6 +375,38 @@ const handleRadioClick = (index) => {
       }
     }
   }
+}
+
+//------------ 성분 기준 데이터 정렬 ------------------
+
+// 레시피의 오름차순 정렬
+const alignRecipeAscend = (radioidx) => {
+  const tempDatas = []
+  for (let i=0; i<justifiedRecipes.length; i++) {
+        
+      }
+}
+
+// 
+const alignRecipes = (radioidx) => { // 라디오버튼 인덱스, 
+    if (radioidx === 0) {  
+      if (radioClickCount[radioidx] % 2 === 1) { // 칼로리를 선택했고, 오름차순 정렬인 경우
+        
+      }
+      else { // 칼로리를 선택했고, 내림차순 정렬인 경우
+      }
+      recipe['energy'] 
+    }
+    else if (idx === 1) { // 단백질
+      
+    }
+    else if (idx === 2) { // 지방
+      
+    }
+    else if (idx === 3) { // 나트륨
+      
+    }
+
 }
 
 // ---------------pagination--------------
