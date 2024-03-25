@@ -37,7 +37,7 @@ public class ProductDataServiceImpl implements ProductDataService{
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     @Override
-//    @Scheduled(fixedRate = 1000000000)
+//    @Scheduled(cron = "0 46 15 * * *")
     public void updateProductData()  {
         System.out.println("소매 가격 데이터 수집 시작");
         List<ProductEntity> products = productRepository.findAll();
@@ -83,19 +83,52 @@ public class ProductDataServiceImpl implements ProductDataService{
                 dtos.stream().map(PriceHistoryMapper.INSTANCE::fromDtoToEntity)
                     .collect(Collectors.toList()));
             priceHistoryRawRepository.saveAll(priceHistoryRaws);
-            for(int day = 2000; day <= 1; day--){
+        }
+        System.out.println("데이터 수집 끝");
+        System.out.println("데이터 정제 시작");
+        for (ProductEntity product : products){
+            System.out.println(product);
+            for(int day = 2000; day >= 1; day--){
                 LocalDate today = LocalDate.now().minusDays(day);
                 for(int grade = 1; grade <= 4; grade++) {
-                    List<PriceHistoryEntity> logs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade);
-                    if(logs.isEmpty()){
-                        List<PriceHistoryEntity> previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.minusDays(1).atStartOfDay()), grade);
-                        if(previousLogs.isEmpty()){
-                            previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade - 1);
-                            if(previousLogs.isEmpty()){
-                                previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 1);
+                    List<PriceHistoryEntity> logs = priceHistoryRepository.findAllByProductAndDateAndGrade(
+                        product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade);
+                    if (logs.size() == 0) {
+                        List<PricePredictEntity> futureLogs = pricePredictRepository.findAllByProductAndDateAndGrade(
+                            product, today, grade);
+                        if (!futureLogs.isEmpty()) {
+                            PriceHistoryEntity entity = new PriceHistoryEntity();
+                            entity.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                            entity.setProduct(product);
+                            entity.setRatio(0.0);
+                            entity.setGrade(grade);
+                            entity.setPrice(futureLogs.get(0).getPrice());
+                            priceHistoryRepository.save(entity);
+                            System.out.println(entity);
+                            continue;
+                        }
+                        List<PriceHistoryEntity> previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(
+                            product, java.sql.Timestamp.valueOf(today.minusDays(1).atStartOfDay()),
+                            grade);
+                        if (previousLogs.isEmpty()) {
+                            previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(
+                                product, java.sql.Timestamp.valueOf(today.atStartOfDay()),
+                                grade - 1);
+                            if (previousLogs.isEmpty()) {
+                                previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(
+                                    product, java.sql.Timestamp.valueOf(today.atStartOfDay()),
+                                    grade + 1);
+                                if (previousLogs.isEmpty()) {
+                                    previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(
+                                        product, java.sql.Timestamp.valueOf(today.atStartOfDay()),
+                                        grade + 2);
+                                    if(previousLogs.isEmpty()){
+                                        previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade( product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade - 2);
+                                    }
+                                }
                             }
                         }
-                        if(!previousLogs.isEmpty()) {
+                        if (!previousLogs.isEmpty()) {
                             PriceHistoryEntity entity = new PriceHistoryEntity();
                             entity.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
                             entity.setProduct(product);
@@ -103,34 +136,27 @@ public class ProductDataServiceImpl implements ProductDataService{
                             entity.setGrade(grade);
                             entity.setPrice(previousLogs.get(0).getPrice());
                             priceHistoryRepository.save(entity);
-                            continue;
+                            System.out.println(entity);
                         }
-                        List<PricePredictEntity> futureLogs = pricePredictRepository.findAllByProductAndDateAndGrade(product,today, grade);
-                        if(!futureLogs.isEmpty()){
-                            PriceHistoryEntity entity = new PriceHistoryEntity();
-                            entity.setProduct(product);
-                            entity.setRatio(0.0);
-                            entity.setGrade(grade);
-                            entity.setPrice(futureLogs.get(0).getPrice());
-                            priceHistoryRepository.save(entity);
-                        }
-                        continue;
+                    }else if (logs.size() >= 2) {
+                        PriceHistoryEntity ett = new PriceHistoryEntity();
+                        ett.setGrade(grade);
+                        ett.setProduct(product);
+                        ett.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                        ett.setPrice(
+                            (long) logs.stream().mapToDouble(entity1 -> entity1.getPrice()).average()
+                                .getAsDouble());
+                        ett.setRatio(
+                            logs.stream().mapToDouble(entity1 -> entity1.getRatio()).average()
+                                .getAsDouble());
+                        priceHistoryRepository.deleteAll(logs);
+                        System.out.println(ett);
+                        priceHistoryRepository.save(ett);
                     }
-                    if(logs.size() == 1){
-                        continue;
-                    }
-                    PriceHistoryEntity ett = new PriceHistoryEntity();
-                    ett.setGrade(grade);
-                    ett.setProduct(product);
-                    ett.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
-                    ett.setPrice((long) logs.stream().mapToDouble(entity->entity.getPrice()).average().getAsDouble());
-                    ett.setRatio(logs.stream().mapToDouble(entity->entity.getRatio()).average().getAsDouble());
-                    priceHistoryRepository.deleteAll(logs);
-                    priceHistoryRepository.save(ett);
                 }
             }
         }
-        System.out.println("데이터 수집 끝");
+        System.out.println("데이터 정제 끝");
     }
 }
 
