@@ -273,7 +273,7 @@
             </table>
         </div>
 
-        <div v-if="clickState">
+        <div v-if="clickState" class="mb-16">
             <div class="flex justify-center items-center mt-12">
                 <div
                     class="w-4/5 h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -322,20 +322,24 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="mt-10 h-4/5" v-if="bestClickState">
+                    <div class="mt-6 h-4/5" v-if="bestClickState">
                         <Line :data="chartData" :options="chartOptions" />
                     </div>
-                    <div class="mt-10 h-4/5" v-if="goodClickState">
+                    <div class="mt-6 h-4/5" v-if="goodClickState">
                         <Line :data="chartData" :options="chartOptions" />
                     </div>
-                    <div class="mt-10 h-4/5" v-if="midClickState">
+                    <div class="mt-6 h-4/5" v-if="midClickState">
                         <Line :data="chartData" :options="chartOptions" />
                     </div>
-                    <div class="mt-10 h-4/5" v-if="lowClickState">
+                    <div class="mt-6 h-4/5" v-if="lowClickState">
                         <Line :data="chartData" :options="chartOptions" />
                     </div>
+                    <button type="button"
+                        class="flex items-center justify-center mx-auto mt-8 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        @click="clickEvent">닫기</button>
 
                 </div>
+
             </div>
         </div>
 
@@ -373,7 +377,7 @@ onMounted(() => {
 // --------------------------------------------------------------------------------onMounted-------------------------------------------------------
 
 const getImageUrl = (nickname) => {
-    return `/src/assets/${nickname}.png`;
+    return `/${nickname}.png`;
 };
 //이미지를 불러오는 메서드
 
@@ -612,6 +616,7 @@ const midClick = () => {
     else {
         console.log('오류')
     }
+    updateChartData();
 
 }
 
@@ -677,6 +682,7 @@ const lowClick = () => {
     else {
         console.log('오류')
     }
+    updateChartData();
 
 }
 //특상,상,중,하의 가격 정보를 그래프에 불러오는 매서드.
@@ -726,7 +732,6 @@ const yellowCropclickEvent = (nickname, aname) => {
 const updateChartData = () => {
     chartData.datasets[0].label = `${nameBasket.value}의 과거가격`;
     chartData.datasets[1].label = `${nameBasket.value}의 미래가격`;
-
     chartData.datasets[0].data = [fourWeekAgoPrice.value, threeWeekAgoPrice.value, twoWeekAgoPrice.value, oneWeekAgoPrice.value, toDayPrice.value, null, null];
     chartData.datasets[1].data = [null, null, null, null, toDayPrice.value, oneWeekAfterPrice.value, twoWeekAfterPrice.value];
 }

@@ -291,7 +291,7 @@ const store = useVegetableTableStore();
 //이제 변수명(여기서는 store).store에저장된변수로 꺼내쓰기 가능.
 
 const getImageUrl = (nickname) => {
-    return `src/assets/${nickname}.png`;
+    return `/${nickname}.png`;
 };
 
 const FutureVegetableLeafPricesAllData = ref({
