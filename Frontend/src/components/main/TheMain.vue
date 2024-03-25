@@ -301,7 +301,7 @@ onMounted(() => {
 })
 
 const getImageUrl = (nickname) => {
-  return `/src/assets/${nickname}.png`;
+  return `/${nickname}.png`;
 };
 //사진을 가져올 메서드
 
