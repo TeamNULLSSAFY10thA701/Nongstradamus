@@ -2,88 +2,120 @@
 
 <template>
   <!-- 라디오버튼 start -->
-
-  <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">정렬 기준</h3>
-  <ul
-    class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex"
+  <div class="flex-column m-12 justify-center">
+      <div class="font-semibold mb-4 text-gray-900 dark:text-white">정렬 기준</div>
+      <ul
+    class="jeongryeol-block items-center w-3/5 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex"
   >
     <li
       class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
     >
-      <div class="flex items-center ps-3">
+      <div class="flex items-center ps-3 pe-3">
         <input
-          id="horizontal-list-radio-license"
+          id="ingredient1"
           type="radio"
           value=""
           name="list-radio"
           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+          @click="handleRadioClick(0)" 
         />
         <label
-          for="horizontal-list-radio-license"
+          for="ingredient1"
           class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >칼로리</label
         >
+        <svg class="down0 w-7 h-7 ms-3 -rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+
+        <svg class="up0 w-7 h-7 ms-3 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
       </div>
     </li>
     <li
       class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
     >
-      <div class="flex items-center ps-3">
+      <div class="flex items-center ps-3 pe-3">
         <input
-          id="horizontal-list-radio-id"
+          id="ingredient1"
           type="radio"
           value=""
           name="list-radio"
           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-        />
+          @click="handleRadioClick(1)" 
+          />
         <label
-          for="horizontal-list-radio-id"
+          for="ingredient2"
           class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >단백질</label
         >
+        <svg class="down1 w-7 h-7 ms-3 -rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+
+        <svg class="up1 w-7 h-7 ms-3 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
       </div>
     </li>
     <li
       class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
     >
-      <div class="flex items-center ps-3">
+      <div class="flex items-center ps-3 pe-3">
         <input
-          id="horizontal-list-radio-military"
+          id="ingredient3"
           type="radio"
           value=""
           name="list-radio"
           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-        />
+          @click="handleRadioClick(2)" 
+          />
         <label
-          for="horizontal-list-radio-military"
+          for="ingredient3"
           class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >지방</label
         >
+        <svg class="down2 w-7 h-7 ms-3 -rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+
+        <svg class="up2 w-7 h-7 ms-3 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
       </div>
     </li>
     <li class="w-full dark:border-gray-600">
-      <div class="flex items-center ps-3">
+      <div class="flex items-center ps-3 pe-3">
         <input
-          id="horizontal-list-radio-passport"
+          id="ingredient4"
           type="radio"
           value=""
           name="list-radio"
           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-        />
+          @click="handleRadioClick(3)" 
+          />
         <label
-          for="horizontal-list-radio-passport"
+          for="ingredient4"
           class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >나트륨</label
         >
-      </div>
-    </li>
-  </ul>
+        <svg class="down3 w-7 h-7 ms-3 background-color-gray -rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
 
+        <svg class="up3 w-7 h-7 ms-3 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+        </div>
+      </li>
+    </ul>
+  </div>
   <!-- 라디오버튼 end -->
 
   <div class="recipe-list">
-    <ul v-for="recipes in AllRecipes" :key="recipes">
-      <div v-for="recipe in recipes[0]" :key="recipe" class="m-12 photo">
+    <ul v-for="recipes in AllRecipes" :key="recipes" class="grid grid-cols-2">
+      <div v-for="recipe in recipes[0]" :key="recipe" class="m-6 photo">
         <!-- 각 레시피 카드 -->
         <div
           class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
@@ -242,7 +274,8 @@ import { ref, onMounted } from "vue";
 import { getRecipeData, getRecipeDetailData } from "@/api/recipe";
 
 const selectedData = ref(null);
-const AllRecipes = ref([]);
+const AllRecipes = ref([]); // 모든 레시피들의 정보
+const justifiedRecipes = ref([]) // 정렬 기준에 따라 정렬된 레시피들
 
 onMounted(() => {
   getAllRecipeData();
@@ -288,6 +321,50 @@ const getRecipeDetail = (idx, modalname) => {
     }
   );
 };
+
+// ---------------라디오버튼 조작 --------------
+
+// 라디오 버튼 클릭 상태 저장 변수
+const radioClickCount = ref([0, 0, 0, 0]);
+// 라디오 버튼 클릭에 따라 정렬시킬 기준 정보(칼로리, 단백질, 지방, 나트륨)
+const alignStandard = ref('')
+
+// 라디오 버튼 클릭 시 색 변화
+const handleRadioClick = (index) => {
+  // 클릭 상태 변경
+  radioClickCount.value[index]++
+
+  for (let i = 0; i < 4; i++) {
+    if (i !== index) {
+      radioClickCount.value[i] = 0;
+      const downArrow = document.querySelectorAll(`.down${i}`)[0];
+      const upArrow = document.querySelectorAll(`.up${i}`)[0];
+      downArrow.classList.remove('text-red-500');
+      downArrow.classList.add('text-gray-900');
+      upArrow.classList.remove('text-blue-500');
+      upArrow.classList.add('text-gray-900');
+    } else {
+      const downArrow = document.querySelectorAll(`.down${index}`)[0];
+      const upArrow = document.querySelectorAll(`.up${index}`)[0];
+      // 홀수번 클릭된 경우
+      if (radioClickCount.value[index] % 2 === 1) {
+        downArrow.classList.add('text-red-500');
+        downArrow.classList.remove('text-gray-900');
+        upArrow.classList.add('text-gray-900');
+        upArrow.classList.remove('text-blue-500');
+      }
+      // 짝수번 클릭된 경우
+      else {
+        downArrow.classList.remove('text-red-500');
+        downArrow.classList.add('text-gray-900');
+        upArrow.classList.remove('text-gray-900');
+        upArrow.classList.add('text-blue-500');
+      }
+    }
+  }
+}
+
+
 </script>
 
 <style scoped></style>

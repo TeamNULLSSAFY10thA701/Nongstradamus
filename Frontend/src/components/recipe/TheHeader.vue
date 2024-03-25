@@ -1,6 +1,6 @@
 <template>
   <!-- startheader -->
-  <div class="grid grid-cols-3 gap-4 ml-4 mr-4 mt-8">
+  <div class="grid grid-cols-3 gap-4 mt-12 w-1/2 mx-auto">
     <div>
       <img src="@/assets/full_logo1.png" @click="goToMainPage" />
     </div>
