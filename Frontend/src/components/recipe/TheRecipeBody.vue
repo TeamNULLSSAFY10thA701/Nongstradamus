@@ -114,8 +114,8 @@
   <!-- 라디오버튼 end -->
 
   <div class="recipe-list">
-    <ul v-for="recipes in AllRecipes" :key="recipes" class="grid grid-cols-2">
-      <div v-for="recipe in recipes[0]" :key="recipe" class="m-6 photo">
+    <ul v-for="recipes in AllRecipes[currentPage - 1]" :key="recipes" class="grid grid-cols-2">
+      <div v-for="recipe in recipes" :key="recipe" class="m-6 photo">
         <!-- 각 레시피 카드 -->
         <div
           class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
@@ -264,13 +264,13 @@
   </div>
 
   <!-- 페이지네이션 컨트롤 -->
-  <button @click="prevPage" :disabled="currentPage === 1">이전</button>
+  <button @click="prevPage" :disabled="currentPage === 1" class="m-8">이전</button>
   <span>페이지 {{ currentPage }} / {{ totalPages }}</span>
-  <button @click="nextPage" :disabled="currentPage >= totalPages">다음</button>
+  <button @click="nextPage" :disabled="currentPage >= totalPages" class="m-8">다음</button>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { getRecipeData, getRecipeDetailData } from "@/api/recipe";
 
 const selectedData = ref(null);
@@ -322,9 +322,34 @@ const getRecipeDetail = (idx, modalname) => {
   );
 };
 
-// ---------------라디오버튼 조작 --------------
+//------------ 성분 기준 데이터 정렬 ------------------
+const alignRecipes = (idx, ) => {
+  const tempRecipes = ref([])
+  for (recipes in AllRecipes.value) {
+    for (recipe in recipes) {
+      tempRecipes.value.push(recipe)
+    }
+  }
+  
+  for (recipe in tempRecipes.value) {
+    if (idx === 0) {  // 칼로리
+      recipe['energy'] 
+    }
+    else if (idx === 1) { // 단백질
+      
+    }
+    else if (idx === 2) { // 지방
+      
+    }
+    else if (idx === 3) { // 나트륨
+      
+    }
+  }
+}
 
-// 라디오 버튼 클릭 상태 저장 변수
+// ---------------- 라디오버튼 조작 ------------------
+
+// 라디오 버튼 클릭 상태 저장 변수(칼로리, 단백질, 지방, 나트륨)
 const radioClickCount = ref([0, 0, 0, 0]);
 // 라디오 버튼 클릭에 따라 정렬시킬 기준 정보(칼로리, 단백질, 지방, 나트륨)
 const alignStandard = ref('')
@@ -361,6 +386,22 @@ const handleRadioClick = (index) => {
         upArrow.classList.add('text-blue-500');
       }
     }
+  }
+}
+
+// ---------------pagination--------------
+const currentPage = ref(1);
+const totalPages = 5
+
+function nextPage() {
+  if (currentPage.value < totalPages) {
+    currentPage.value++;
+  }
+}
+
+function prevPage() {
+  if (currentPage.value > 1) {
+    currentPage.value--;
   }
 }
 
