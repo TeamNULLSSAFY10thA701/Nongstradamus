@@ -491,7 +491,7 @@ function showOneIncrease() {
 //호버 시, 보여줄 값을 변환
 
 function resetPriceIncrease() {
-  showIncreasedPrice.value = `${BiggestDroppedPrice.value.data.price}원`
+  showIncreasedPrice.value = `${BiggestIncreasedPrice.value.data.price}원`
 }
 //호버가 끝나면, 다시 원래값으로 변환
 
