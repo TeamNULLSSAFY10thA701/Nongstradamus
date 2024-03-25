@@ -2,7 +2,7 @@
   <div class="all-font max-w-5xl mx-auto">
     <div class="grid grid-cols-5 gap-4 ml-4 mr-4 mt-8">
       <div class="w-4/5 mx-auto col-start-2">
-        <img src="../../assets/full_logo1.png" />
+        <img src="/src/assets/full_logo1.png" />
       </div>
       <div class="title col-start-3 col-span-3 flex items-center">
         오늘의 꿀 품목
@@ -71,7 +71,7 @@
         class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="grid grid-cols-3 gap-4">
           <div class="flex items-center justify-center">
-            <img src="../../assets/recipe.png" />
+            <img src="/src/assets/recipe.png" />
           </div>
           <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-2xl">
             오늘의 추천 레시피
@@ -86,7 +86,7 @@
         class="todayRecipe block w-2/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="grid grid-cols-3 gap-4">
           <div class="flex items-center justify-center">
-            <img src="../../assets/crystal ball.png" />
+            <img src="/src/assets/crystal ball.png" />
           </div>
           <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-2xl">
             예측가격 보러 가기
@@ -301,7 +301,7 @@ onMounted(() => {
 })
 
 const getImageUrl = (nickname) => {
-  return `src/assets/${nickname}.png`;
+  return `/src/assets/${nickname}.png`;
 };
 //사진을 가져올 메서드
 
@@ -491,7 +491,7 @@ function showOneIncrease() {
 //호버 시, 보여줄 값을 변환
 
 function resetPriceIncrease() {
-  showIncreasedPrice.value = `${BiggestDroppedPrice.value.data.price}원`
+  showIncreasedPrice.value = `${BiggestIncreasedPrice.value.data.price}원`
 }
 //호버가 끝나면, 다시 원래값으로 변환
 
