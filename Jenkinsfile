@@ -6,14 +6,14 @@ pipeline {
         stage('FE 빌드 및 빌드파일 복사') {
             
             when {
-                expression { env.GIT_BRANCH == 'origin/dev-fe' || env.GIT_BRANCH == 'origin/dev' || env.GIT_BRANCH == 'origin/master' }
+                expression { env.GIT_BRANCH == 'origin/infra/dev-test' || env.GIT_BRANCH == 'origin/dev-fe' || env.GIT_BRANCH == 'origin/dev' || env.GIT_BRANCH == 'origin/master' }
             }
             
             steps {
                 dir('Frontend') {
                     script {
                         try {
-                            sh "docker rm -f \$(docker ps -aqf \"name=^/frontend\$\")"
+                            sh "docker rm -f \$(docker ps -aqf \"name=^/frontendTEST\$\")"
                         } catch (Exception e) {
                             echo "컨테이너 제거 중 에러가 발생했습니다: ${e.getMessage()}"
                         }
@@ -21,10 +21,10 @@ pipeline {
                     withCredentials([file(credentialsId: 'FE-Environment', variable: 'metaenv')]) {
                         sh 'cp $metaenv ./meta.env'
                     }      
-                    sh "docker build -t frontend ."
-                    sh "docker run --name frontend frontend"
-                    sh "docker cp frontend:/app/dist /data"
-                    sh "docker exec nginx nginx -s reload"
+                    sh "docker build -t frontendTEST ."
+                    sh "docker run --name frontendTEST frontendTEST"
+                    // sh "docker cp frontend:/app/dist /data"
+                    // sh "docker exec nginx nginx -s reload"
                 }
             }
 
