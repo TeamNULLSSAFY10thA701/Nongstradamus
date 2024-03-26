@@ -103,7 +103,6 @@ public class ProductDataServiceImpl implements ProductDataService{
                             entity.setGrade(grade);
                             entity.setPrice(futureLogs.get(0).getPrice());
                             priceHistoryRepository.save(entity);
-                            System.out.println(entity);
                             continue;
                         }
                         List<PriceHistoryEntity> previousLogs = priceHistoryRepository.findAllByProductAndDateAndGrade(
@@ -135,7 +134,6 @@ public class ProductDataServiceImpl implements ProductDataService{
                             entity.setGrade(grade);
                             entity.setPrice(previousLogs.get(0).getPrice());
                             priceHistoryRepository.save(entity);
-                            System.out.println(entity);
                         }
                     }else if (logs.size() >= 2) {
                         PriceHistoryEntity ett = new PriceHistoryEntity();
@@ -149,7 +147,6 @@ public class ProductDataServiceImpl implements ProductDataService{
                             logs.stream().mapToDouble(entity1 -> entity1.getRatio()).average()
                                 .getAsDouble());
                         priceHistoryRepository.deleteAll(logs);
-                        System.out.println(ett);
                         priceHistoryRepository.save(ett);
                     }
                 }
