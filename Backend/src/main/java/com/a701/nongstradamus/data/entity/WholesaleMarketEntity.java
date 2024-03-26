@@ -27,7 +27,6 @@ public class WholesaleMarketEntity {
     private Long id;
 
     @Column(name = "date", nullable = false)
-    @CreationTimestamp
     private Date date;
 
     @Column(name = "price", nullable = false)
