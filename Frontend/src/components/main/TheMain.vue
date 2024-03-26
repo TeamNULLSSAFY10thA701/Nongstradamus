@@ -125,7 +125,7 @@
       </div>
 
       <div class="mt-4" v-if="lastWeekState">
-        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+        <Carousel :itemsToShow="2.95" :wrapAround="true" :transition="500">
           <Slide v-for="slide in lastWeekPrice.data" :key="slide">
             <div>
               <a class="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -177,7 +177,7 @@
       <!-- 오늘 가격 예측 캐러셀 -->
 
       <div class="mt-4" v-if="tommorowState">
-        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+        <Carousel :itemsToShow="2.95" :wrapAround="true" :transition="500">
           <Slide v-for="slide in tomorrowPrice.data" :key="slide">
             <div>
               <a class="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
