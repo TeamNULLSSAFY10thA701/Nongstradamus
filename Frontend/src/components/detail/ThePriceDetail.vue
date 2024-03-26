@@ -1,103 +1,82 @@
 <template>
-    <div class="all max-w-5xl mx-auto">
-
-        <div class="grid grid-cols-5 gap-4 mt-8">
-            <div class="w-4/5 mx-auto col-start-2">
-                <img src="/src/assets/full_logo1.png" @click="goMainPage" />
+    <div class="all max-w-md mx-auto">
+        <div class="grid grid-cols-6 gap-4 mt-8">
+            <div class="w-2/3 col-span-2 ml-6">
+                <img src="/src/assets/full_logo1.png" />
             </div>
-            <div class="title col-start-3 col-span-3 flex items-center">
+            <div class="title col-start-3 col-span-4 flex items-center">
                 농스트라다무스의 예측
             </div>
         </div>
         <!-- header -->
         <h3 class="mt-7 mb-4 font-semibold text-gray-900 dark:text-white w-4/5 mx-auto">농산물 카테고리</h3>
         <ul
-            class="items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
-            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div class="flex items-center ps-3">
-                    <input id="VegetableReaf" type="radio" value="" name="list-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        @click="transferVegetableReaf">
-                    <label for="VegetableReaf"
-                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        @click="transferVegetableReaf">채소-잎
-                    </label>
-                </div>
+            class="grid grid-cols-3 items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
+            <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
+                <input id="VegetableReaf" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
+                    @click="transferVegetableReaf">
+                <label for="VegetableReaf"
+                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    @click="transferVegetableReaf">채소-잎
+                </label>
             </li>
-            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div class="flex items-center ps-3">
-                    <input id="VegetableFruit" type="radio" value="" name="list-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        @click="transferVegetableFruit">
-                    <label for="VegetableFruit"
-                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        @click="transferVegetableFruit">채소-열매
-                    </label>
-                </div>
+            <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
+                <input id="VegetableFruit" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
+                    @click="transferVegetableFruit">
+                <label for="VegetableFruit"
+                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    @click="transferVegetableFruit">채소-열매</label>
             </li>
-            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div class="flex items-center ps-3">
-                    <input id="transferVegetableRoot" type="radio" value="" name="list-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        @click="transferVegetableRoot">
-                    <label for="transferVegetableRoot"
-                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        @click="transferVegetableRoot">채소-뿌리</label>
-                </div>
+            <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
+                <input id="transferVegetableRoot" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
+                    @click="transferVegetableRoot">
+                <label for="transferVegetableRoot"
+                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    @click="transferVegetableRoot">채소-뿌리</label>
             </li>
-            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div class="flex items-center ps-3">
-                    <input id="Grain" type="radio" value="" name="list-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        @click="transferGrain">
-                    <label for="Grain" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        @click="transferGrain">곡물</label>
-                </div>
+            <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
+                <input id="Grain" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
+                    @click="transferGrain">
+                <label for="Grain"
+                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    @click="transferGrain">곡물</label>
             </li>
-            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div class="flex items-center ps-3">
-                    <input id="Fruit" type="radio" value="" name="list-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        @click="transferFruit">
-                    <label for="Fruit" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        @click="transferFruit">과일</label>
-                </div>
+            <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
+                <input id="Fruit" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
+                    @click="transferFruit">
+                <label for="Fruit"
+                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    @click="transferFruit">과일</label>
             </li>
-            <li class="w-full dark:border-gray-600">
-                <div class="flex items-center ps-3">
-                    <input id="YellowCrop" type="radio" value="" name="list-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        @click="transferYellowCrop">
-                    <label for="YellowCrop"
-                        class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        @click="transferYellowCrop">구황작물</label>
-                </div>
+            <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
+                <input id="YellowCrop" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
+                    @click="transferYellowCrop">
+                <label for="YellowCrop"
+                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    @click="transferYellowCrop">구황작물</label>
             </li>
-
         </ul>
+
         <!-- 카테고리 라디오버튼 -->
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 w-4/5 h-3/5 mx-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-16 py-3 ">
-                            <span class="sr-only">이미지</span>
+                        <th scope="col" class="py-3 text-center">
+                            품목
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" class="py-3 text-center">
                             농산물이름
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" class="py-3 text-center">
                             현재가격(중품)
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-                            내일가격(중품)
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-                            예측등락폭(%)
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-                            단위
                         </th>
                     </tr>
                 </thead>
@@ -105,55 +84,43 @@
                     <tr v-for="category in FutureVegetableLeafPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="vegetableLeafclickEvent(category.nickname, category.name)">
-                        <td class="p-4 w-10">
-                            <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
+                        <td class="py-4 flex items-center justify-center">
+                            <img :src="getImageUrl(category.nickname)" class="mx-auto w-2/5">
                         </td>
                         <!-- 이미지 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </td>
                         <!-- 농산물이름 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
+                            {{ category.present }}원<br>({{ category.unit }})
                         </td>
                         <!-- 현재가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <!-- <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.future }}원
                         </td>
-                        <!-- 다음 주 가격 -->
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.ratio }}%
                         </td>
                         <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.unit }}
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
                 <tbody v-if="categoryVegetableFruitState">
                     <tr v-for="category in FutureVegetableFruitPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="vegetableFruitclickEvent(category.nickname, category.name)">
-                        <td class="p-4 w-10">
-                            <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
+                        <td class="py-4 flex items-center justify-center">
+                            <img :src="getImageUrl(category.nickname)" class="mx-auto w-2/5">
                         </td>
                         <!-- 이미지 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </td>
                         <!-- 농산물이름 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원
-                        </td>
-                        <!-- 현재가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}원
-                        </td>
-                        <!-- 다음 주 가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}%
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.unit }}
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
+                            {{ category.present }}원<br>({{ category.unit }})
                         </td>
                     </tr>
                 </tbody>
@@ -161,27 +128,16 @@
                     <tr v-for="category in FutureVegetableRootPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="vegetableRootclickEvent(category.nickname, category.name)">
-                        <td class="p-4 w-10">
-                            <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
+                        <td class="py-4 flex items-center justify-center">
+                            <img :src="getImageUrl(category.nickname)" class="mx-auto w-2/5">
                         </td>
                         <!-- 이미지 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </td>
                         <!-- 농산물이름 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원
-                        </td>
-                        <!-- 현재가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}원
-                        </td>
-                        <!-- 다음 주 가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}%
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.unit }}
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
+                            {{ category.present }}원<br>({{ category.unit }})
                         </td>
                     </tr>
                 </tbody>
@@ -189,27 +145,16 @@
                     <tr v-for="category in FutureGrainPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="grainclickEvent(category.nickname, category.name)">
-                        <td class="p-4 w-10">
-                            <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
+                        <td class="py-4 flex items-center justify-center">
+                            <img :src="getImageUrl(category.nickname)" class="mx-auto w-2/5">
                         </td>
                         <!-- 이미지 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </td>
                         <!-- 농산물이름 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원
-                        </td>
-                        <!-- 현재가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}원
-                        </td>
-                        <!-- 다음 주 가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}%
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.unit }}
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
+                            {{ category.present }}원<br>({{ category.unit }})
                         </td>
                     </tr>
                 </tbody>
@@ -217,27 +162,16 @@
                     <tr v-for="category in FutureFruitPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="fruitclickEvent(category.nickname, category.name)">
-                        <td class="p-4 w-10">
-                            <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
+                        <td class="py-4 flex items-center justify-center">
+                            <img :src="getImageUrl(category.nickname)" class="mx-auto w-2/5">
                         </td>
                         <!-- 이미지 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </td>
                         <!-- 농산물이름 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원
-                        </td>
-                        <!-- 현재가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}원
-                        </td>
-                        <!-- 다음 주 가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}%
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.unit }}
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
+                            {{ category.present }}원<br>({{ category.unit }})
                         </td>
                     </tr>
                 </tbody>
@@ -245,27 +179,16 @@
                     <tr v-for="category in FutureYellowCropPricesAllData.table" :key="category"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                         @click="yellowCropclickEvent(category.nickname, category.name)">
-                        <td class="p-4 w-10">
-                            <img :src="getImageUrl(category.nickname)" class="w-10 max-w-full max-h-full mx-auto">
+                        <td class="py-4 flex items-center justify-center">
+                            <img :src="getImageUrl(category.nickname)" class="mx-auto w-2/5">
                         </td>
                         <!-- 이미지 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </td>
                         <!-- 농산물이름 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원
-                        </td>
-                        <!-- 현재가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}원
-                        </td>
-                        <!-- 다음 주 가격 -->
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}%
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.unit }}
+                        <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
+                            {{ category.present }}원<br>({{ category.unit }})
                         </td>
                     </tr>
                 </tbody>
@@ -276,51 +199,50 @@
         <div v-if="clickState" class="mb-16">
             <div class="flex justify-center items-center mt-12">
                 <div
-                    class="w-4/5 h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    class="w-full h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a>
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ nameBasket
-                            }}의
-                            가격 정보
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
+                        nameBasket }}의 가격 정보
                         </h5>
                     </a>
                     <ul
-                        class="mt-6 items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center ps-3">
-                                <input id="bestClick" type="radio" name="list-radio"
+                        class="grid grid-cols-4 mt-6 items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
+                        <li class="w-full dark:border-gray-600 border-r">
+                            <div class="flex items-center justify-center ps-1">
+                                <input id="bestClick" type="radio" name="list-radio2"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="bestClick" :checked="bestClickState">
                                 <label for="bestClick"
-                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">특상
+                                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">특
                                 </label>
                             </div>
                         </li>
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center ps-3">
-                                <input id="goodClick" type="radio" name="list-radio"
+                        <li class="w-full dark:border-gray-600 border-r">
+                            <div class="flex items-center justify-center ps-1">
+                                <input id="goodClick" type="radio" name="list-radio2"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="goodClick" :checked="goodClickState">
                                 <label for="goodClick"
-                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">상
+                                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">상
                                 </label>
                             </div>
                         </li>
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center ps-3">
-                                <input id="midClick" type="radio" name="list-radio"
+                        <li class="w-full dark:border-gray-600 border-r">
+                            <div class="flex items-center justify-center ps-1">
+                                <input id="midClick" type="radio" name="list-radio2"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="midClick" :checked="midClickState">
                                 <label for="midClick"
-                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">중</label>
+                                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">중</label>
                             </div>
                         </li>
-                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                            <div class="flex items-center ps-3">
-                                <input id="lowClick" type="radio" name="list-radio"
+                        <li class="w-full dark:border-gray-600 border-r">
+                            <div class="flex items-center justify-center ps-1">
+                                <input id="lowClick" type="radio" name="list-radio2"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                     @click="lowClick" :checked="lowClickState">
                                 <label for="lowClick"
-                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">하</label>
+                                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300">하</label>
                             </div>
                         </li>
                     </ul>
@@ -388,8 +310,10 @@ const getImageUrl = (nickname) => {
 const goMainPage = () => {
     router.push('/')
 }
+//로고를 클릭 시, 메인 페이지로 돌아가는 메서드.
 
 const clickState = ref(false)
+//클릭 시, 해당 품목의 세부 그래프를 볼 수 있게 만들어주는 변수.
 
 const bestClickState = ref(false)
 
@@ -398,6 +322,7 @@ const goodClickState = ref(false)
 const midClickState = ref(false)
 
 const lowClickState = ref(false)
+//특상,상,중,하 품목의 카테고리를 선택했는지 상태를 나타내는 변수.
 
 const clickEvent = () => {
     if (clickState.value == false) {
@@ -408,6 +333,9 @@ const clickEvent = () => {
     midClickState.value = false
     lowClickState.value = false
 }
+//클릭 시, 세부 그래프를 나타내는 메서드.
+//초기상태에서 클릭 시, 세부 그래프를 랜더링함.
+//이미 세부 그래프가 나타난 상황에서 같은 계열, 다른 품목을 고를 경우, 세부 그래프를 끄지 않기 위하여 if문 설정.
 //만약 버그가 생긴다면, 하단의 cancelClickEvent를 지우시고, 위의if문을 지우고 원복하세요. :checked도 지우세요.
 
 const cancelClickEvent = () => {
@@ -417,6 +345,7 @@ const cancelClickEvent = () => {
     midClickState.value = false
     lowClickState.value = false
 }
+//"닫기"버튼이나 다른계열로 넘어갈 시, 스위치 기능을 하는 메서드.
 
 const categoryBasket = ref('')
 //특정 농산물 클릭 시, 해당 카테고리를 담을 변수.
@@ -440,6 +369,8 @@ const toDayPrice = ref('')
 const oneWeekAfterPrice = ref('')
 
 const twoWeekAfterPrice = ref('')
+
+//각 그래프에 담을 변수
 
 
 const bestClick = () => {
@@ -705,6 +636,8 @@ const lowClick = () => {
 
 }
 //특상,상,중,하의 가격 정보를 그래프에 불러오는 매서드.
+//불러온 데이터에서 데이터의 형식에 맞춰 바구니에 담은 닉네임을 기준으로 가격을 찾음.
+//저장 후, 해당 데이터를 그래프에 반영하기 위하여 updateChartData();메서드를 사용.
 
 const vegetableLeafclickEvent = (nickname, aname) => {
     nameBasket.value = aname
@@ -747,6 +680,8 @@ const yellowCropclickEvent = (nickname, aname) => {
     categoryBasket.value = 'FutureYellowCropPricesAllData'
     clickEvent()
 }
+//해당 계열에서 품목을 결정했을 때, 요소를 특정짓는 메서드.
+//각 바구니로 현재 계열,품목,표시할이름을 특정지어 사용.
 
 const updateChartData = () => {
     chartData.datasets[0].label = `${nameBasket.value}의 과거가격`;
@@ -975,6 +910,8 @@ const callFutureYellowCropPricesAllData = () => {
     );
 
 }
+//axios를 이용하여 데이터를 가져오는 메서드.
+//data.data가 원본데이터이며, 세부적인 데이터를 원할경우, 추가로 진입해야함.
 
 
 
@@ -1032,22 +969,11 @@ const chartOptions = {
 </script>
 
 <style scoped>
-@media (max-width: 1024px) {
-
-    /* 창 폭이 1024px 이하로 줄어들 때 적용될 스타일 */
-    .all {
-        min-width: 1024px;
-        /* 최소 폭을 1024px로 설정 */
-        margin: 0 auto;
-    }
-}
-
-
 .all {
     font-family: "HSBombaram3.0";
 }
 
 .title {
-    font-size: 38px;
+    font-size: 22px;
 }
 </style>
