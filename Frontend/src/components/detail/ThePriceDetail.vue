@@ -1,6 +1,6 @@
 <template>
     <div class="all max-w-md mx-auto">
-        <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-12 h-8">
+        <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-16 h-8">
             <div class="w-3/5 mx-auto col-span-2 ml-6" @click="goMainPage">
                 <img src="/src/assets/full_logo1.png" />
             </div>
@@ -9,7 +9,6 @@
             </div>
         </div>
         <!-- header -->
-        <h3 class="mt-7 mb-4 font-semibold text-gray-900 dark:text-white w-4/5 mx-auto">농산물 카테고리</h3>
         <ul
             class="grid grid-cols-3 items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white w-4/5 mx-auto">
             <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">

@@ -1,6 +1,6 @@
 <template>
   <div class="all-font max-w-md mx-auto">
-    <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-12 h-8">
+    <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-16 h-8">
       <div class="w-3/5 mx-auto col-span-2 ml-6">
         <img src="/src/assets/full_logo1.png" />
       </div>
@@ -24,14 +24,13 @@
             하락</span>할거에요!
         </h5>
         <div class="grid grid-cols-3 gap-4">
-          <div class="h-3/5">
+          <div class="flex items-center justify-center">
             <img :src="getImageUrl(BiggestDroppedPrice.data.nickname)" :class=bindClass />
           </div>
-          <div class="rounded-lg bg-white border flex justify-center items-center h-1/3 my-auto">
+          <div class="rounded-lg bg-white border flex justify-center items-center my-auto">
             {{ BiggestDroppedPrice.data.price }}원
           </div>
-          <div class="rounded-lg bg-white border flex justify-center items-center h-1/3 my-auto"
-            v-if="BiggestDroppedPrice.data.ratio >= 0">
+          <div class="flex justify-center items-center h-1/3 my-auto" v-if="BiggestDroppedPrice.data.ratio >= 0">
             <div class="font-bold text-sm text-center text-blue-600">
               {{ BiggestDroppedPrice.data.ratio }}%상승
             </div>
@@ -54,13 +53,13 @@
             상승</span>할거에요!
         </h5>
         <div class="grid grid-cols-3 gap-4">
-          <div class="h-3/5">
+          <div class="flex items-center justify-center">
             <img :src="getImageUrl(BiggestIncreasedPrice.data.nickname)" :class=bindClass />
           </div>
-          <div class="rounded-lg bg-white border flex justify-center items-center h-1/3 my-auto">
+          <div class="rounded-lg bg-white border flex justify-center items-center my-auto">
             {{ BiggestIncreasedPrice.data.price }}원
           </div>
-          <div class="items-center h-1/3 my-auto" v-if="BiggestIncreasedPrice.data.ratio >= 0">
+          <div class="flex justify-center items-center h-1/3 my-auto" v-if="BiggestIncreasedPrice.data.ratio >= 0">
             <div class="font-bold text-sm text-center text-blue-600">
               {{ BiggestIncreasedPrice.data.ratio }}%상승
             </div>
