@@ -22,15 +22,16 @@ def calculate_price():
         trade = pandas.read_sql(trade_get_stmt(product[0], start_date, end_date), conn)
         wheater = pandas.read_sql(weather_get_stmt(product[0], start_date, end_date), conn)
 
-        for grade in (1, 2, 3, 4):
-            price_history = pandas.read_sql(price_history_get_stmt(product[0], grade, start_date, end_date), conn)
-            wholesale_market = pandas.read_sql(wholesale_market_get_stmt(product[0], grade, start_date, end_date), conn)
-
-            if price_history or wholesale_market:
-                continue
-
-            light_gbm.do_process(conn, product, grade, start_date, end_date,
-                                 domestic_oil, global_oil, price_history, wholesale_market, trade, wheater)
+        # for grade in (1, 2, 3, 4):
+        #     price_history = pandas.read_sql(price_history_get_stmt(product[0], grade, start_date, end_date), conn)
+        #     wholesale_market = pandas.read_sql(wholesale_market_get_stmt(product[0], grade, start_date, end_date), conn)
+        #
+        #     ## 수정할 것
+        #     if price_history or wholesale_market:
+        #         continue
+        #
+        #     light_gbm.do_process(conn, product, grade, start_date, end_date,
+        #                          domestic_oil, global_oil, price_history, wholesale_market, trade, wheater)
 
 
 scheduler = BackgroundScheduler()
