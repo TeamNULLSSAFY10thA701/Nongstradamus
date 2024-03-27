@@ -452,17 +452,13 @@ const toggleModal = (modalId, data) => {
 
 // 각 레시피의 상세정보를 가져옴과 동시에, 모달의 상태를 전환
 const getRecipeDetail = (idx) => {
-  // Promise를 반환하는 새로운 Promise 객체를 생성하여 반환합니다.
   return new Promise((resolve, reject) => {
-    // getRecipeDetailData 함수 호출
     getRecipeDetailData(
       idx,
       (response) => {
-        // 성공한 경우 응답 데이터를 resolve하여 Promise를 완료합니다.
         resolve(response.data.data);
       },
       (error) => {
-        // 실패한 경우 에러를 reject하여 Promise를 완료합니다.
         reject(error);
       }
     );
@@ -537,12 +533,10 @@ const alignRecipeAscend = (radioidx) => {
     if (tempRecipes.length === 0) 
     {
       tempRecipes.push(jsonData)
-      console.log(tempRecipes)
     }
 
     else if (jsonData[tempIngredients[radioidx]] < tempRecipes[-1][tempIngredients[radioidx]]) {
       tempRecipes.push(jsonData)
-      console.log(tempRecipes)
     }
 
     else {
