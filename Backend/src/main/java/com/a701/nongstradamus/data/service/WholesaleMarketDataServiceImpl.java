@@ -161,27 +161,27 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                         product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade
                     );
                     for(OriginEntity origin : origins){
-                        List<WholesaleMarketEntity> logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                        List<WholesaleMarketEntity> logs = wholesaleMarketRepository.findAllByProductAndDateAndGradeAndOrigin(
                             product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade, origin
                         );
                         if(logs.isEmpty()){
-                            logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                            logs = wholesaleMarketRepository.findAllByProductAndDateAndGradeAndOrigin(
                                 product, java.sql.Timestamp.valueOf(today.minusDays(1).atStartOfDay()), grade, origin
                             );
                             if(logs.isEmpty())
-                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGradeAndOrigin(
                                     product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade - 1, origin
                                 );
                             if(logs.isEmpty())
-                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGradeAndOrigin(
                                     product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 1, origin
                                 );
                             if(logs.isEmpty())
-                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGradeAndOrigin(
                                     product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 2, origin
                                 );
                             if(logs.isEmpty())
-                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGradeAndOrigin(
                                     product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 3, origin
                                 );
                             if(!logs.isEmpty()) {
