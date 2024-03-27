@@ -32,13 +32,16 @@ public class AllServiceImpl implements AllService{
 
     private final PricePredictRepository pricePredictRepository;
 
-    private CommonDto commonDto;
+    private CommonDto[] commonDto;
 
     @Override
     @Transactional(readOnly = true)
     public CommonDto findProducts(Integer category) {
-        if(commonDto != null){
-            return commonDto;
+        if(commonDto == null){
+            commonDto = new CommonDto[7];
+        }
+        if(commonDto[category] != null){
+            return commonDto[category];
         }
         Map<String, Object> data = new HashMap<>();
         List<ProductEntity> products = productRepository.findAllByCategory(category);
@@ -256,13 +259,13 @@ public class AllServiceImpl implements AllService{
             tableDtos.add(tableDto);
         }
         data.put("table", tableDtos);
-        commonDto = new CommonDto<Map>(data, "조회 성공", 200);
-        return commonDto;
+        commonDto[category] = new CommonDto<Map>(data, "조회 성공", 200);
+        return commonDto[category];
     }
 
     @Override
     @Scheduled(cron = "0 0 4  * * *")
     public void resetResult() {
-        commonDto = null;
+        commonDto = new CommonDto[7];
     }
 }
