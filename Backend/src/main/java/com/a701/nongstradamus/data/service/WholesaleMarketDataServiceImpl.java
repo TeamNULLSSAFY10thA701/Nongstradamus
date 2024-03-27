@@ -152,6 +152,66 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
             }
         }
         System.out.println("도매 시장 데이터 수집 완료");
+        System.out.println("도매 시장 데이터 정제 시작");
+        for(ProductEntity product : products){
+            for(int day = 1; day <= 10; day++){
+                LocalDate today = LocalDate.now().minusDays(day);
+                for(int grade = 1; grade <=4; grade++){
+                    List<OriginEntity> origins = wholesaleMarketRepository.findOriginIdByProductAndDateAndGrade(
+                        product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade
+                    );
+                    for(OriginEntity origin : origins){
+                        List<WholesaleMarketEntity> logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                            product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade, origin
+                        );
+                        if(logs.isEmpty()){
+                            logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                product, java.sql.Timestamp.valueOf(today.minusDays(1).atStartOfDay()), grade, origin
+                            );
+                            if(logs.isEmpty())
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                    product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade - 1, origin
+                                );
+                            if(logs.isEmpty())
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                    product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 1, origin
+                                );
+                            if(logs.isEmpty())
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                    product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 2, origin
+                                );
+                            if(logs.isEmpty())
+                                logs = wholesaleMarketRepository.findAllByProductAndDateAndGardeAndOrigin(
+                                    product, java.sql.Timestamp.valueOf(today.atStartOfDay()), grade + 3, origin
+                                );
+                            if(!logs.isEmpty()) {
+                                WholesaleMarketEntity e = new WholesaleMarketEntity();
+                                e.setProduct(product);
+                                e.setGrade(grade);
+                                e.setOrigin(origin);
+                                e.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                                e.setPrice((long) logs.stream()
+                                    .mapToDouble(entity -> (double) entity.getPrice()).average()
+                                    .getAsDouble());
+                                wholesaleMarketRepository.save(e);
+                            }
+                        }else if(logs.size() >= 2) {
+                            WholesaleMarketEntity e = new WholesaleMarketEntity();
+                            e.setProduct(product);
+                            e.setGrade(grade);
+                            e.setOrigin(origin);
+                            e.setDate(java.sql.Timestamp.valueOf(today.atStartOfDay()));
+                            e.setPrice((long) logs.stream()
+                                .mapToDouble(entity -> (double) entity.getPrice()).average()
+                                .getAsDouble());
+                            wholesaleMarketRepository.deleteAll(logs);
+                            wholesaleMarketRepository.save(e);
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("도매 시장 데이터 정제 끝");
     }
 
 }
