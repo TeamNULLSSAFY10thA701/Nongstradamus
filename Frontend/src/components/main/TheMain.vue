@@ -351,7 +351,7 @@ const toDayPrice = ref({
   msg: '',
   code: '',
 })
-//오늘 가격정보를 담을 변수.
+//오늘 가격정보를 담을 변수. 
 
 
 const callToDayPrices = () => {
