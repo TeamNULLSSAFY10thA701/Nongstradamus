@@ -2,15 +2,15 @@
 
 <template>
   <!-- 라디오버튼 start -->
-  <div class="flex-column m-12 justify-center">
+  <div class="flex-column justify-center">
     <div class="font-semibold mb-4 text-gray-900 dark:text-white">
       정렬 기준
     </div>
     <ul
-      class="jeongryeol-block items-center w-3/5 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex"
+      class="grid grid-cols-2 jeongryeol-block items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"
     >
       <li
-        class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+        class="border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
       >
         <div class="flex items-center ps-3 pe-3">
           <input
@@ -215,29 +215,29 @@
     <ul v-for="recipe in AllRecipes[currentPage - 1]" :key="recipe">
       <!-- 각 레시피 카드 -->
       <div
-        class="w-full max-w-sm m-6 photo bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        class="m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
       >
         <!-- 레시피 정보 표시 -->
-        <div class="flex flex-col items-center py-10">
+        <div class="flex flex-col items-center py-5 ">
           <img
-            class="w-24 h-24 mb-3 rounded-full shadow-lg"
+            class="w-2/3 h-2/3 mb-3 rounded-full shadow-lg"
             :src="recipe.image"
             alt="Bonnie image"
           />
-          <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          <h5 class="m-1 text-sm text-center font-medium text-gray-900 dark:text-white">
             {{ recipe.title }}
-          </h5>
+          </h5> 
           <!-- 성분 버튼 및 모달 start -->
           <div class="flex mt-4 md:mt-6">
             <!-- 성분 버튼 -->
             <button
-              data-modal-target="modalEl"
+              data-modal-target="modalEl" 
               data-modal-toggle="modalEl"
               @click="toggleModal('modalEl', recipe)"
-              class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm mr-2 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 rounded-lg text-xs mx-2 px-2 py-3 text-center"
               type="button"
             >
-              성분
+              성분  
             </button>
             <!-- 모달 -->
             <div
@@ -296,7 +296,7 @@
               data-modal-target="modalEl2"
               data-modal-toggle="modalEl2"
               @click="toggleModal('modalEl2', recipe)"
-              class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs mx-1 px-1 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
               조리방법
@@ -358,13 +358,15 @@
   </div>
 
   <!-- 페이지네이션 컨트롤 -->
-  <button @click="prevPage" :disabled="currentPage === 1" class="m-8">
-    이전
-  </button>
-  <span>페이지 {{ currentPage }} / {{ totalPages }}</span>
-  <button @click="nextPage" :disabled="currentPage >= totalPages" class="m-8">
-    다음
-  </button>
+  <div class="mx-auto text-center">
+    <button @click="prevPage" :disabled="currentPage === 1" class="m-8">
+      이전
+    </button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button @click="nextPage" :disabled="currentPage >= totalPages" class="m-8">
+      다음
+    </button>
+</div>
 </template>
 
 <script setup>
@@ -543,7 +545,6 @@ const alignRecipeAscend = (radioidx) => {
       tempRecipes.unshift(jsonData)
     }
   });
-  // -
   
   for (let i=0; i<5; i++) {
     const tempArray = []
@@ -583,4 +584,6 @@ function prevPage() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

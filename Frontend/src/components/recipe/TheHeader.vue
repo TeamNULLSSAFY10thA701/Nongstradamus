@@ -1,10 +1,10 @@
 <template>
   <!-- startheader -->
-  <div class="grid grid-cols-3 gap-4 mt-12 w-1/2 mx-auto">
-    <div>
+  <div class="grid grid-cols-3 mt-12 mx-auto">
+    <div class="w-2/3">
       <img src="@/assets/full_logo1.png" @click="goToMainPage" />
     </div>
-    <div class="col-span-2 flex items-center justify-center text-3xl">
+    <div class="col-span-2 flex items-center justify-center text-2xl">
       농스트라다무스의 밥도둑
     </div>
   </div>
