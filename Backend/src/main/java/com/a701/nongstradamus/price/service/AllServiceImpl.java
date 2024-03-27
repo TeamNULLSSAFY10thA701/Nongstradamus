@@ -16,11 +16,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@EnableScheduling
 public class AllServiceImpl implements AllService{
 
     private final ProductRepository productRepository;
@@ -29,9 +32,14 @@ public class AllServiceImpl implements AllService{
 
     private final PricePredictRepository pricePredictRepository;
 
+    private CommonDto commonDto;
+
     @Override
     @Transactional(readOnly = true)
     public CommonDto findProducts(Integer category) {
+        if(commonDto != null){
+            return commonDto;
+        }
         Map<String, Object> data = new HashMap<>();
         List<ProductEntity> products = productRepository.findAllByCategory(category);
         List<PriceTableDto> tableDtos = new ArrayList<>();
@@ -248,6 +256,13 @@ public class AllServiceImpl implements AllService{
             tableDtos.add(tableDto);
         }
         data.put("table", tableDtos);
-        return new CommonDto<Map>(data, "조회 성공", 200);
+        commonDto = new CommonDto<Map>(data, "조회 성공", 200);
+        return commonDto;
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 4  * * *")
+    public void resetResult() {
+        commonDto = null;
     }
 }
