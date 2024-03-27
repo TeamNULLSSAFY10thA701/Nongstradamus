@@ -16,7 +16,9 @@ public class PriceTableDto {
     private Double ratio;
 
     public void setRatio(){
-        if(future != null && present != null)
+        if(future != null && present != null) {
             this.ratio = (future - present) / (double) present;
+            this.ratio = Math.round(this.ratio * 10000) / 100.0;
+        }
     }
 }
