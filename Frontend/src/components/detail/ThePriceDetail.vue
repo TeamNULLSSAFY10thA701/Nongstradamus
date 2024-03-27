@@ -1,7 +1,7 @@
 <template>
     <div class="all max-w-md mx-auto">
         <div class="grid grid-cols-6 gap-4 mt-8">
-            <div class="w-2/3 col-span-2 ml-6">
+            <div class="w-2/3 col-span-2 ml-6" @click="goMainPage">
                 <img src="/src/assets/full_logo1.png" />
             </div>
             <div class="title col-start-3 col-span-4 flex items-center">
@@ -65,17 +65,18 @@
 
         <!-- 카테고리 라디오버튼 -->
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 w-4/5 h-3/5 mx-auto">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 w-4/5 h-3/5 mx-auto"
+            v-if="categoryVegetableLeafState || categoryVegetableFruitState || categoryVegetableRootState || categoryGrainState || categoryFruitState || categoryYellowCropState">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="py-3 text-center">
+                        <th scope="col" class="py-3 text-center w-24">
                             품목
                         </th>
-                        <th scope="col" class="py-3 text-center">
+                        <th scope="col" class="py-3 text-center w-20">
                             농산물이름
                         </th>
-                        <th scope="col" class="py-3 text-center">
+                        <th scope="col" class="py-3 text-center w-28">
                             현재가격(중품)
                         </th>
                     </tr>
@@ -202,7 +203,7 @@
                     class="w-full h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a>
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
-                        nameBasket }}의 가격 정보
+                nameBasket }}의 가격 정보
                         </h5>
                     </a>
                     <ul
@@ -301,6 +302,7 @@ onMounted(() => {
 });
 
 // --------------------------------------------------------------------------------onMounted-------------------------------------------------------
+const tableSwitchState = ref(false)
 
 const getImageUrl = (nickname) => {
     return `/${nickname}.png`;
@@ -336,7 +338,6 @@ const clickEvent = () => {
 //클릭 시, 세부 그래프를 나타내는 메서드.
 //초기상태에서 클릭 시, 세부 그래프를 랜더링함.
 //이미 세부 그래프가 나타난 상황에서 같은 계열, 다른 품목을 고를 경우, 세부 그래프를 끄지 않기 위하여 if문 설정.
-//만약 버그가 생긴다면, 하단의 cancelClickEvent를 지우시고, 위의if문을 지우고 원복하세요. :checked도 지우세요.
 
 const cancelClickEvent = () => {
     clickState.value = !clickState.value
@@ -684,10 +685,10 @@ const yellowCropclickEvent = (nickname, aname) => {
 //각 바구니로 현재 계열,품목,표시할이름을 특정지어 사용.
 
 const updateChartData = () => {
-    chartData.datasets[0].label = `${nameBasket.value}의 과거가격`;
-    chartData.datasets[1].label = `${nameBasket.value}의 미래가격`;
-    chartData.datasets[0].data = [fourWeekAgoPrice.value, threeWeekAgoPrice.value, twoWeekAgoPrice.value, oneWeekAgoPrice.value, toDayPrice.value, null, null];
-    chartData.datasets[1].data = [null, null, null, null, toDayPrice.value, oneWeekAfterPrice.value, twoWeekAfterPrice.value];
+    chartData.datasets[1].label = `${nameBasket.value}의 과거가격`;
+    chartData.datasets[0].label = `${nameBasket.value}의 미래가격`;
+    chartData.datasets[1].data = [fourWeekAgoPrice.value, threeWeekAgoPrice.value, twoWeekAgoPrice.value, oneWeekAgoPrice.value, toDayPrice.value, null, null];
+    chartData.datasets[0].data = [null, null, null, null, toDayPrice.value, oneWeekAfterPrice.value, twoWeekAfterPrice.value];
 }
 //해당 차트의 요소를 업데이트 시키는 메서드
 
@@ -923,14 +924,16 @@ const chartData = {
     labels: ['4주전', '3주전', '2주전', '1주전', '오늘', '1주 후', '2주 후'],
     datasets: [
         {
-            pointStyle: 'circle',
-            backgroundColor: '#000000',
-            radius: 5,
-        },
-        {
+            //미래 그래프(오늘,1주,2주)
             pointStyle: 'circle',
             backgroundColor: '#f87979',
             borderDash: [5, 5], //점선
+            radius: 5,
+        },
+        {
+            //과거 그래프(1주전~4주전)
+            pointStyle: 'circle',
+            backgroundColor: '#000000',
             radius: 5,
         },
 

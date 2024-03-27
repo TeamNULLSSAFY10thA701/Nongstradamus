@@ -21,7 +21,7 @@
         class="bestChoice block w-4/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         @mouseover="BigImage()" @mouseleave="SmallImage()">
         <h5 class="mb-2 text-sm tracking-tight text-white">
-          내일 가격이 가장 많이 떨어질거에요!
+          가격이 가장 많이 <span class="text-red-700">하락</span>할거에요!
         </h5>
         <div class="grid grid-cols-5 gap-4">
           <div class="h-3/5">
@@ -31,7 +31,7 @@
             {{ BiggestDroppedPrice.data.name }}
           </div>
           <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
-            <div class="font-bold text-sm text-center">
+            <div class="font-bold text-sm text-center text-red-700">
               {{ showDroppedPrice }}
             </div>
           </div>
@@ -45,7 +45,7 @@
         class="bestChoice block w-4/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         @mouseover="BigImage2()" @mouseleave="SmallImage2()">
         <h5 class="mb-2 text-sm tracking-tight text-white">
-          내일 가격이 가장 많이 오를거에요!
+          가격이 가장 많이 <span class="text-cyan-500">상승</span>할거에요!
         </h5>
         <div class="grid grid-cols-5 gap-4">
           <div class="h-4/5">
@@ -55,7 +55,7 @@
             {{ BiggestIncreasedPrice.data.name }}
           </div>
           <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
-            <div class="font-bold text-sm text-center">
+            <div class="font-bold text-sm text-center text-cyan-500">
               {{ showIncreasedPrice }}
             </div>
           </div>
@@ -125,7 +125,7 @@
       </div>
 
       <div class="mt-4" v-if="lastWeekState">
-        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+        <Carousel :itemsToShow="2.95" :wrapAround="true" :transition="500">
           <Slide v-for="slide in lastWeekPrice.data" :key="slide">
             <div>
               <a class="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -177,7 +177,7 @@
       <!-- 오늘 가격 예측 캐러셀 -->
 
       <div class="mt-4" v-if="tommorowState">
-        <Carousel :itemsToShow="3.95" :wrapAround="true" :transition="500">
+        <Carousel :itemsToShow="2.95" :wrapAround="true" :transition="500">
           <Slide v-for="slide in tomorrowPrice.data" :key="slide">
             <div>
               <a class="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
@@ -526,11 +526,11 @@ function SmallImage2() {
 }
 
 .bestChoice {
-  background-color: #C6AC8F;
+  background-color: #E4D6BA;
 }
 
 .bestChoice:hover {
-  background-color: #AD977D;
+  background-color: #D7C2A2;
 }
 
 .predictGood {
