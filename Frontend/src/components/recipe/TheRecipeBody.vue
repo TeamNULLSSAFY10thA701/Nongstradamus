@@ -379,7 +379,7 @@ const unpagedRecipes = ref([]); // 모든 레시피들의 정보(페이지네이
 onMounted(() => {
   getAllRecipeData();
   console.log(AllRecipes.value);
-  console.log(unpagedRecipes);
+  console.log(unpagedRecipes.value);
 });
 
 // 가격이 가장 많이 하락한 재료를 기반으로 한 20개의 레시피 정보를 가져옴
@@ -519,29 +519,29 @@ const handleRadioClick = (index) => {
 
 // 레시피의 오름차순 정렬(성분, 오름차순)
 const alignRecipeAscend = (radioidx) => {
-   // 정렬 기준에 따라 정렬된 레시피들
-  if (radioidx === 0) { //  칼로리
-    const tempRecipes = []  
-
-    for (let i = 0; i < unpagedRecipes.length; i++) {
-      if (tempRecipes.length === 0) {
-        
-      }
-      
-      unpagedRecipes[i].protein 
+  
+  const tempIngredients  = [calorie, protein, fat, natrium] // 정렬 기준  
+  const tempRecipes = []
+  const alignedRecipes = []
+  for (let i = 0; i < unpagedRecipes.value.length; i++) {
+    if ((tempRecipes.length === 0) || (unpagedRecipes.value[i].tempIngredients[radioidx] < tempRecipes[-1].tempIngredients[radioidx])) 
+    {
+      tempRecipes.push(unpagedRecipes.value[i]) 
     }
+
+    else {
+      tempRecipes.unshift(unpagedRecipes.value[i])
+    }
+  
+  for (i=0; i<5; i++) {
+    const tempArray = []
+    for (j=0; j<4; j++) {
+      tempArray.push(tempRecipes.shift())
+    }
+    alignedRecipes.push(tempArray)
   }
-
-  else if (radioidx === 1){   // 단백질
-
-  }
-
-  else if (radioidx === 2){   // 지방
-    
-  }
-
-  else if (radioidx === 3){   // 나트륨
-    
+  
+  AllRecipes.value = alignedRecipes
   }
 };
 
@@ -553,24 +553,6 @@ const alignRecipeDescend = (radioidx) => {
   }
 };
 
-//
-const alignRecipes = (radioidx) => {
-  // 라디오버튼 인덱스,
-  if (radioidx === 0) {
-    if (radioClickCount[radioidx] % 2 === 1) {
-      // 칼로리를 선택했고, 오름차순 정렬인 경우
-    } else {
-      // 칼로리를 선택했고, 내림차순 정렬인 경우
-    }
-    recipe["energy"];
-  } else if (idx === 1) {
-    // 단백질
-  } else if (idx === 2) {
-    // 지방
-  } else if (idx === 3) {
-    // 나트륨
-  }
-};
 
 // ---------------pagination--------------
 const currentPage = ref(1);
