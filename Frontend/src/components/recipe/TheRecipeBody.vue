@@ -213,7 +213,6 @@
 
   <div class="recipe-list grid grid-cols-2">
     <ul v-for="recipe in AllRecipes[currentPage - 1]" :key="recipe">
-      <div>{{ recipe.image }}</div>
       <!-- 각 레시피 카드 -->
       <div
         class="w-full max-w-sm m-6 photo bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
