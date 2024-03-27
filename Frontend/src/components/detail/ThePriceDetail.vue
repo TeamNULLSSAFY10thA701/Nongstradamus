@@ -1,7 +1,7 @@
 <template>
     <div class="all max-w-md mx-auto">
-        <div class="grid grid-cols-6 gap-4 mt-8">
-            <div class="w-2/3 col-span-2 ml-6" @click="goMainPage">
+        <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-12 h-8">
+            <div class="w-3/5 mx-auto col-span-2 ml-6" @click="goMainPage">
                 <img src="/src/assets/full_logo1.png" />
             </div>
             <div class="title col-start-3 col-span-4 flex items-center">
@@ -15,7 +15,7 @@
             <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
                 <input id="VegetableReaf" type="radio" value="" name="list-radio"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
-                    @click="transferVegetableReaf">
+                    @click="transferVegetableReaf" checked>
                 <label for="VegetableReaf"
                     class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
                     @click="transferVegetableReaf">채소-잎
@@ -34,7 +34,7 @@
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 ml-2"
                     @click="transferVegetableRoot">
                 <label for="transferVegetableRoot"
-                    class="w-full py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
+                    class="w-full py-3 ms-1 text-xs font-medium text-gray-900 dark:text-gray-300 flex items-center justify-center"
                     @click="transferVegetableRoot">채소-뿌리</label>
             </li>
             <li class="dark:border-gray-600 flex items-center justify-center border-r border-b">
@@ -90,22 +90,25 @@
                         </td>
                         <!-- 이미지 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.name }}
+                            {{ category.name }}<br>({{ category.unit }})
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원<br>({{ category.unit }})
+                            <div v-if="category.ratio >= 0" class="text-red-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-else class="text-blue-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-if="category.ratio >= 0" class="flex items-center justify-center">
+                                {{ category.ratio }}%
+                                <img src="/src/assets/up.png" class="w-1/6 ml-1">
+                            </div>
+                            <div v-else class="flex items-center justify-center">
+                                {{ -category.ratio }}%
+                                <img src="/src/assets/down.png" class="w-1/6 ml-1">
+                            </div>
                         </td>
-                        <!-- 현재가격 -->
-                        <!-- <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.future }}원
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.ratio }}%
-                        </td>
-                        <td class="px-6 py-4 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.unit }}
-                        </td> -->
                     </tr>
                 </tbody>
                 <tbody v-if="categoryVegetableFruitState">
@@ -117,11 +120,24 @@
                         </td>
                         <!-- 이미지 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.name }}
+                            {{ category.name }}<br>({{ category.unit }})
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원<br>({{ category.unit }})
+                            <div v-if="category.ratio >= 0" class="text-red-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-else class="text-blue-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-if="category.ratio >= 0" class="flex items-center justify-center">
+                                {{ category.ratio }}%
+                                <img src="/src/assets/up.png" class="w-1/6 ml-1">
+                            </div>
+                            <div v-else class="flex items-center justify-center">
+                                {{ -category.ratio }}%
+                                <img src="/src/assets/down.png" class="w-1/6 ml-1">
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -134,11 +150,24 @@
                         </td>
                         <!-- 이미지 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.name }}
+                            {{ category.name }}<br>({{ category.unit }})
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원<br>({{ category.unit }})
+                            <div v-if="category.ratio >= 0" class="text-red-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-else class="text-blue-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-if="category.ratio >= 0" class="flex items-center justify-center">
+                                {{ category.ratio }}%
+                                <img src="/src/assets/up.png" class="w-1/6 ml-1">
+                            </div>
+                            <div v-else class="flex items-center justify-center">
+                                {{ -category.ratio }}%
+                                <img src="/src/assets/down.png" class="w-1/6 ml-1">
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -151,11 +180,24 @@
                         </td>
                         <!-- 이미지 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.name }}
+                            {{ category.name }}<br>({{ category.unit }})
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원<br>({{ category.unit }})
+                            <div v-if="category.ratio >= 0" class="text-red-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-else class="text-blue-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-if="category.ratio >= 0" class="flex items-center justify-center">
+                                {{ category.ratio }}%
+                                <img src="/src/assets/up.png" class="w-1/6 ml-1">
+                            </div>
+                            <div v-else class="flex items-center justify-center">
+                                {{ -category.ratio }}%
+                                <img src="/src/assets/down.png" class="w-1/6 ml-1">
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -168,11 +210,24 @@
                         </td>
                         <!-- 이미지 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.name }}
+                            {{ category.name }}<br>({{ category.unit }})
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원<br>({{ category.unit }})
+                            <div v-if="category.ratio >= 0" class="text-red-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-else class="text-blue-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-if="category.ratio >= 0" class="flex items-center justify-center">
+                                {{ category.ratio }}%
+                                <img src="/src/assets/up.png" class="w-1/6 ml-1">
+                            </div>
+                            <div v-else class="flex items-center justify-center">
+                                {{ -category.ratio }}%
+                                <img src="/src/assets/down.png" class="w-1/6 ml-1">
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -185,11 +240,24 @@
                         </td>
                         <!-- 이미지 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.name }}
+                            {{ category.name }}<br>({{ category.unit }})
                         </td>
                         <!-- 농산물이름 -->
                         <td class="px-1 py-1 text-center font-semibold text-gray-900 dark:text-white">
-                            {{ category.present }}원<br>({{ category.unit }})
+                            <div v-if="category.ratio >= 0" class="text-red-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-else class="text-blue-600">
+                                {{ category.present }}원<br>
+                            </div>
+                            <div v-if="category.ratio >= 0" class="flex items-center justify-center">
+                                {{ category.ratio }}%
+                                <img src="/src/assets/up.png" class="w-1/6 ml-1">
+                            </div>
+                            <div v-else class="flex items-center justify-center">
+                                {{ -category.ratio }}%
+                                <img src="/src/assets/down.png" class="w-1/6 ml-1">
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -303,6 +371,10 @@ onMounted(() => {
 
 // --------------------------------------------------------------------------------onMounted-------------------------------------------------------
 const tableSwitchState = ref(false)
+
+const check = (a) => {
+    console.log(a)
+}
 
 const getImageUrl = (nickname) => {
     return `/${nickname}.png`;
@@ -694,7 +766,7 @@ const updateChartData = () => {
 
 // --------------------------------------------------------------------------공통-------------------------------------------------------
 
-const categoryVegetableLeafState = ref(false);
+const categoryVegetableLeafState = ref(true);
 //채소-잎의 라디오버튼이 눌렸을 때, 상태
 
 const categoryVegetableFruitState = ref(false);
