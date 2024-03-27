@@ -18,5 +18,5 @@ public interface WholesaleMarketRepository extends JpaRepository<WholesaleMarket
     @Query("select wm.origin from WholesaleMarketEntity wm where wm.product=:product and wm.date=:date and wm.grade=:grade")
     List<OriginEntity> findOriginIdByProductAndDateAndGrade(@Param("product") ProductEntity product,@Param("date") Date date, @Param("grade") int grade);
 
-    List<WholesaleMarketEntity> findAllByProductAndDateAndGardeAndOrigin(ProductEntity product, Date date, int grade, OriginEntity origin);
+    List<WholesaleMarketEntity> findAllByProductAndDateAndGradeAndOrigin(ProductEntity product, Date date, int grade, OriginEntity origin);
 }
