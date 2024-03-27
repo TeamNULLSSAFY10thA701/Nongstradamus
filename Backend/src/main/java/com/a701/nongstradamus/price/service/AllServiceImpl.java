@@ -262,7 +262,7 @@ public class AllServiceImpl implements AllService{
 
     @Override
     @Scheduled(cron = "0 0 4  * * *")
-    public void resetReuslt() {
+    public void resetResult() {
         commonDto = null;
     }
 }
