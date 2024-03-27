@@ -51,52 +51,55 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
 
     @Override
     @Scheduled(cron = "0 0 0 * * *")
-    @Transactional
+//    @Scheduled(fixedRate = 1000000000)
     public void updateWholeMarketData() {
         List<ProductEntity> products = productRepository.findAll();
-        List<Map> data1 = new ArrayList<Map>();
-        for (int p = 1; ; p++) {
-            StringBuilder codeUrlFull = new StringBuilder();
-            codeUrlFull.append(codeUrl)
-                .append("?serviceKey=").append(codeKey)
-                .append("&apiType=json")
-                .append("&pageNo=").append(p);
-            ResponseEntity<Map> res = OpenAPIManager.fetchJSON(codeUrlFull.toString());
-            List<Map> dts = (List<Map>) (res.getBody().get("data"));
-            if (dts == null) {
-                throw new EntityNotFoundException("트래픽 초과");
-            }
-            if (dts.isEmpty()) {
-                break;
-            }
-            for(Map dt : dts){
-                data1.add(dt);
-            }
-        }
-        for(ProductEntity product : products){
-            if(product.getWholesaleMarketCode()==null){
-                for(Map dt : data1){
-                    if(dt.get("midName").equals(product.getName())){
-                        StringBuilder code = new StringBuilder().append(dt.get("large")).append(dt.get("mid")).append(dt.get("small"));
-                        product.setWholesaleMarketCode(code.toString());
-                        productRepository.save(product);
-                        break;
-                    }
-                }
-            }
-        }
+//        List<Map> data1 = new ArrayList<Map>();
+//        for (int p = 1; ; p++) {
+//            StringBuilder codeUrlFull = new StringBuilder();
+//            codeUrlFull.append(codeUrl)
+//                .append("?serviceKey=").append(codeKey)
+//                .append("&apiType=json")
+//                .append("&pageNo=").append(p);
+//            ResponseEntity<Map> res = OpenAPIManager.fetchJSON(codeUrlFull.toString());
+//            List<Map> dts = (List<Map>) (res.getBody().get("data"));
+//            if (dts == null) {
+//                throw new EntityNotFoundException("트래픽 초과");
+//            }
+//            if (dts.isEmpty()) {
+//                break;
+//            }
+//            for(Map dt : dts){
+//                data1.add(dt);
+//            }
+//        }
+//        for(ProductEntity product : products){
+//            if(product.getWholesaleMarketCode()==null){
+//                for(Map dt : data1){
+//                    if(dt.get("midName").equals(product.getName())){
+//                        StringBuilder code = new StringBuilder().append(dt.get("large")).append(dt.get("mid")).append(dt.get("small"));
+//                        product.setWholesaleMarketCode(code.toString());
+//                        productRepository.save(product);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
         // 품목 코들르 셋팅한다.
         for(ProductEntity product : products) {
             // 오늘부터 하루씩 과거로 가면서
-            for (int day = 1; day <= 1825 ; day++) {
+            for (int day = 1; day <= 10 ; day++) {
                 // 이미 저장된 데이터면 수행하지 않는다.
                 LocalDate today = LocalDate.now().minusDays(day);
                 List<WholesaleMarketEntity> wholesaleMarkets = wholesaleMarketRepository.findAllByProductAndDate(product, java.sql.Timestamp.valueOf(today.atStartOfDay()));
                 if(!wholesaleMarkets.isEmpty()){
-                    break;
+                    continue;
                 }
+                System.out.println(today);
                 // 도매가 데이터를 검색한다.
-                LocalDate yesterday = today.minusDays(1);
+                if(product.getWholesaleMarketCode() == null){
+                    continue;
+                }
                 for(int p = 1; ; p++) {
                     StringBuilder urlFull = new StringBuilder();
                     urlFull.append(url)
@@ -110,6 +113,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                     ResponseEntity<Map> res = OpenAPIManager.fetchJSON(urlFull.toString());
                     List<Map> data = (List<Map>) (res.getBody().get("data"));
                     if(data==null){
+                        System.out.println(res.getBody());
                         throw new EntityNotFoundException("트래픽 초과");
                     }
                     if(data.isEmpty()){
@@ -147,6 +151,7 @@ public class WholesaleMarketDataServiceImpl implements WholesaleMarketDataServic
                 }
             }
         }
+        System.out.println("도매 시장 데이터 수집 완료");
     }
 
 }
