@@ -1,6 +1,5 @@
 import { localAxios } from "@/util/http-commons";
-// const url = `http://70.12.115.41:8080/api/main`;
-const url = "http://j10a701.p.ssafy.io/api/main";
+const url = `${import.meta.env.VITE_APP_SERVER_URL}/api/main`;
 
 const local = localAxios();
 
