@@ -224,9 +224,9 @@
             :src="recipe.image"
             alt="Bonnie image"
           />
-          <h5 class="m-1 text-sm text-center font-medium text-gray-900 dark:text-white">
+          <div class="m-1 text-sm text-center font-medium text-gray-900 dark:text-white">
             {{ recipe.title }}
-          </h5> 
+          </div> 
           <!-- 성분 버튼 및 모달 start -->
           <div class="flex mt-4 md:mt-6">
             <!-- 성분 버튼 -->
@@ -471,8 +471,6 @@ const getRecipeDetail = (idx) => {
 
 // 라디오 버튼 클릭 상태 저장 변수(칼로리(energy), 단백질, 지방, 나트륨)
 const radioClickCount = ref([0, 0, 0, 0]);
-// 라디오 버튼 클릭에 따라 정렬시킬 기준 정보(칼로리(energy), 단백질, 지방, 나트륨)
-const alignStandard = ref("");
 
 // 라디오 버튼 클릭 시 색 변화
 const handleRadioClick = (index) => {
@@ -493,7 +491,7 @@ const handleRadioClick = (index) => {
       const upArrow = document.querySelectorAll(`.up${index}`)[0];
       // 홀수번 클릭된 경우
       if (radioClickCount.value[index] % 2 === 1) {
-        alignRecipeAscend(index) // 오름차순 정렬
+        alignRecipe(index, 'asc') // 오름차순 정렬
         downArrow.classList.add("text-red-500");
         downArrow.classList.remove("text-gray-900");
         upArrow.classList.add("text-gray-900");
@@ -501,7 +499,7 @@ const handleRadioClick = (index) => {
       }
       // 짝수번 클릭된 경우
       else {
-        alignRecipeDescend(index) // 내림차순 정렬
+        alignRecipe(index, 'desc') // 내림차순 정렬
         downArrow.classList.remove("text-red-500");
         downArrow.classList.add("text-gray-900");
         upArrow.classList.remove("text-gray-900");
@@ -513,59 +511,39 @@ const handleRadioClick = (index) => {
 
 //------------ 성분 기준 데이터 정렬 ------------------
 
-// 레시피의 오름차순 정렬(성분, 오름차순)
-const alignRecipeAscend = (radioidx) => {
+// 레시피의 정렬(성분, 차순)
+const alignRecipe = (radioidx, order) => {
   
   const tempIngredients  = ['energy', 'protein', 'fat', 'natrium'] // 정렬 기준
   const tempRecipes = []
   const alignedRecipes = []
   
-  unpagedRecipes.value.forEach((jsonData, index) => {
-    console.log(`JSON 데이터 ${index}에 접근:`);
-    console.log(jsonData); // 해당 JSON 데이터 출력
+  unpagedRecipes.value.sort((a, b) => {
+    const ingredA = calculateIngredients(a, tempIngredients[radioidx]);
+    const ingredB = calculateIngredients(b, tempIngredients[radioidx]);
 
-    // JSON 데이터의 특정 속성에 접근하는 예시
-    console.log(`제목: ${jsonData.title}`);
-    console.log(`이미지: ${jsonData.image}`);
-    console.log(`인덱스: ${jsonData.index}`);
-    console.log(`에너지: ${jsonData['energy']}`);
-    console.log(jsonData[tempIngredients[radioidx]])
-    // 다른 속성들에 대해서도 위와 같이 접근할 수 있음
-
-    if (tempRecipes.length === 0) 
-    {
-      tempRecipes.push(jsonData)
+    if (order === 'desc') {
+      return ingredB - ingredA;
     }
-
-    else if (jsonData[tempIngredients[radioidx]] < tempRecipes[-1][tempIngredients[radioidx]]) {
-      tempRecipes.push(jsonData)
-    }
-
     else {
-      tempRecipes.unshift(jsonData)
+      return ingredA - ingredB;
     }
-  });
-  
-  for (let i=0; i<5; i++) {
-    const tempArray = []
-    for (let j=0; j<4; j++) {
-      tempArray.push(tempRecipes.shift())
-    }
-    alignedRecipes.push(tempArray)
+    })
+    
+  const chunkSize = 4
+  for (let i = 0; i < unpagedRecipes.value.length; i += chunkSize) {
+    alignedRecipes.push(unpagedRecipes.value.slice(i, i + chunkSize));
   }
+  console.log(alignedRecipes)
+  AllRecipes.value = alignedRecipes
   
-  AllRecipes.value = alignedRecipes 
-  console.log(AllRecipes.value)
 };
 
-// 레시피의 내림차순 정렬
-const alignRecipeDescend = (radioidx) => {
-  const tempDatas = [];
-  for (let i = 0; i < justifiedRecipes.length; i++) {
-    tempDatas
-  }
-};
-
+// 각 레시피의 단백질 함량을 계산하는 함수
+const calculateIngredients = (recipe, ingredient) => {
+    let ingredValue = recipe[ingredient]
+    return ingredValue;
+}
 
 // ---------------pagination--------------
 const currentPage = ref(1);
