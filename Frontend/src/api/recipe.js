@@ -1,5 +1,5 @@
 import { localAxios } from "@/util/http-commons";
-const url = `http://j10a701.p.ssafy.io:8080/api/recipe`;
+const url = `${import.meta.env.VITE_APP_SERVER_URL}/api/recipe`;
 
 const local = localAxios();
 
