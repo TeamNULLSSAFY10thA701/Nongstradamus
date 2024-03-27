@@ -1,7 +1,7 @@
 <template>
   <div class="all-font max-w-md mx-auto">
-    <div class="grid grid-cols-6 gap-4 ml-4 mr-4 mt-8">
-      <div class="w-4/5 mx-auto col-span-2 ml-6">
+    <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-12 h-8">
+      <div class="w-3/5 mx-auto col-span-2 ml-6">
         <img src="/src/assets/full_logo1.png" />
       </div>
       <div class="title col-start-3 col-span-4 flex items-center text-3xl">
@@ -18,21 +18,27 @@
 
     <div class="flex items-center justify-center mt-8">
       <div
-        class="bestChoice block w-4/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-        @mouseover="BigImage()" @mouseleave="SmallImage()">
-        <h5 class="mb-2 text-sm tracking-tight text-white">
-          가격이 가장 많이 <span class="text-red-700">하락</span>할거에요!
+        class="bestChoice block w-4/5 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <h5 class="mt-2 mb-4 text-md tracking-tight text-white">
+          <span class="text-black">{{ BiggestDroppedPrice.data.name }}</span> 가격이 가장 많이 <span class="text-red-700">
+            하락</span>할거에요!
         </h5>
-        <div class="grid grid-cols-5 gap-4">
+        <div class="grid grid-cols-3 gap-4">
           <div class="h-3/5">
             <img :src="getImageUrl(BiggestDroppedPrice.data.nickname)" :class=bindClass />
           </div>
-          <div class="col-span-2 text-sm text-white flex justify-center items-center">
-            {{ BiggestDroppedPrice.data.name }}
+          <div class="rounded-lg bg-white border flex justify-center items-center h-1/3 my-auto">
+            {{ BiggestDroppedPrice.data.price }}원
           </div>
-          <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
-            <div class="font-bold text-sm text-center text-red-700">
-              {{ showDroppedPrice }}
+          <div class="rounded-lg bg-white border flex justify-center items-center h-1/3 my-auto"
+            v-if="BiggestDroppedPrice.data.ratio >= 0">
+            <div class="font-bold text-sm text-center text-blue-600">
+              {{ BiggestDroppedPrice.data.ratio }}%상승
+            </div>
+          </div>
+          <div class="flex justify-center items-center h-1/3 my-auto" v-else>
+            <div class="font-bold text-sm text-center text-red-600">
+              {{ -BiggestDroppedPrice.data.ratio }}%하락
             </div>
           </div>
         </div>
@@ -42,57 +48,63 @@
 
     <div class="flex items-center justify-center mt-8">
       <div
-        class="bestChoice block w-4/5 p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-        @mouseover="BigImage2()" @mouseleave="SmallImage2()">
-        <h5 class="mb-2 text-sm tracking-tight text-white">
-          가격이 가장 많이 <span class="text-cyan-500">상승</span>할거에요!
+        class="bestChoice block w-4/5 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <h5 class="mt-2 mb-4 text-md tracking-tight text-white">
+          <span class="text-black">{{ BiggestIncreasedPrice.data.name }}</span> 가격이 가장 많이 <span class="text-blue-700">
+            상승</span>할거에요!
         </h5>
-        <div class="grid grid-cols-5 gap-4">
-          <div class="h-4/5">
-            <img :src=getImageUrl(BiggestIncreasedPrice.data.nickname) :class=bindClass2 />
+        <div class="grid grid-cols-3 gap-4">
+          <div class="h-3/5">
+            <img :src="getImageUrl(BiggestIncreasedPrice.data.nickname)" :class=bindClass />
           </div>
-          <div class="col-span-2 text-sm text-white flex justify-center items-center">
-            {{ BiggestIncreasedPrice.data.name }}
+          <div class="rounded-lg bg-white border flex justify-center items-center h-1/3 my-auto">
+            {{ BiggestIncreasedPrice.data.price }}원
           </div>
-          <div class="col-span-2 rounded-lg bg-white border flex justify-center items-center">
-            <div class="font-bold text-sm text-center text-cyan-500">
-              {{ showIncreasedPrice }}
+          <div class="items-center h-1/3 my-auto" v-if="BiggestIncreasedPrice.data.ratio >= 0">
+            <div class="font-bold text-sm text-center text-blue-600">
+              {{ BiggestIncreasedPrice.data.ratio }}%상승
+            </div>
+          </div>
+          <div class="flex justify-center items-center h-1/3 my-auto" v-else>
+            <div class="font-bold text-sm text-center text-red-600">
+              {{ -BiggestIncreasedPrice.data.ratio }}%하락
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 가격이 가장 많이 오를것 같은 품목 조회 -->
+    <div class="grid grid-cols-2 gap-4 w-4/5 mx-auto">
+      <div class="flex items-center justify-center mt-8">
+        <a href="/recipe"
+          class="todayRecipe block bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div class="grid grid-cols-3 gap-1 p-2">
+            <div class="flex items-center justify-center mx-auto h-9 ">
+              <img src="/src/assets/recipe.png" />
+            </div>
+            <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-xs">
+              오늘의 레시피
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- 오늘의 추천 레시피 이동 -->
 
-    <div class="flex items-center justify-center mt-8">
-      <a href="/recipe"
-        class="todayRecipe block w-4/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div class="grid grid-cols-3 gap-4">
-          <div class="flex items-center justify-center">
-            <img src="/src/assets/recipe.png" />
+      <div class="flex items-center justify-center mt-8">
+        <a href="/pricedetail"
+          class="todayRecipe block bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div class="grid grid-cols-3 gap-1 p-2">
+            <div class="flex items-center justify-center mx-auto h-9">
+              <img src="/src/assets/crystal ball.png" />
+            </div>
+            <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-xs">
+              예측가격
+            </div>
           </div>
-          <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-lg mt-2">
-            오늘의 추천 레시피
-          </div>
-        </div>
-      </a>
+        </a>
+      </div>
+      <!--예측 가격 세부 페이지 이동-->
     </div>
-    <!-- 오늘의 추천 레시피 이동 -->
-
-    <div class="flex items-center justify-center mt-8">
-      <a href="/pricedetail"
-        class="todayRecipe block w-4/5 p-6 bg-indigo-400 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div class="grid grid-cols-3 gap-4">
-          <div class="flex items-center justify-center">
-            <img src="/src/assets/crystal ball.png" />
-          </div>
-          <div class="col-span-2 tracking-tight text-white flex items-center justify-center text-lg mt-1">
-            예측가격 보러 가기
-          </div>
-        </div>
-      </a>
-    </div>
-    <!--예측 가격 세부 페이지 이동-->
 
     <div class="mt-8 mb-4 w-4/5 mx-auto">
       <button @click="toggleDropdown" id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
@@ -135,7 +147,7 @@
                     :class="thisIsHoveredCard == slide.name ? bindClass3 : bindClass4" class="w-2/3 mx-auto" />
                 </div>
                 <div class="unit w-full mx-auto mt-2">
-                  단위: {{ slide.unit }}
+                  {{ slide.name }} ({{ slide.unit }})
                 </div>
                 <div class="price w-full mx-auto">
                   {{ slide.price }}원
@@ -161,7 +173,7 @@
                     :class="thisIsHoveredCard == slide.name ? bindClass3 : bindClass4" class="w-2/3 mx-auto" />
                 </div>
                 <div class="unit w-full mx-auto mt-2">
-                  단위: {{ slide.unit }}
+                  {{ slide.name }} ({{ slide.unit }})
                 </div>
                 <div class="price w-full mx-auto">
                   {{ slide.price }}원
@@ -187,7 +199,7 @@
                     :class="thisIsHoveredCard == slide.name ? bindClass3 : bindClass4" class="w-2/3 mx-auto" />
                 </div>
                 <div class="unit w-full mx-auto mt-2">
-                  단위: {{ slide.unit }}
+                  {{ slide.name }} ({{ slide.unit }})
                 </div>
                 <div class="price w-full mx-auto">
                   {{ slide.price }}원
@@ -230,7 +242,7 @@ const components = {
   Slide,
   Pagination,
 };
-//캐러셀 관련 변수(건들지마셈)
+//캐러셀 관련 변수
 
 const isDropdownOpen = ref(false);
 
@@ -419,21 +431,6 @@ const callBiggestDroppedPrice = () => {
 
 const showDroppedPrice = ref('');
 //보여줄 값 변수
-
-function showOne() {
-  if (BiggestDroppedPrice.value.data.ratio > 0) {
-    showDroppedPrice.value = `${BiggestDroppedPrice.value.data.ratio}%상승`
-  }
-  else {
-    showDroppedPrice.value = `${BiggestDroppedPrice.value.data.ratio * -1}%하락`
-  }
-}
-//호버 시, 보여줄 값을 변환
-
-function resetPrice() {
-  showDroppedPrice.value = `${BiggestDroppedPrice.value.data.price}원`
-}
-//호버가 끝나면, 다시 원래값으로 변환
 
 const bindClass = ref('')
 
