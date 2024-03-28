@@ -1,4 +1,4 @@
-package com.a701.nongstradamus.main.dto
+package com.a701.nongstradamus.main.dto;
 
 import java.util.Arrays;
 import lombok.AllArgsConstructor;

@@ -54,7 +54,7 @@ public class MainController {
 
     @GetMapping("/today")
     public ResponseEntity<CommonDto> mainTodayRecommend(){
-        return new ResponseEntity<CommonDto>(mainService.findTodayRecommandData(), HttpStatus.OK);
+        return new ResponseEntity<CommonDto>(mainService.findTodayRecommendData(), HttpStatus.OK);
     }
 
     @GetMapping("/tomorrow")
