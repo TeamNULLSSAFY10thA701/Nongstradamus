@@ -204,7 +204,7 @@ public class MainServiceImpl implements MainService{
 
     @Override
     @Scheduled(cron = "0 0 4 * * *")
-    public void resetDate() {
+    public void resetData() {
         highestRatioDecreadeProduct = null;
         highestRatioIncreaseProduct = null;
         predictCards = null;
