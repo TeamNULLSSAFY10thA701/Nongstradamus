@@ -51,7 +51,7 @@
             value=""
             name="list-radio"
             class=" hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(0)"
+            @click="handleRadioClick(0)"
           />
           <label
             for="ingredient1"
@@ -70,7 +70,7 @@
             value=""
             name="list-radio"
             class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(1)"
+            @click="handleRadioClick(1)"
           />
           <label
             for="ingredient2"
@@ -88,7 +88,7 @@
             value=""
             name="list-radio"
             class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(2)"
+            @click="handleRadioClick(2)"
           />
           <label
             for="ingredient3"
@@ -103,7 +103,7 @@
             value=""
             name="list-radio"
             class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(3)"
+            @click="handleRadioClick(3)"
           />
           <label
             for="ingredient4"
