@@ -10,4 +10,6 @@ public interface RecipeService {
 
     CommonDto findRecipesListBy(String sortBase, boolean sortMethod, int pageNumber);
 
+    void resetData();
+
 }
