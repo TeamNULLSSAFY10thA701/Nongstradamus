@@ -124,7 +124,7 @@
         <!-- 레시피 정보 표시 -->
         <div class="flex flex-col items-center py-5 ">
           <img
-            class="w-2/3 h-2/3 mb-3 rounded-full shadow-lg"
+            class="w-20 h-20 mb-3 rounded-full shadow-lg"
             :src="recipe.image"
             alt="Bonnie image"
           />
