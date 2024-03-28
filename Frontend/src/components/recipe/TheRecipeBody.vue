@@ -3,209 +3,113 @@
 <template>
   <!-- 라디오버튼 start -->
   <div class="flex-column justify-center">
-    <div class="font-semibold mb-4 text-gray-900 dark:text-white">
-      정렬 기준
-    </div>
+    <div class="flex">
+      <div class="font-semibold mb-2 me-2 text-gray-900 dark:text-white">
+        정렬 기준
+      </div>
+        <svg
+                class="uparrow w-4 h-4 mt-1 -rotate-90"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+
+          <svg
+            class="downarrow w-4 h-4 mt-1 ms-1 rotate-90"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+      </div>
     <ul
-      class="grid grid-cols-2 jeongryeol-block items-center text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"
+      class="grid grid-cols-4 ps-3 pe-3 jeongryeol-block items-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"
     >
       <li
-        class="border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+        class="items-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
       >
-        <div class="flex items-center ps-3 pe-3">
           <input
             id="ingredient1"
             type="radio"
             value=""
             name="list-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+            class=" hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
             @click="handleRadioClick(0)"
           />
           <label
             for="ingredient1"
-            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            class="py-3 ms-2 me-1 text-xs font-medium text-gray-900 dark:text-gray-300"
             >칼로리</label
           >
-          <svg
-            class="down0 w-7 h-7 ms-3 -rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-
-          <svg
-            class="up0 w-7 h-7 ms-3 rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </div>
+        
       </li>
       <li
-        class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+        class="text-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
       >
-        <div class="flex items-center ps-3 pe-3">
+        
           <input
             id="ingredient2"
             type="radio"
             value=""
             name="list-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+            class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
             @click="handleRadioClick(1)"
           />
           <label
             for="ingredient2"
-            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            class="py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
             >단백질</label
           >
-          <svg
-            class="down1 w-7 h-7 ms-3 -rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-
-          <svg
-            class="up1 w-7 h-7 ms-3 rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </div>
+        
       </li>
       <li
-        class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
-      >
-        <div class="flex items-center ps-3 pe-3">
+        class="text-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+      > 
           <input
             id="ingredient3"
             type="radio"
             value=""
             name="list-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+            class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
             @click="handleRadioClick(2)"
           />
           <label
             for="ingredient3"
-            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            class="py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
             >지방</label
-          >
-          <svg
-            class="down2 w-7 h-7 ms-3 -rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-
-          <svg
-            class="up2 w-7 h-7 ms-3 rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </div>
+          >    
       </li>
-      <li class="w-full dark:border-gray-600">
-        <div class="flex items-center ps-3 pe-3">
+      <li class="text-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
           <input
             id="ingredient4"
             type="radio"
             value=""
             name="list-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+            class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
             @click="handleRadioClick(3)"
           />
           <label
             for="ingredient4"
-            class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            class="py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300"
             >나트륨</label
           >
-          <svg
-            class="down3 w-7 h-7 ms-3 background-color-gray -rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-
-          <svg
-            class="up3 w-7 h-7 ms-3 rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </div>
       </li>
     </ul>
   </div>
@@ -220,13 +124,13 @@
         <!-- 레시피 정보 표시 -->
         <div class="flex flex-col items-center py-5 ">
           <img
-            class="w-2/3 h-2/3 mb-3 rounded-full shadow-lg"
+            class="w-20 h-20 mb-3 rounded-full shadow-lg"
             :src="recipe.image"
             alt="Bonnie image"
           />
-          <h5 class="m-1 text-sm text-center font-medium text-gray-900 dark:text-white">
-            {{ recipe.title }}
-          </h5> 
+          <div class="m-1 text-sm text-center font-medium text-gray-900 dark:text-white">
+            {{ recipe.title.length > 9 ? recipe.title.slice(0, 8) + '...' : recipe.title }}
+          </div> 
           <!-- 성분 버튼 및 모달 start -->
           <div class="flex mt-4 md:mt-6">
             <!-- 성분 버튼 -->
@@ -234,10 +138,10 @@
               data-modal-target="modalEl" 
               data-modal-toggle="modalEl"
               @click="toggleModal('modalEl', recipe)"
-              class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 rounded-lg text-xs mx-2 px-2 py-3 text-center"
+              class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 rounded-lg text-xs mx-2 px-2 py-2 text-center"
               type="button"
             >
-              성분  
+              재료  
             </button>
             <!-- 모달 -->
             <div
@@ -259,7 +163,9 @@
                     <h3
                       class="text-xl font-semibold text-gray-900 dark:text-white"
                     >
-                      재료
+                    <div v-if="selectedData">
+                      {{ selectedData.title }}
+                    </div>
                     </h3>
                   </div>
                   <!-- Modal body -->
@@ -321,7 +227,9 @@
                     <h3
                       class="text-xl font-semibold text-gray-900 dark:text-white"
                     >
-                      조리방법
+                    <div v-if="selectedData">
+                      {{ selectedData.title }}
+                    </div>
                     </h3>
                   </div>
                   <!-- Modal body -->
@@ -330,7 +238,7 @@
                       class="text-base leading-relaxed text-gray-500 dark:text-gray-400"
                     > 
                     <div v-if="selectedData">
-                      {{ selectedData.content }}
+                      <div v-html="dynamicHTML"></div>
                     </div>
                     </p>
                   </div>
@@ -358,15 +266,34 @@
   </div>
 
   <!-- 페이지네이션 컨트롤 -->
-  <div class="mx-auto text-center">
-    <button @click="prevPage" :disabled="currentPage === 1" class="m-8">
-      이전
-    </button>
-    <span>{{ currentPage }} / {{ totalPages }}</span>
-    <button @click="nextPage" :disabled="currentPage >= totalPages" class="m-8">
-      다음
-    </button>
-</div>
+  
+
+<nav aria-label="Page navigation" class="flex justify-center">
+  <ul class="flex items-center -space-x-px h-8 text-sm m-3">
+    <li>
+      <a href="#" @click="prevPage" :disabled="currentPage === 1" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        <span class="sr-only">Previous</span>
+        <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+        </svg>
+      </a>
+    </li>
+
+    <div v-for="page in pages" :key="page">
+      <li>
+        <a href="#" @click="curPage(page)" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page }}</a>
+      </li>
+    </div>
+    <li>
+      <a href="#" @click="nextPage" :disabled="currentPage >= totalPages" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        <span class="sr-only">Next</span>
+        <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+      </a>
+    </li>
+  </ul>
+</nav>
 </template>
 
 <script setup>
@@ -376,6 +303,8 @@ import { getRecipeData, getRecipeDetailData } from "@/api/recipe";
 const selectedData = ref(null);
 const AllRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 o)
 const unpagedRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 x)
+const dynamicHTML = ref()
+const pages = ref([1,2,3,4,5])
 
 
 onMounted(() => {
@@ -447,6 +376,7 @@ const toggleModal = (modalId, data) => {
   const modal = document.getElementById(modalId);
   if (modal) {
     selectedData.value = data;
+    dynamicHTML.value = data.content; // 조리방법 br태그 기준 개행처리
     modal.classList.toggle("hidden");
     modal.classList.toggle("flex");
   }
@@ -471,8 +401,6 @@ const getRecipeDetail = (idx) => {
 
 // 라디오 버튼 클릭 상태 저장 변수(칼로리(energy), 단백질, 지방, 나트륨)
 const radioClickCount = ref([0, 0, 0, 0]);
-// 라디오 버튼 클릭에 따라 정렬시킬 기준 정보(칼로리(energy), 단백질, 지방, 나트륨)
-const alignStandard = ref("");
 
 // 라디오 버튼 클릭 시 색 변화
 const handleRadioClick = (index) => {
@@ -482,90 +410,62 @@ const handleRadioClick = (index) => {
   for (let i = 0; i < 4; i++) {
     if (i !== index) {
       radioClickCount.value[i] = 0;
-      const downArrow = document.querySelectorAll(`.down${i}`)[0];
-      const upArrow = document.querySelectorAll(`.up${i}`)[0];
-      downArrow.classList.remove("text-red-500");
-      downArrow.classList.add("text-gray-900");
-      upArrow.classList.remove("text-blue-500");
-      upArrow.classList.add("text-gray-900");
-    } else {
-      const downArrow = document.querySelectorAll(`.down${index}`)[0];
-      const upArrow = document.querySelectorAll(`.up${index}`)[0];
-      // 홀수번 클릭된 경우
-      if (radioClickCount.value[index] % 2 === 1) {
-        alignRecipeAscend(index) // 오름차순 정렬
-        downArrow.classList.add("text-red-500");
-        downArrow.classList.remove("text-gray-900");
-        upArrow.classList.add("text-gray-900");
-        upArrow.classList.remove("text-blue-500");
-      }
-      // 짝수번 클릭된 경우
-      else {
-        alignRecipeDescend(index) // 내림차순 정렬
-        downArrow.classList.remove("text-red-500");
-        downArrow.classList.add("text-gray-900");
-        upArrow.classList.remove("text-gray-900");
-        upArrow.classList.add("text-blue-500");
-      }
     }
   }
+
+  const upArrow = document.querySelectorAll('.uparrow')[0];
+  const downArrow = document.querySelectorAll('.downarrow')[0];
+
+  if (radioClickCount.value[index] % 2 === 1) {
+    upArrow.classList.remove("text-gray-900");
+    upArrow.classList.add("text-red-500");
+    downArrow.classList.remove("text-blue-500");
+    downArrow.classList.add("text-gray-900");
+  } else {
+    upArrow.classList.remove("text-red-500");
+    upArrow.classList.add("text-gray-900");
+    downArrow.classList.remove("text-gray-900");
+    downArrow.classList.add("text-blue-500");
+  }
+
+  alignRecipe(index, radioClickCount.value[index] % 2 === 1 ? 'asc' : 'desc');
 };
 
 //------------ 성분 기준 데이터 정렬 ------------------
 
-// 레시피의 오름차순 정렬(성분, 오름차순)
-const alignRecipeAscend = (radioidx) => {
+// 레시피의 정렬(성분, 차순)
+const alignRecipe = (radioidx, order) => {
   
   const tempIngredients  = ['energy', 'protein', 'fat', 'natrium'] // 정렬 기준
   const tempRecipes = []
   const alignedRecipes = []
   
-  unpagedRecipes.value.forEach((jsonData, index) => {
-    console.log(`JSON 데이터 ${index}에 접근:`);
-    console.log(jsonData); // 해당 JSON 데이터 출력
+  unpagedRecipes.value.sort((a, b) => {
+    const ingredA = calculateIngredients(a, tempIngredients[radioidx]);
+    const ingredB = calculateIngredients(b, tempIngredients[radioidx]);
 
-    // JSON 데이터의 특정 속성에 접근하는 예시
-    console.log(`제목: ${jsonData.title}`);
-    console.log(`이미지: ${jsonData.image}`);
-    console.log(`인덱스: ${jsonData.index}`);
-    console.log(`에너지: ${jsonData['energy']}`);
-    console.log(jsonData[tempIngredients[radioidx]])
-    // 다른 속성들에 대해서도 위와 같이 접근할 수 있음
-
-    if (tempRecipes.length === 0) 
-    {
-      tempRecipes.push(jsonData)
+    if (order === 'desc') {
+      return ingredB - ingredA;
     }
-
-    else if (jsonData[tempIngredients[radioidx]] < tempRecipes[-1][tempIngredients[radioidx]]) {
-      tempRecipes.push(jsonData)
-    }
-
     else {
-      tempRecipes.unshift(jsonData)
+      return ingredA - ingredB;
     }
-  });
-  
-  for (let i=0; i<5; i++) {
-    const tempArray = []
-    for (let j=0; j<4; j++) {
-      tempArray.push(tempRecipes.shift())
-    }
-    alignedRecipes.push(tempArray)
+    })
+    
+  const chunkSize = 4
+  for (let i = 0; i < unpagedRecipes.value.length; i += chunkSize) {
+    alignedRecipes.push(unpagedRecipes.value.slice(i, i + chunkSize));
   }
+  console.log(alignedRecipes)
+  AllRecipes.value = alignedRecipes
   
-  AllRecipes.value = alignedRecipes 
-  console.log(AllRecipes.value)
 };
 
-// 레시피의 내림차순 정렬
-const alignRecipeDescend = (radioidx) => {
-  const tempDatas = [];
-  for (let i = 0; i < justifiedRecipes.length; i++) {
-    tempDatas
-  }
-};
-
+// 각 레시피의 단백질 함량을 계산하는 함수
+const calculateIngredients = (recipe, ingredient) => {
+    let ingredValue = recipe[ingredient]
+    return ingredValue;
+}
 
 // ---------------pagination--------------
 const currentPage = ref(1);
@@ -574,12 +474,32 @@ const totalPages = 5;
 function nextPage() {
   if (currentPage.value < totalPages) {
     currentPage.value++;
+    highlightcurPage(currentPage.value)
   }
 }
 
-function prevPage() {
+function curPage(page) {
+  currentPage.value = page 
+  highlightcurPage(currentPage.value)
+}
+
+function highlightcurPage(page) {
+  const curp = document.getElementsByClassName("curpage");
+  Array.from(curp).forEach((element) => {
+    if (element.innerText == page) {
+      element.classList.remove("bg-white");
+      element.classList.add("bg-gray-200");
+    } else {
+      element.classList.remove("bg-gray-200");
+      element.classList.add("bg-white");
+    }
+  });
+}
+
+function prevPage(page) {
   if (currentPage.value > 1) {
     currentPage.value--;
+    highlightcurPage(currentPage.value)
   }
 }
 </script>
