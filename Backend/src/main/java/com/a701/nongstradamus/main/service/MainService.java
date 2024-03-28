@@ -12,4 +12,6 @@ public interface MainService {
     CommonDto findPredictCard() throws EntityNotFoundException;
     CommonDto findPresentCard() throws EntityNotFoundException;
     CommonDto findPastCard() throws EntityNotFoundException;
+
+    void resetData();
 }

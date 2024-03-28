@@ -46,6 +46,7 @@ public class RecipeDataServiceImpl implements RecipeDataService {
     // 최신 데이터 갱신이 2021년이라서 1년에 1번으로 설정했습니다
     @Override
     @Scheduled(cron = "0 0 0 1 1 ?")
+//    @Scheduled(fixedRate = 1000000000)
     @Transactional
     public void updateRecipeData() {
 
@@ -101,7 +102,7 @@ public class RecipeDataServiceImpl implements RecipeDataService {
                     }
                     if (!manualValue.isEmpty()) {
                         //레시피 순서 사이마다 "\n"삽입, 프론트 요청시 변경 가능
-                        content.append(manualValue).append("\n");
+                        content.append(manualValue).append("<br>");
                     }
                 }
                 double energy = Double.parseDouble((String) row.get("INFO_ENG"));
