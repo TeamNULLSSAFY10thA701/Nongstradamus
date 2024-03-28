@@ -8,11 +8,8 @@ import com.a701.nongstradamus.main.entity.PricePredictEntity;
 import com.a701.nongstradamus.main.repository.PricePredictRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -22,15 +19,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@EnableScheduling
 public class MainServiceImpl implements MainService{
 
     private final PricePredictRepository pricePredictRepository;
 
     private final PriceHistoryRepository priceHistoryRepository;
 
+    private CommonDto highestRatioDecreadeProduct;
+
+    private CommonDto highestRatioIncreaseProduct;
+
+    private CommonDto predictCards;
+
     @Override
     @Transactional(readOnly=true)
     public CommonDto findHighestRatioDecreaseProduct() throws EntityNotFoundException {
+
+        if(highestRatioDecreadeProduct != null){
+            return highestRatioDecreadeProduct;
+        }
 
         CommonDto response = new CommonDto();
         ProductInfoDto dto = new ProductInfoDto();
@@ -60,7 +68,7 @@ public class MainServiceImpl implements MainService{
         response.setData(dto);
         response.setMsg("good");
         response.setCode(200);
-
+        highestRatioDecreadeProduct = response;
         return response;
     }
 
@@ -68,6 +76,10 @@ public class MainServiceImpl implements MainService{
     @Override
     @Transactional(readOnly=true)
     public CommonDto findHighestRatioIncreaseProduct() throws EntityNotFoundException {
+
+        if(highestRatioIncreaseProduct != null){
+            return highestRatioIncreaseProduct;
+        }
 
         CommonDto response = new CommonDto();
         ProductInfoDto dto = new ProductInfoDto();
@@ -96,13 +108,17 @@ public class MainServiceImpl implements MainService{
         response.setData(dto);
         response.setMsg("good");
         response.setCode(200);
-
+        highestRatioIncreaseProduct = response;
         return response;
     }
 
     @Override
     @Transactional(readOnly=true)
     public CommonDto findPredictCard() throws EntityNotFoundException {
+
+        if(predictCards != null){
+            return predictCards;
+        }
 
         CommonDto response = new CommonDto();
 
@@ -182,7 +198,15 @@ public class MainServiceImpl implements MainService{
         response.setData(pastList);
         response.setMsg("good");
         response.setCode(200);
-
+        predictCards = response;
         return response;
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 4 * * *")
+    public void resetDate() {
+        highestRatioDecreadeProduct = null;
+        highestRatioIncreaseProduct = null;
+        predictCards = null;
     }
 }
