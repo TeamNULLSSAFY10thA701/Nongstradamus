@@ -51,7 +51,7 @@
             value=""
             name="list-radio"
             class=" hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @click="handleRadioClick(0)"
+            @touchstart.prevent="handleRadioClick(0)"
           />
           <label
             for="ingredient1"
@@ -70,7 +70,7 @@
             value=""
             name="list-radio"
             class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @click="handleRadioClick(1)"
+            @touchstart.prevent="handleRadioClick(1)"
           />
           <label
             for="ingredient2"
@@ -88,7 +88,7 @@
             value=""
             name="list-radio"
             class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @click="handleRadioClick(2)"
+            @touchstart.prevent="handleRadioClick(2)"
           />
           <label
             for="ingredient3"
@@ -103,7 +103,7 @@
             value=""
             name="list-radio"
             class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @click="handleRadioClick(3)"
+            @touchstart.prevent="handleRadioClick(3)"
           />
           <label
             for="ingredient4"
@@ -137,7 +137,7 @@
             <button
               data-modal-target="modalEl" 
               data-modal-toggle="modalEl"
-              @click="toggleModal('modalEl', recipe)"
+              @touchstart.prevent="toggleModal('modalEl', recipe)"
               class="block text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 rounded-lg text-xs mx-2 px-2 py-2 text-center"
               type="button"
             >
@@ -184,7 +184,7 @@
                   >
                     <!-- 모달 닫기 버튼 -->
                     <button
-                      @click="toggleModal('modalEl', recipe)"
+                      @touchstart.prevent="toggleModal('modalEl', recipe)"
                       type="button"
                       class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
@@ -201,7 +201,7 @@
             <button
               data-modal-target="modalEl2"
               data-modal-toggle="modalEl2"
-              @click="toggleModal('modalEl2', recipe)"
+              @touchstart.prevent="toggleModal('modalEl2', recipe)"
               class="block text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs mx-1 px-1 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
@@ -248,7 +248,7 @@
                   >
                     <!-- 모달 닫기 버튼 -->
                     <button
-                      @click="toggleModal('modalEl2', recipe)"
+                      @touchstart.prevent="toggleModal('modalEl2', recipe)"
                       type="button"
                       class="text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
@@ -271,7 +271,7 @@
 <nav aria-label="Page navigation" class="flex justify-center m-3">
   <ul class="flex items-center -space-x-px h-8 text-sm m-3">
     <li>
-      <a href="#" @click="prevPage" :disabled="currentPage === 1" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+      <a href="#" @touchstart.prevent="prevPage" :disabled="currentPage === 1" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
         <span class="sr-only">Previous</span>
         <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
@@ -281,11 +281,11 @@
 
     <div v-for="page in pages" :key="page">
       <li>
-        <a href="#" @click="curPage(page)" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page }}</a>
+        <a href="#" @touchstart.prevent="curPage(page)" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page }}</a>
       </li>
     </div>
     <li>
-      <a href="#" @click="nextPage" :disabled="currentPage >= totalPages" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+      <a href="#" @touchstart.prevent="nextPage" :disabled="currentPage >= totalPages" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
         <span class="sr-only">Next</span>
         <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
