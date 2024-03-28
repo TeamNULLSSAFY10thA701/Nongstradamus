@@ -162,7 +162,7 @@
       <!-- 지난주 가격 캐러셀 -->
 
       <div class="mt-4" v-if="toDayState">
-        <Carousel :itemsToShow="2.95" :wrapAround="true" :transition="500">
+        <Carousel :itemsToShow="0.95" :wrapAround="true" :transition="500">
           <Slide v-for="slide in toDayPrice.data" :key="slide">
             <div>
               <a class="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
