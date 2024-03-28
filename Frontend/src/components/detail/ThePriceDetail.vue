@@ -263,6 +263,7 @@
 
             </table>
         </div>
+        <!-- 카테고리별 농산물 테이블 -->
 
         <div v-if="clickState" class="mb-16">
             <div class="flex justify-center items-center mt-12">
@@ -369,11 +370,6 @@ onMounted(() => {
 });
 
 // --------------------------------------------------------------------------------onMounted-------------------------------------------------------
-const tableSwitchState = ref(false)
-
-const check = (a) => {
-    console.log(a)
-}
 
 const getImageUrl = (nickname) => {
     return `/${nickname}.png`;
@@ -403,7 +399,7 @@ const clickEvent = () => {
     }
     bestClickState.value = false
     goodClickState.value = false
-    midClickState.value = false
+    midClickState.value = true
     lowClickState.value = false
 }
 //클릭 시, 세부 그래프를 나타내는 메서드.
@@ -715,42 +711,72 @@ const vegetableLeafclickEvent = (nickname, aname) => {
     nameBasket.value = aname
     nickNameBasket.value = nickname
     categoryBasket.value = 'FutureVegetableLeafPricesAllData'
+    midClick()
     clickEvent()
+    midClickState.value = false;
+    setTimeout(() => {
+        midClickState.value = true;
+    }, 1); // 0.001초 후에 실행
 }
 
 const vegetableFruitclickEvent = (nickname, aname) => {
     nameBasket.value = aname
     nickNameBasket.value = nickname
     categoryBasket.value = 'FutureVegetableFruitPricesAllData'
+    midClick()
     clickEvent()
+    midClickState.value = false;
+    setTimeout(() => {
+        midClickState.value = true;
+    }, 1); // 0.01초 후에 실행
 }
 
 const vegetableRootclickEvent = (nickname, aname) => {
     nameBasket.value = aname
     nickNameBasket.value = nickname
     categoryBasket.value = 'FutureVegetableRootPricesAllData'
+    midClick()
     clickEvent()
+    midClickState.value = false;
+    setTimeout(() => {
+        midClickState.value = true;
+    }, 1); // 0.01초 후에 실행
 }
 
 const grainclickEvent = (nickname, aname) => {
     nameBasket.value = aname
     nickNameBasket.value = nickname
     categoryBasket.value = 'FutureGrainPricesAllData'
+    midClick()
     clickEvent()
+    midClickState.value = false;
+    setTimeout(() => {
+        midClickState.value = true;
+    }, 1); // 0.01초 후에 실행
 }
 
 const fruitclickEvent = (nickname, aname) => {
     nameBasket.value = aname
     nickNameBasket.value = nickname
     categoryBasket.value = 'FutureFruitPricesAllData'
+    midClick()
     clickEvent()
+    midClickState.value = false;
+    setTimeout(() => {
+        midClickState.value = true;
+    }, 1); // 0.01초 후에 실행
 }
 
 const yellowCropclickEvent = (nickname, aname) => {
     nameBasket.value = aname
     nickNameBasket.value = nickname
     categoryBasket.value = 'FutureYellowCropPricesAllData'
+    midClick()
     clickEvent()
+    midClickState.value = false;
+    setTimeout(() => {
+        midClickState.value = true;
+    }, 1); // 0.01초 후에 실행
 }
 //해당 계열에서 품목을 결정했을 때, 요소를 특정짓는 메서드.
 //각 바구니로 현재 계열,품목,표시할이름을 특정지어 사용.
