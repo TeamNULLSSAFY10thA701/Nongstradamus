@@ -4,10 +4,15 @@ import com.a701.nongstradamus.common.CommonDto;
 import com.a701.nongstradamus.data.entity.PriceHistoryEntity;
 import com.a701.nongstradamus.data.repository.PriceHistoryRepository;
 import com.a701.nongstradamus.main.dto.ProductInfoDto;
+import com.a701.nongstradamus.main.dto.ProductPriceDto;
+import com.a701.nongstradamus.main.dto.RecommendDto;
 import com.a701.nongstradamus.main.entity.PricePredictEntity;
 import com.a701.nongstradamus.main.repository.PricePredictRepository;
+import com.a701.nongstradamus.main.repository.ProductRecommendRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +31,17 @@ public class MainServiceImpl implements MainService{
 
     private final PriceHistoryRepository priceHistoryRepository;
 
+    private final ProductRecommendRepository productRecommendRepository;
+
     private CommonDto highestRatioDecreadeProduct;
 
     private CommonDto highestRatioIncreaseProduct;
 
     private CommonDto predictCards;
+
+    private CommonDto todayRecommend;
+
+    private CommonDto tomorrowRecommend;
 
     @Override
     @Transactional(readOnly=true)
@@ -208,5 +219,119 @@ public class MainServiceImpl implements MainService{
         highestRatioDecreadeProduct = null;
         highestRatioIncreaseProduct = null;
         predictCards = null;
+        todayRecommend = null;
+        tomorrowRecommend = null;
+    }
+
+    @Override
+    public CommonDto findTodayRecommendData() {
+        if(todayRecommend != null){
+            return todayRecommend;
+        }
+        List<ProductPriceDto> productPrices = productRecommendRepository.findAll()
+            .stream().map(entity ->{
+                ProductPriceDto dto = new ProductPriceDto();
+                dto.setName(entity.getName());
+                dto.setUnit(entity.getUnit());
+                dto.setNickname(entity.getNickname());
+                dto.setPrices(new Long[] {
+                    entity.getPriceHistory7(),
+                    entity.getPricePredict6(),
+                    entity.getPriceHistory5(),
+                    entity.getPriceHistory4(),
+                    entity.getPriceHistory3(),
+                    entity.getPriceHistory2(),
+                    entity.getPriceHistory1(),
+                    entity.getPriceToday(),
+                    entity.getPricePredict1(),
+                    entity.getPricePredict2(),
+                    entity.getPricePredict3(),
+                    entity.getPricePredict4(),
+                    entity.getPricePredict5(),
+                    entity.getPricePredict6()
+                });
+                dto.setMention(true);
+                return dto;
+            }).collect(Collectors.toList());
+        if(productPrices.isEmpty()){
+            throw new EntityNotFoundException("404");
+        }
+        Collections.sort(productPrices, new Comparator<ProductPriceDto>() {
+            @Override
+            public int compare(ProductPriceDto o1, ProductPriceDto o2) {
+                if(o1.getMention() == o2.getMention()){
+                    double ratio1 = (o1.getPrices()[7] - o1.getPrices()[6])/(double)o1.getPrices()[6];
+                    double ratio2 = (o2.getPrices()[7] - o2.getPrices()[6])/(double)o2.getPrices()[6];
+                    return ratio1 == ratio2 ? 0 : ratio1 < ratio2 ? -1 : 1;
+                }else{
+                    return o1.getMention() - o2.getMention();
+                }
+            }
+        });
+        RecommendDto data = new RecommendDto();
+        data.setName(productPrices.get(0).getName());
+        data.setNickname(productPrices.get(0).getNickname());
+        data.setUnit(productPrices.get(0).getUnit());
+        data.setMention(productPrices.get(0).getMention());
+        data.setPriceToday(productPrices.get(0).getPrices()[7]);
+        data.setPriceTomorrow(productPrices.get(0).getPrices()[8]);
+        todayRecommend = new CommonDto<RecommendDto>(data, "조회 성공", 200);
+        return todayRecommend;
+    }
+
+    @Override
+    public CommonDto findTomorrowRecommendData() {
+        if(tomorrowRecommend != null){
+            return tomorrowRecommend;
+        }
+        List<ProductPriceDto> productPrices = productRecommendRepository.findAll()
+            .stream().map(entity ->{
+                ProductPriceDto dto = new ProductPriceDto();
+                dto.setName(entity.getName());
+                dto.setUnit(entity.getUnit());
+                dto.setNickname(entity.getNickname());
+                dto.setPrices(new Long[] {
+                    entity.getPriceHistory7(),
+                    entity.getPricePredict6(),
+                    entity.getPriceHistory5(),
+                    entity.getPriceHistory4(),
+                    entity.getPriceHistory3(),
+                    entity.getPriceHistory2(),
+                    entity.getPriceHistory1(),
+                    entity.getPriceToday(),
+                    entity.getPricePredict1(),
+                    entity.getPricePredict2(),
+                    entity.getPricePredict3(),
+                    entity.getPricePredict4(),
+                    entity.getPricePredict5(),
+                    entity.getPricePredict6()
+                });
+                dto.setMention(false);
+                return dto;
+            }).collect(Collectors.toList());
+        if(productPrices.isEmpty()){
+            throw new EntityNotFoundException("404");
+        }
+        Collections.sort(productPrices, new Comparator<ProductPriceDto>() {
+            @Override
+            public int compare(ProductPriceDto o1, ProductPriceDto o2) {
+                if(o1.getMention() == o2.getMention()){
+                    double ratio1 = (o1.getPrices()[8] - o1.getPrices()[7])/(double)o1.getPrices()[7];
+                    double ratio2 = (o2.getPrices()[8] - o2.getPrices()[7])/(double)o2.getPrices()[7];
+                    return ratio1 == ratio2 ? 0 : ratio1 > ratio2 ? -1 : 1;
+                }else{
+                    return o1.getMention() - o2.getMention();
+                }
+            }
+        });
+        RecommendDto data = new RecommendDto();
+        data.setName(productPrices.get(0).getName());
+        data.setNickname(productPrices.get(0).getNickname());
+        data.setUnit(productPrices.get(0).getUnit());
+        data.setMention(productPrices.get(0).getMention());
+        data.setPriceToday(productPrices.get(0).getPrices()[7]);
+        data.setPriceTomorrow(productPrices.get(0).getPrices()[8]);
+        tomorrowRecommend = new CommonDto<RecommendDto>(data, "조회 성공", 200);
+        return tomorrowRecommend;
     }
 }
