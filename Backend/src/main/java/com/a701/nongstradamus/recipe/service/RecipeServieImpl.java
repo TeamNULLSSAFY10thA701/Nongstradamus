@@ -37,7 +37,7 @@ public class RecipeServieImpl implements RecipeService{
 
     private CommonDto[] recipeList;
 
-    private Map<String, Map<Boolean, CommonDto>> sortedRecipeList;
+    private Map<String, Map<Boolean, Map<Integer, CommonDto>>> sortedRecipeList;
 
     @Override
     @Transactional(readOnly = true)
@@ -83,10 +83,15 @@ public class RecipeServieImpl implements RecipeService{
         }
         if(sortedRecipeList.containsKey(sortBase)){
             if(sortedRecipeList.get(sortBase).containsKey(sortMethod)){
-                return sortedRecipeList.get(sortBase).get(sortMethod);
+                if(sortedRecipeList.get(sortBase).get(sortMethod).containsKey(pageNumber)){
+                    return sortedRecipeList.get(sortBase).get(sortMethod).get(pageNumber);
+                }
+            }else{
+                sortedRecipeList.get(sortBase).put(sortMethod, new HashMap<Integer, CommonDto>());
             }
         }else{
-           sortedRecipeList.put(sortBase, new HashMap<Boolean, CommonDto>());
+           sortedRecipeList.put(sortBase, new HashMap<>());
+           sortedRecipeList.get(sortBase).put(sortMethod, new HashMap<>());
         }
         Sort sort = sortMethod ? Sort.by(sortBase).ascending() : Sort.by(sortBase).descending();
         Page<RecipeViewEntity> page = recipeViewRepository.findAll(
@@ -97,8 +102,8 @@ public class RecipeServieImpl implements RecipeService{
         List<RecipeTitleDto> list = page.get().map(entity -> {
             return new RecipeTitleDto(entity.getTitle(),entity.getImage(), entity.getId());
         }).collect(Collectors.toList());
-        sortedRecipeList.get(sortBase).put(sortMethod, new CommonDto<List>(list, "조회 성공", 200));
-        return sortedRecipeList.get(sortBase).get(sortMethod);
+        sortedRecipeList.get(sortBase).get(sortMethod).put(pageNumber, new CommonDto<List>(list, "조회 성공", 200));
+        return sortedRecipeList.get(sortBase).get(sortMethod).get(pageNumber);
     }
 
     @Override
