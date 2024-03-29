@@ -2,7 +2,7 @@
 
 <template>
   <!-- 라디오버튼 start -->
-  <div class="flex-column justify-center">
+  <div class="flex-column justify-center my-8">
     <div class="flex">
       <div class="font-semibold ms-5 mb-2 me-2 text-gray-900 dark:text-white">
         정렬
@@ -253,7 +253,7 @@
   <!-- 페이지네이션 컨트롤 -->
   
 
-<nav aria-label="Page navigation" class="flex justify-center m-3">
+<nav aria-label="Page navigation" class="flex justify-center mb-24">
   <ul class="flex items-center -space-x-px h-8 text-sm m-3">
     <li>
       <a href="#" @touchstart.prevent="prevPage" :disabled="currentPage === 1" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
