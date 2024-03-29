@@ -15,7 +15,12 @@
           <svg class="downarrow w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 10">
           <path d="M15.434 1.235A2 2 0 0 0 13.586 0H2.414A2 2 0 0 0 1 3.414L6.586 9a2 2 0 0 0 2.828 0L15 3.414a2 2 0 0 0 .434-2.179Z"/>
           </svg>
-        </div>    
+        </div>
+          <div v-if="selectedIngredient && selectedState">
+            <div :selectedIngredient :selectedState class="text-xs ml-6">
+            {{ selectedIngredient }} {{ selectedState }} 순으로 정렬된 결과입니다.
+            </div> 
+          </div>
       </div>
     <ul
       class="grid grid-cols-4 ps-3 pe-3 jeongryeol-block items-center font-medium text-gray-900 bg-white "
@@ -253,7 +258,7 @@
   <!-- 페이지네이션 컨트롤 -->
   
 
-<nav aria-label="Page navigation" class="flex justify-center mb-24">
+<nav aria-label="Page navigation" class="flex justify-center mb-20">
   <ul class="flex items-center -space-x-px h-8 text-sm m-3">
     <li>
       <a href="#" @touchstart.prevent="prevPage" :disabled="currentPage === 1" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -291,6 +296,8 @@ const AllRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 
 const unpagedRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 x)
 const dynamicHTML = ref()
 const pages = ref([1,2,3,4,5])
+const selectedIngredient = ref()
+const selectedState = ref()
 
 
 onMounted(() => {
@@ -374,11 +381,13 @@ const getRecipeDetail = (idx) => {
 
 // 라디오 버튼 클릭 상태 저장 변수(칼로리(energy), 단백질, 지방, 나트륨)
 const radioClickCount = ref([0, 0, 0, 0]);
+const ingredients = ['칼로리', '단백질', '지방', '나트륨']
 
 // 라디오 버튼 클릭 시 색 변화
 const handleRadioClick = (index) => {
   // 클릭 상태 변경
   radioClickCount.value[index]++;
+  selectedIngredient.value=ingredients[index]
 
   for (let i = 0; i < 4; i++) {
     if (i !== index) {
@@ -394,11 +403,13 @@ const handleRadioClick = (index) => {
     upArrow.classList.add("text-red-500");
     downArrow.classList.remove("text-blue-500");
     downArrow.classList.add("text-black");
+    selectedState.value="많은"
   } else {
     upArrow.classList.remove("text-red-500");
     upArrow.classList.add("text-black");
     downArrow.classList.remove("text-black");
     downArrow.classList.add("text-blue-500");
+    selectedState.value="적은"
   }
 
   alignRecipe(index, radioClickCount.value[index] % 2 === 1 ? 'asc' : 'desc');
