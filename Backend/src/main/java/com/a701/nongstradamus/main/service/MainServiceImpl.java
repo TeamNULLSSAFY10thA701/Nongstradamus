@@ -349,7 +349,7 @@ public class MainServiceImpl implements MainService{
             return recommendCards;
         }
         List<CardDto> list = cardRecommendRepository.findAll().stream().map(entity->{
-            Double ratio = (entity.getPriceTomorrow() - entity.getPriceToday()) / (double) entity.getPriceToday();
+            Double ratio = (entity.getPriceToday() - entity.getPriceTomorrow()) / (double) entity.getPriceTomorrow();
             ratio = Math.round(ratio * 10000) / 100.0;
             return new CardDto(entity.getName(),entity.getNickname(), entity.getUnit(), entity.getPriceToday(), entity.getPriceTomorrow(), ratio, 0);
         }).collect(Collectors.toList());
