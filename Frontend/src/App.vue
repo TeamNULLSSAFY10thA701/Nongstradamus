@@ -1,7 +1,10 @@
-<script setup></script>
+<script setup>
+import bottomNav from "./components/common/bottomNav.vue";
+</script>
 
 <template>
   <RouterView></RouterView>
+  <bottomNav />
 </template>
 
 <style>
