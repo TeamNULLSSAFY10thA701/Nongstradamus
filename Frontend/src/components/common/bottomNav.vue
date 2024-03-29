@@ -80,8 +80,8 @@
           </svg>
         </button>
       </RouterLink>
-      <RouterLink to="/" class="flex items-center justify-center col-start-3">
-        <div>
+      <RouterLink to="/" class="mt-1">
+        <div class="flex items-center justify-center col-start-3">
           <button
             type="button"
             class="inline-flex items-center justify-center w-14 h-14 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
