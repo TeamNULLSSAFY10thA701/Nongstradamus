@@ -1,10 +1,8 @@
 <template>
     <div class="all max-w-md mx-auto">
-        <div class="grid grid-cols-6 gap-2 ml-4 mr-4 mt-8 mb-16 h-8">
-            <div class="w-3/5 mx-auto col-span-2 ml-6" @click="goMainPage">
-                <img src="/src/assets/full_logo1.png" />
-            </div>
-            <div class="title col-start-3 col-span-4 flex items-center">
+        <div class="ml-4 mr-4 mt-8 mb-8 h-8">
+
+            <div class="title flex items-center justify-center mx-auto">
                 농스트라다무스의 예측
             </div>
         </div>
@@ -271,7 +269,7 @@
                     class="w-full h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a>
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
-                nameBasket }}의 가격 정보
+                        nameBasket }}의 가격 정보
                         </h5>
                     </a>
                     <ul
@@ -1074,6 +1072,6 @@ const chartOptions = {
 }
 
 .title {
-    font-size: 22px;
+    font-size: 30px;
 }
 </style>
