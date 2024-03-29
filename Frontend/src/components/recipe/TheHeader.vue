@@ -1,23 +1,12 @@
 <template>
   <!-- startheader -->
-  <div class="grid grid-cols-3 mt-12 mx-auto">
-    <div class="w-2/3">
-      <img src="@/assets/full_logo1.png" @click="goToMainPage" />
-    </div>
-    <div class="col-span-2 flex items-center justify-center text-2xl">
-      농스트라다무스의 밥도둑
-    </div>
+  <div class="col-span-2 flex items-center justify-center text-2xl mt-12">
+    오늘의 요리
   </div>
+
   <!-- end header -->
 </template>
 
-<script setup>
-// 이미지 클릭 시 메인 페이지로 이동
-const goToMainPage = () => {
-  // 메인 페이지로 이동하는 코드 작성
-  // 예시로 window.location.href를 사용하였습니다.
-  window.location.href = "/";
-};
-</script>
+<script setup></script>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 <template>
   <div class="parent all-font mx-auto">
     <TheHeader class="recipe-component"></TheHeader>
-    <TheRecipeBody class="recipe-component"></TheRecipeBody>
+    <TheRecipeBody class="recipe-body"></TheRecipeBody>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ import TheRecipeBody from "@/components/recipe/TheRecipeBody.vue";
   margin: 0 auto; /* 가운데 정렬을 위한 마진 설정 */
 }
 
-.recipe-component {
-  margin-bottom: 15%;
+.recipe-body {
+  margin-top: 50px;
 }
 </style>
