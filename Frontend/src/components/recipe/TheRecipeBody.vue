@@ -103,11 +103,11 @@
         <div class="flex flex-col items-center py-3 bg-yellow-100/50">
           <div class="relative">
             <!-- Youtube 아이콘 -->
-            <div v-if="searchYoutube(recipe.title)">
+            <div v-if="recipe.youtubelink !== 0">
               <img  
                 src="@/image/youtube.png"
                 class="youtube-icon absolute top-0 left-0 w-5 h-5 rounded-full shadow-lg"
-                @click="gotoVideo(searchYoutube(recipe.title))"
+                @click="gotoVideo(recipe.youtubelink)"
                 alt="Youtube icon">
             </div>
             <!-- 레시피 이미지 -->
@@ -490,11 +490,11 @@ async function searchYoutube(title) {
     if (videos.length > 0) {
       return `https://www.youtube.com/embed/${videos[0].id.videoId}`
     } else {
-      return null;
+      return 0;
     }
   } catch (error) {
     console.error('Error searching YouTube:', error);
-    return null;
+    return 0;
   }
 }
 
