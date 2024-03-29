@@ -3,13 +3,8 @@ from functools import reduce
 import numpy as np
 import pandas as pd
 from prophet import Prophet
-import matplotlib.pyplot as plt
-import seaborn as sns
 import warnings
 import lightgbm as lgb
-from sqlalchemy.orm import Session
-
-from nongstradmus_database import connection, price_history_get_stmt
 
 
 # RMSE 계산
@@ -180,13 +175,14 @@ def do_process(conn, product, grade, start_date, end_date,
     ratios = ratios.price.to_list()
     ratios[0] = 0
 
-    result = pd.DataFrame({"date": test['date'],
+    result = pd.DataFrame({"date": pd.date_range(start=start_date, end=end_date),
                            "price": lgb_pred,
                            'ratio': ratios,
                            'grade': grades,
                            'productId': productIds})
 
-
     result.to_sql(name='pricePredict', con=conn, index=False, if_exists='append')
+
+    conn.commit()
 
     return
