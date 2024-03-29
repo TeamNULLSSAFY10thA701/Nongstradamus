@@ -18,4 +18,6 @@ public interface MainService {
     CommonDto findTodayRecommendData();
 
     CommonDto findTomorrowRecommendData();
+
+    CommonDto listBestRecommendCards();
 }
