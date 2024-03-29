@@ -111,9 +111,9 @@
                                     </div>
 
                                     <div class="h-1/3 rounded-lg bg-white mt-3 w-40 mx-auto">
-                                        <span class="text-black text-sm">{{ content.priceToday }}원</span>
+                                        <span class="text-black text-sm">{{ content.priceTomorrow }}원</span>
                                         <span class="mx-1 text-sm">&gt;</span>
-                                        <span class="text-red-600 text-sm">{{ content.priceTomorrow }}원</span>
+                                        <span class="text-red-600 text-sm">{{ content.priceToday }}원</span>
                                     </div>
                                     <div class="h-1/3 rounded-lg bg-white mt-3  w-40 mx-auto text-red-600"
                                         v-if="content.ratio >= 0">
