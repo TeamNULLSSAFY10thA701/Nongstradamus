@@ -356,7 +356,7 @@ public class MainServiceImpl implements MainService{
         Collections.sort(list, new Comparator<CardDto>() {
             @Override
             public int compare(CardDto o1, CardDto o2) {
-                return o1.getRatio() - o2.getRatio() == 0.0 ? 0 : o1.getRatio() - o2.getRatio() < 0.0 ? -1 : 1;
+                return o2.getRatio() - o1.getRatio() == 0.0 ? 0 : o2.getRatio() - o1.getRatio() < 0.0 ? -1 : 1;
             }
         });
         List<CardDto> data = new ArrayList<>();
