@@ -3,14 +3,17 @@ package com.a701.nongstradamus.main.service;
 import com.a701.nongstradamus.common.CommonDto;
 import com.a701.nongstradamus.data.entity.PriceHistoryEntity;
 import com.a701.nongstradamus.data.repository.PriceHistoryRepository;
+import com.a701.nongstradamus.main.dto.CardDto;
 import com.a701.nongstradamus.main.dto.ProductInfoDto;
 import com.a701.nongstradamus.main.dto.ProductPriceDto;
 import com.a701.nongstradamus.main.dto.RecommendDto;
 import com.a701.nongstradamus.main.entity.PricePredictEntity;
+import com.a701.nongstradamus.main.repository.CardRecommendRepository;
 import com.a701.nongstradamus.main.repository.PricePredictRepository;
 import com.a701.nongstradamus.main.repository.ProductRecommendRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -33,6 +36,8 @@ public class MainServiceImpl implements MainService{
 
     private final ProductRecommendRepository productRecommendRepository;
 
+    private final CardRecommendRepository cardRecommendRepository;
+
     private CommonDto highestRatioDecreadeProduct;
 
     private CommonDto highestRatioIncreaseProduct;
@@ -42,6 +47,8 @@ public class MainServiceImpl implements MainService{
     private CommonDto todayRecommend;
 
     private CommonDto tomorrowRecommend;
+
+    private CommonDto recommendCards;
 
     @Override
     @Transactional(readOnly=true)
@@ -221,6 +228,7 @@ public class MainServiceImpl implements MainService{
         predictCards = null;
         todayRecommend = null;
         tomorrowRecommend = null;
+        recommendCards = null;
     }
 
     @Override
@@ -333,5 +341,30 @@ public class MainServiceImpl implements MainService{
         data.setPriceTomorrow(productPrices.get(0).getPrices()[8]);
         tomorrowRecommend = new CommonDto<RecommendDto>(data, "조회 성공", 200);
         return tomorrowRecommend;
+    }
+
+    @Override
+    public CommonDto listBestRecommendCards() {
+        if(recommendCards!=null){
+            return recommendCards;
+        }
+        List<CardDto> list = cardRecommendRepository.findAll().stream().map(entity->{
+            Double ratio = (entity.getPriceTomorrow() - entity.getPriceToday()) / (double) entity.getPriceToday();
+            ratio = Math.round(ratio * 100) / 100.0;
+            return new CardDto(entity.getName(),entity.getNickname(), entity.getUnit(), entity.getPriceToday(), entity.getPriceTomorrow(), ratio, 0);
+        }).collect(Collectors.toList());
+        Collections.sort(list, new Comparator<CardDto>() {
+            @Override
+            public int compare(CardDto o1, CardDto o2) {
+                return o1.getRatio() - o2.getRatio() == 0.0 ? 0 : o1.getRatio() - o2.getRatio() < 0.0 ? -1 : 1;
+            }
+        });
+        List<CardDto> data = new ArrayList<>();
+        for(int i=0; i<5; i++){
+            list.get(i).setRank(i+1);
+            data.add(list.get(i));
+        }
+        recommendCards = new CommonDto<List>(data, "조회 성공", 200);
+        return recommendCards;
     }
 }
