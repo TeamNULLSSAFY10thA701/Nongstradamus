@@ -14,4 +14,8 @@ public interface MainService {
     CommonDto findPastCard() throws EntityNotFoundException;
 
     void resetData();
+
+    CommonDto findTodayRecommendData();
+
+    CommonDto findTomorrowRecommendData();
 }

@@ -63,25 +63,25 @@ public class AllServiceImpl implements AllService{
             lowList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 1).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             midList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 2).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             goodList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 3).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             bestList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 4).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             grade.get("low").put(-1, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
@@ -92,25 +92,25 @@ public class AllServiceImpl implements AllService{
             lowList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 1).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             midList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 2).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             goodList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 3).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             bestList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 4).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             grade.get("low").put(-2, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
@@ -121,25 +121,25 @@ public class AllServiceImpl implements AllService{
             lowList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 1).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             midList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 2).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             goodList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 3).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             bestList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 4).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             grade.get("low").put(-3, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
@@ -150,25 +150,25 @@ public class AllServiceImpl implements AllService{
             lowList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 1).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             midList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 2).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             goodList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 3).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             bestList = priceHistoryRepository.findAllByProductAndDateAndGrade(
                     product, java.sql.Timestamp.valueOf(targetDay.atStartOfDay()), 4).stream()
                 .map(entity -> {
-                    return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                    return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
                 }).collect(
                     Collectors.toList());
             grade.get("low").put(-4, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
@@ -179,22 +179,22 @@ public class AllServiceImpl implements AllService{
             lowList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 1
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             midList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 2
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             goodList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 3
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             bestList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 3
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             grade.get("low").put(0, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
             grade.get("mid").put(0, midList.isEmpty() ? new PriceGraphDto() : midList.get(0));
@@ -205,22 +205,22 @@ public class AllServiceImpl implements AllService{
             lowList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 1
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             midList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 2
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             goodList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 3
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             bestList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 3
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             grade.get("low").put(1, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
             grade.get("mid").put(1, midList.isEmpty() ? new PriceGraphDto() : midList.get(0));
@@ -230,22 +230,22 @@ public class AllServiceImpl implements AllService{
             lowList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 1
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             midList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 2
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             goodList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 3
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             bestList = pricePredictRepository.findAllByProductAndDateAndGrade(
                 product, targetDay, 3
             ).stream().map(entity -> {
-                return new PriceGraphDto(entity.getPrice(), entity.getRatio());
+                return new PriceGraphDto(entity.getPrice(), Math.round(entity.getRatio()*100) / 100.0);
             }).collect(Collectors.toList());
             grade.get("low").put(2, lowList.isEmpty() ? new PriceGraphDto() : lowList.get(0));
             grade.get("mid").put(2, midList.isEmpty() ? new PriceGraphDto() : midList.get(0));

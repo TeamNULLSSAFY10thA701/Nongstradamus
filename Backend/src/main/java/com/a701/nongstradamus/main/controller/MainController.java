@@ -51,4 +51,14 @@ public class MainController {
         CommonDto response = mainService.findPastCard();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/today")
+    public ResponseEntity<CommonDto> mainTodayRecommend(){
+        return new ResponseEntity<CommonDto>(mainService.findTodayRecommendData(), HttpStatus.OK);
+    }
+
+    @GetMapping("/tomorrow")
+    public ResponseEntity<CommonDto> mainTomorrowRecommend(){
+        return new ResponseEntity<CommonDto>(mainService.findTomorrowRecommendData(), HttpStatus.OK);
+    }
 }
