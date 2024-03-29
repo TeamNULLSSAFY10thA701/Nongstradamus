@@ -21,6 +21,6 @@ import TheRecipeBody from "@/components/recipe/TheRecipeBody.vue";
 }
 
 .recipe-component {
-  margin-bottom: 7%;
+  margin-bottom: 15%;
 }
 </style>
