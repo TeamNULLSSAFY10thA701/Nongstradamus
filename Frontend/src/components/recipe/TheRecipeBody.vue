@@ -40,28 +40,28 @@
           </svg>
       </div>
     <ul
-      class="grid grid-cols-4 ps-3 pe-3 jeongryeol-block items-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"
+      class="grid grid-cols-4 ps-3 pe-3 jeongryeol-block items-center font-medium text-gray-900 bg-white "
     >
       <li
-        class="items-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+        class="text-center"
       >
           <input
             id="ingredient1"
             type="radio"
             value=""
             name="list-radio"
-            class=" hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(0)"
+            class="radio-input hidden"
+            @click="handleRadioClick(0)"
           />
           <label
             for="ingredient1"
-            class="py-3 ms-2 me-1 text-xs font-medium text-gray-900 dark:text-gray-300"
+            class="radio-label py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
             >칼로리</label
           >
         
       </li>
       <li
-        class="text-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+        class="text-center"
       >
         
           <input
@@ -69,45 +69,45 @@
             type="radio"
             value=""
             name="list-radio"
-            class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(1)"
+            class="radio-input hidden"
+            @click="handleRadioClick(1)"
           />
           <label
             for="ingredient2"
-            class="py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
+            class="radio-label py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
             >단백질</label
           >
         
       </li>
       <li
-        class="text-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+        class="text-center"
       > 
           <input
             id="ingredient3"
             type="radio"
             value=""
             name="list-radio"
-            class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(2)"
+            class="radio-input hidden"
+            @click="handleRadioClick(2)"
           />
           <label
             for="ingredient3"
-            class="py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
+            class="radio-label py-3 text-xs font-medium text-gray-900 dark:text-gray-300"
             >지방</label
           >    
       </li>
-      <li class="text-center border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+      <li class="text-center">
           <input
             id="ingredient4"
             type="radio"
             value=""
             name="list-radio"
-            class="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-            @touchstart.prevent="handleRadioClick(3)"
+            class="radio-input hidden"
+            @click="handleRadioClick(3)"
           />
           <label
             for="ingredient4"
-            class="py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300"
+            class="radio-label py-3 ms-2 text-xs font-medium text-gray-900 dark:text-gray-300"
             >나트륨</label
           >
       </li>
@@ -122,12 +122,19 @@
         class="m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
       >
         <!-- 레시피 정보 표시 -->
-        <div class="flex flex-col items-center py-5 ">
-          <img
-            class="w-20 h-20 mb-3 rounded-full shadow-lg"
-            :src="recipe.image"
-            alt="Bonnie image"
-          />
+        <div class="flex flex-col items-center py-3 bg-yellow-100/50">
+          <div class="relative">
+            <!-- Youtube 아이콘 -->
+            <div v-if="searchYoutube(recipe.title)">
+              <img  
+                src="@/image/youtube.png"
+                class="youtube-icon absolute top-0 left-0 w-5 h-5 rounded-full shadow-lg"
+                @click="gotoVideo(searchYoutube(recipe.title))"
+                alt="Youtube icon">
+            </div>
+            <!-- 레시피 이미지 -->
+            <img class="recipe-img w-20 h-20 mb-3 rounded-full shadow-lg" :src="recipe.image" alt="Recipe image">
+          </div>
           <div class="m-1 text-sm text-center font-medium text-gray-900 dark:text-white">
             {{ recipe.title.length > 9 ? recipe.title.slice(0, 8) + '...' : recipe.title }}
           </div> 
@@ -281,11 +288,11 @@
 
     <div v-for="page in pages" :key="page">
       <li>
-        <a href="#" @touchstart.prevent="curPage(page)" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page }}</a>
+        <a href="#" @touchstart.prevent="curPage(page)" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300">{{ page }}</a>
       </li>
     </div>
     <li>
-      <a href="#" @touchstart.prevent="nextPage" :disabled="currentPage >= totalPages" class="curpage flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+      <a href="#" @touchstart.prevent="nextPage" :disabled="currentPage >= totalPages" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
         <span class="sr-only">Next</span>
         <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -298,7 +305,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { getRecipeData, getRecipeDetailData } from "@/api/recipe";
+import { getRecipeData, getRecipeDetailData, youtubeApiKey } from "@/api/recipe";
+import axios from 'axios'
 
 const selectedData = ref(null);
 const AllRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 o)
@@ -309,8 +317,6 @@ const pages = ref([1,2,3,4,5])
 
 onMounted(() => {
   getAllRecipeData();
-  console.log(AllRecipes.value);
-  console.log(unpagedRecipes.value);
 });
 
 // 가격이 가장 많이 하락한 재료를 기반으로 한 20개의 레시피 정보를 가져옴
@@ -323,38 +329,27 @@ const getAllRecipeData = () => {
         const tempData = []; // 페이지네이션을 위한 배열
 
         for (let j = 0; j < response.data.data.length; j++) {
-          const jsonrecipe = response.data.data[j];
-
-          // 페이지네이션 적용하지 않은 레시피들 정리용 json 형식
-          const tempRecipe = {
-            title: String,
-            image: String,
-            index: "",
-            ingredient: String,
-            content: String,
-            carbohydrate: " Integer",
-            energy: "Integer",
-            fat: "Integer",
-            natrium: "Integer",
-            protein: "Integer",
-          };
-
           try {
+            const jsonrecipe = response.data.data[j];
             // 각 레시피의 상세 정보를 비동기적으로 가져옴
             const detaildata = await getRecipeDetail(jsonrecipe.idx);
+            const youtubeLink = await searchYoutube(jsonrecipe.title)
 
-            // 상세 정보를 레시피 객체에 추가
-            tempRecipe.title = jsonrecipe.title;
-            tempRecipe.image = jsonrecipe.image;
-            tempRecipe.index = jsonrecipe.idx;
-            tempRecipe.ingredient = detaildata.ingredient;
-            tempRecipe.content = detaildata.content;
-            tempRecipe.carbohydrate = detaildata.carbohydrate;
-            tempRecipe.energy = detaildata.energy;
-            tempRecipe.fat = detaildata.fat;
-            tempRecipe.natrium = detaildata.natrium;
-            tempRecipe.protein = detaildata.protein;
-
+            // 페이지네이션 적용하지 않은 레시피들 정리용 json 형식
+            const tempRecipe = {
+              title: jsonrecipe.title,
+              image: jsonrecipe.image,
+              index: jsonrecipe.idx,
+              ingredient: detaildata.ingredient,
+              content: detaildata.content,
+              carbohydrate: detaildata.carbohydrate,
+              energy: detaildata.energy,
+              fat: detaildata.fat,
+              natrium: detaildata.natrium,
+              protein: detaildata.protein,
+              youtubelink : youtubeLink
+            };
+            
             tempData.push(tempRecipe);
             unpagedRecipes.value.push(tempRecipe);
           } catch (error) {
@@ -456,9 +451,7 @@ const alignRecipe = (radioidx, order) => {
   for (let i = 0; i < unpagedRecipes.value.length; i += chunkSize) {
     alignedRecipes.push(unpagedRecipes.value.slice(i, i + chunkSize));
   }
-  console.log(alignedRecipes)
   AllRecipes.value = alignedRecipes
-  
 };
 
 // 각 레시피의 단백질 함량을 계산하는 함수
@@ -488,9 +481,9 @@ function highlightcurPage(page) {
   Array.from(curp).forEach((element) => {
     if (element.innerText == page) {
       element.classList.remove("bg-white");
-      element.classList.add("bg-gray-200");
+      element.classList.add("bg-yellow-100/50");
     } else {
-      element.classList.remove("bg-gray-200");
+      element.classList.remove("bg-yellow-100/50");
       element.classList.add("bg-white");
     }
   });
@@ -502,8 +495,77 @@ function prevPage(page) {
     highlightcurPage(currentPage.value)
   }
 }
+
+//------------------------------ youtube ---------------------------
+async function searchYoutube(title) {
+  try {
+    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+      params: {
+        q: `${title} 레시피`,
+        key: youtubeApiKey,
+        order:'relevance',
+        part: 'snippet',
+        type: 'video'
+      } 
+    });
+    const videos = response.data.items;
+    if (videos.length > 0) {
+      return `https://www.youtube.com/embed/${videos[0].id.videoId}`
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error searching YouTube:', error);
+    return null;
+  }
+}
+
+async function gotoVideo(link) {
+  if (link) {
+    // videoLink 값이 존재할 때만 이동
+    window.open(link, '_blank');
+  } else {
+    // videoLink 값이 없을 때 처리할 내용 추가
+    console.log('No video link available');
+  }
+}
 </script>
 
 <style scoped>
+.relative {
+  position: relative;
+}
 
+.youtube-icon {
+  z-index: 1; /* Youtube 아이콘을 위로 올리기 위해 */
+}
+
+.recipe-img {
+  z-index: 0; /* 레시피 이미지를 뒤로 보내기 위해 */
+}
+
+/* 라디오 버튼 숨기기 */
+.radio-input {
+    position: absolute;
+    opacity: 0;
+  }
+
+/* 버튼 스타일링 */
+.radio-label {
+  display: inline-block;
+  width: 60px;
+  height : 35px;
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
+  border: 0.5px solid #ccc;
+  border-radius: 20px;
+  background-color: #faeed4;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+}
+
+  /* 선택된 버튼 스타일링 */
+  .radio-input:checked + .radio-label {
+    background-color: #fada91;
+  }
 </style>

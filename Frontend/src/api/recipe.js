@@ -1,5 +1,6 @@
 import { localAxios } from "@/util/http-commons";
 const url = `${import.meta.env.VITE_APP_SERVER_URL}/api/recipe`;
+const youtubeApiKey = `${import.meta.env.VITE_YOUTUBE_API_KEY}`;
 
 const local = localAxios();
 
@@ -13,4 +14,4 @@ function getRecipeDetailData(idx, success, fail) {
   local.get(`${url}/detail/${idx}`).then(success).catch(fail);
 }
 
-export { getRecipeData, getRecipeDetailData };
+export { getRecipeData, getRecipeDetailData, youtubeApiKey };
