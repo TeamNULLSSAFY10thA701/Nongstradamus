@@ -3,18 +3,20 @@
     class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 bottom-0 left-1/2 dark:bg-gray-700 dark:border-gray-600"
   >
     <div class="grid h-full grid-cols-5 mx-auto gap-x-4">
-      <RouterLink to="/recipe">
+      <RouterLink
+        to="/recipe"
+        class="text-xs ml-8 w-10 inline-flex flex-col items-center justify-center mt-1 text-gray-500 dark:text-gray-400"
+      >
         <span
-          class="text-xs ml-8 w-10 inline-flex flex-col items-center justify-center mt-1 text-gray-500 dark:text-gray-400"
           ><div>추천</div>
           <div>레시피</div></span
         >
       </RouterLink>
-      <RouterLink to="/recipe">
-        <button
-          type="button"
-          class="col-start-2 inline-flex flex-col items-center justify-center px-5"
-        >
+      <RouterLink
+        to="/recipe"
+        class="col-start-2 inline-flex flex-col items-center justify-center px-5"
+      >
+        <button type="button">
           <svg
             class="w-10 h-10 mb-1 mr-6 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
@@ -78,8 +80,8 @@
           </svg>
         </button>
       </RouterLink>
-      <RouterLink to="/">
-        <div class="flex items-center justify-center col-start-3">
+      <RouterLink to="/" class="flex items-center justify-center col-start-3">
+        <div>
           <button
             type="button"
             class="inline-flex items-center justify-center w-14 h-14 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
@@ -94,11 +96,11 @@
           </button>
         </div>
       </RouterLink>
-      <RouterLink to="/priceDetail">
-        <button
-          type="button"
-          class="col-start-4 inline-flex flex-col items-center justify-center px-5"
-        >
+      <RouterLink
+        to="/priceDetail"
+        class="col-start-4 inline-flex flex-col items-center justify-center px-5"
+      >
+        <button type="button">
           <svg
             class="w-10 h-10 mt-1 ml-6 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
@@ -146,9 +148,11 @@
           </svg>
         </button>
       </RouterLink>
-      <RouterLink to="/priceDetail">
+      <RouterLink
+        to="/priceDetail"
+        class="text-xs mr-8 w-10 inline-flex flex-col items-center justify-center mt-1 text-gray-500 dark:text-gray-400"
+      >
         <span
-          class="text-xs mr-8 w-10 inline-flex flex-col items-center justify-center mt-1 text-gray-500 dark:text-gray-400"
           ><div>예측</div>
           <div>가격</div></span
         >
