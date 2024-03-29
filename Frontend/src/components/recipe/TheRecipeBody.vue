@@ -4,40 +4,18 @@
   <!-- 라디오버튼 start -->
   <div class="flex-column justify-center">
     <div class="flex">
-      <div class="font-semibold mb-2 me-2 text-gray-900 dark:text-white">
-        정렬 기준
+      <div class="font-semibold ms-5 mb-2 me-2 text-gray-900 dark:text-white">
+        정렬
       </div>
-        <svg
-                class="uparrow w-4 h-4 mt-1 -rotate-90"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-
-          <svg
-            class="downarrow w-4 h-4 mt-1 ms-1 rotate-90"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
+      <div>
+          <svg class="uparrow w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 10">
+          <path d="M9.207 1A2 2 0 0 0 6.38 1L.793 6.586A2 2 0 0 0 2.207 10H13.38a2 2 0 0 0 1.414-3.414L9.207 1Z"/>
           </svg>
+
+          <svg class="downarrow w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 10">
+          <path d="M15.434 1.235A2 2 0 0 0 13.586 0H2.414A2 2 0 0 0 1 3.414L6.586 9a2 2 0 0 0 2.828 0L15 3.414a2 2 0 0 0 .434-2.179Z"/>
+          </svg>
+        </div>    
       </div>
     <ul
       class="grid grid-cols-4 ps-3 pe-3 jeongryeol-block items-center font-medium text-gray-900 bg-white "
@@ -412,14 +390,14 @@ const handleRadioClick = (index) => {
   const downArrow = document.querySelectorAll('.downarrow')[0];
 
   if (radioClickCount.value[index] % 2 === 1) {
-    upArrow.classList.remove("text-gray-900");
+    upArrow.classList.remove("text-black");
     upArrow.classList.add("text-red-500");
     downArrow.classList.remove("text-blue-500");
-    downArrow.classList.add("text-gray-900");
+    downArrow.classList.add("text-black");
   } else {
     upArrow.classList.remove("text-red-500");
-    upArrow.classList.add("text-gray-900");
-    downArrow.classList.remove("text-gray-900");
+    upArrow.classList.add("text-black");
+    downArrow.classList.remove("text-black");
     downArrow.classList.add("text-blue-500");
   }
 
