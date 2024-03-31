@@ -4,20 +4,23 @@
             <div class="flex items-center justify-center mx-auto text-4xl">
                 <span class="text-red-600">오늘</span>의 꿀 품목
             </div>
-            <div class="text-xs text-right mt-2">
+            <div class="text-xs text-right mt-6">
                 매일 오전 12시에 갱신됩니다.
             </div>
             <div class="text-xs text-right">
                 갱신까지 앞으로 {{ remainingTime }} ({{ currentTime }}기준)
+                <a href="#" @click="refreshPage">
+                    <img src="/src/assets/refresh-icon.png" class="w-4 inline-block ml-1" alt="새로고침" />
+                </a>
             </div>
         </div>
-        <div class="mt-12 text-2xl w-4/5 mx-auto">
+        <div class="mt-20 text-2xl w-4/5 mx-auto">
             <span class="text-red-600 text-4xl">오늘</span> 꼭! 사세요
         </div>
         <Carousel :autoplay="3000" :wrap-around="true" class="mt-4" v-if="notTodayProduct != 3">
             <Slide v-for="(info, todayIndex) in todaySlide" :key="todayIndex">
                 <!-- info:배열의 각요소 index:배열의 인덱스 -->
-                <div class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
+                <div class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
                     v-if="todayIndex == 0">
                     <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-24 my-auto">
                         <div class="mx-auto">
@@ -44,7 +47,7 @@
                     </div>
 
                 </div>
-                <div class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center"
+                <div class=" p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center"
                     v-else>
                     {{ info }}
                 </div>
@@ -52,7 +55,7 @@
         </Carousel>
         <div v-else class="mt-4 flex items-center justify-center">
             <div
-                class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center">
+                class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center">
                 {{ todayMention[3] }}
             </div>
         </div>
@@ -62,7 +65,7 @@
         <Carousel :autoplay="3000" :wrap-around="true" class="mt-4" v-if="notTomorrowProduct != 3">
             <Slide v-for="(info2, tomorrowIndex) in tomorrowSlide" :key="tomorrowIndex">
                 <!-- slide:배열의 각요소 index:배열의 인덱스 -->
-                <div class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
+                <div class=" p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
                     v-if="tomorrowIndex == 0">
                     <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-24 my-auto">
                         <div class="mx-auto">
@@ -87,9 +90,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center"
+                <div class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center"
                     v-else>
                     {{ info2 }}
                 </div>
@@ -97,7 +99,7 @@
         </Carousel>
         <div v-else class="mt-4 flex items-center justify-center">
             <div
-                class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center">
+                class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center">
                 {{ todayMention[3] }}
             </div>
         </div>
@@ -107,18 +109,24 @@
         <Carousel :autoplay="2500" :wrap-around="true" class="mt-4 mb-24">
             <Slide v-for="(content, cardIndex) in cardInfo.data" :key="cardIndex">
                 <div
-                    class="bg-orange-300 p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-4/5 h-48 text-sm grid grid-cols-3">
-                    <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-28 my-auto relative">
+                    class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-48 text-sm grid grid-cols-3">
+                    <div
+                        class="col-span-1 flex border border-gray-300 items-center justify-center rounded-lg bg-white h-28 my-auto relative">
+                        <!-- 메달 이미지를 상위 태그의 우측 상단에 배치합니다. -->
+                        <img v-if="cardIndex === 0" src="/src/assets/gold.png" class="absolute top-0 -right-1 w-10 mt-1"
+                            style="z-index: 0;" />
+                        <img v-else-if="cardIndex === 1" src="/src/assets/sliver.png"
+                            class="absolute top-0 -right-1 w-10 mt-1" style="z-index: 0;" />
+                        <img v-else-if="cardIndex === 2" src="/src/assets/bronze.png"
+                            class="absolute top-0 -right-1 w-10 mt-1" style="z-index: 0;" />
+
+                        <!-- 이미지 컨테이너와 실제 이미지는 유지됩니다. -->
                         <div class="image-container relative">
                             <img :src="`${content.nickname}.png`" class="w-14" />
-                            <img v-if="cardIndex == 0" src="/src/assets/gold.png" class="absolute top-0 right-0 w-6"
-                                style="z-index: 1;" />
-                            <img v-else-if="cardIndex == 1" src="/src/assets/sliver.png"
-                                class="absolute top-0 right-0 w-6" style="z-index: 1;" />
-                            <img v-else-if="cardIndex == 2" src="/src/assets/bronze.png"
-                                class="absolute top-0 right-0 w-6" style="z-index: 1;" />
                         </div>
                     </div>
+
+
                     <div class="col-span-2 flex items-center justify-center flex-col h-28 my-auto">
                         <div class="text-center text-lg">
                             <div class="text-center text-lg">
@@ -162,6 +170,10 @@ onMounted(() => {
     callTomorrowPrices()
     callCardInfo()
 });
+
+const refreshPage = () => {
+    location.reload();
+};
 
 const currentTime = ref('');
 const remainingTime = ref('');
