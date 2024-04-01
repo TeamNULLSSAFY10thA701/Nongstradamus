@@ -1,6 +1,9 @@
+import numpy as np
 import pandas as pd
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
+from sqlalchemy import delete
+
 from nongstradmus_database import connection, price_history_get_stmt, product_get_stmt, wholesale_market_get_stmt, \
     trade_get_stmt, domestic_oil_get_stmt, global_oil_get_stmt, weather_get_stmt, light_gbm
 from sqlalchemy.orm import Session
@@ -33,7 +36,7 @@ def calculate_price():
     global_oil = global_oil.sort_values(by='date' ,ascending=True)
 
     # 저장될 날짜들의 데이터 삭제
-    select(domestic_oil).where(domestic_oil.c.date.between(start_date, end_date)).order_by(domestic_oil.c.date)
+    # session.execute(delete(price_predict).where(price_predict.c.date.between(start_date, end_date)))
 
     for product in products:
         trade = pandas.read_sql(trade_get_stmt(product[0], start_date, end_date), conn)
@@ -61,6 +64,18 @@ def calculate_price():
             price_history.drop(['priceHistoryId'], axis=1, inplace=True)
             price_history['date'] = pd.to_datetime(price_history['date'])
             price_history = price_history.sort_values(by='date' ,ascending=True)
+
+            # price 평균 및 표준편차 계산
+            mean = np.mean(price_history['price'])
+            std = np.std(price_history['price'])
+            for i in range(1, len(price_history['price'])):
+                z = (price_history.loc[i, 'price'] - mean)/std
+                if z > 3: # z-score 3 이상이면 제거
+                    print(price_history.loc[i, 'price'], "값을 제거합니다")
+                    price_history.loc[i, 'price'] = np.nan
+
+            # 결측치 보간
+            price_history = price_history.interpolate()
 
 
             print(product, grade, "계산 시작")
