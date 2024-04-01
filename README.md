@@ -1,5 +1,5 @@
 
-<img src="/images/logo.png"  width="400px" height="200px">
+<img src="/images/logo.png"  width="340px" height="340px">
 
 # 목차
 
