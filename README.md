@@ -88,7 +88,7 @@
 - 어제와 비교해서 오늘 하락폭이 가장 큰 농산물 4개를 추가로 추천합니다.
 - 데이터 갱신 일자를 확인하고 세로고침 버튼을 눌러 페이지를 갱신할 수 있습니다.
 
-<img src="./images/detail.gif" alt="디테일"  width="200px" height="400px">
+<img src="./images/recipe1.gif" alt="레시피1"  width="200px" height="400px">
 
 ### 레시피 추천
 - 알뜰 상품이 포함된 레시피를 최대 20가지 추천합니다.
