@@ -47,6 +47,9 @@
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2.1-green?style=flat&logo=spring)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-17-orange?style=flat&logo=java)](https://www.oracle.com/java/)
 [![MariaDB](https://img.shields.io/badge/MariaDB-10.11.6-yellow?style=flat&logo=mariadb)](https://mariadb.org/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.4.21-brightgreen?style=flat&logo=vue.js)](https://vuejs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+
 
 ### Cooperation
 
