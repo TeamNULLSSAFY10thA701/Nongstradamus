@@ -49,6 +49,8 @@
 [![MariaDB](https://img.shields.io/badge/MariaDB-10.11.6-yellow?style=flat&logo=mariadb)](https://mariadb.org/)
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.4.21-brightgreen?style=flat&logo=vue.js)](https://vuejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Flask](https://img.shields.io/badge/Flask-3.0.2-lightgrey?style=flat&logo=flask)](https://flask.palletsprojects.com/)
+
 
 
 ### Cooperation
@@ -69,6 +71,7 @@
 [![AWS EC2](https://img.shields.io/badge/AWS_EC2-gray?style=flat&logo=amazon-aws)](https://aws.amazon.com/ec2/)
 [![Docker](https://img.shields.io/badge/Docker-24.0.7-blue?style=flat&logo=docker)](https://www.docker.com/)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04.06-purple?style=flat&logo=ubuntu)](https://ubuntu.com/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-2.3.1-red?style=flat&logo=jenkins)](https://www.jenkins.io/)
 
 ## 🏛️ 아키텍처
 
