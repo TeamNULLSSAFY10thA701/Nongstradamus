@@ -75,14 +75,17 @@
 ![ERD](/images/ERD.png)
 
 ## 🎨 와이어프레임
-<img src="/images/와이어프레임.png"  width="400px" height="600px">
+<img src="/images/와이어프레임.png"  width="800px" height="400px">
 
 ## 주요 기능
 
 <img src="/images/로그인.png"  width="200px" height="400px">
 
-### 오늘의 꿀 상품
-- 상품추천
+### 알뜰 상품 추천
+- 어제와 비교해서 오늘 하락폭이 가장 큰 농산물 1개를 추천합니다.
+- 오늘과 비교해서 내일 하락폭이 가장 클 농산물 1개를 추천합니다.
+- 어제와 비교해서 오늘 하락폭이 가장 큰 농산물 4개를 추가로 추천합니다.
+- 데이터 갱신 일자와
 
 <img src="./images/detail.gif" alt="디테일"  width="200px" height="400px">
 
@@ -93,7 +96,7 @@
 
 ![산책](./images/walk.gif)
 
-### 예측 가격
+### 상세 가격 예측
 - 가격예측
 
 ![매칭](./images/matching.gif)
