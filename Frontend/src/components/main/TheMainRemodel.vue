@@ -2,7 +2,7 @@
     <div class="all-font max-w-md mx-auto">
         <div class="ml-4 mr-4 mt-8 mb-8 h-8">
             <div class="flex items-center justify-center mx-auto text-4xl">
-                <span class="text-red-600">오늘</span>의 꿀 품목
+                <span class="today">오늘</span>의 농산물
             </div>
             <div class="text-xs text-right mt-6">
                 매일 오전 12시에 갱신됩니다.
@@ -15,12 +15,12 @@
             </div>
         </div>
         <div class="mt-20 text-2xl w-4/5 mx-auto">
-            <span class="text-red-600 text-4xl">오늘</span> 꼭! 사세요
+            <span class="today text-4xl">오늘</span> 꼭! 사세요
         </div>
         <Carousel :autoplay="3000" :wrap-around="true" class="mt-4" v-if="notTodayProduct != 3">
             <Slide v-for="(info, todayIndex) in todaySlide" :key="todayIndex">
                 <!-- info:배열의 각요소 index:배열의 인덱스 -->
-                <div class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
+                <div class="p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
                     v-if="todayIndex == 0">
                     <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-24 my-auto">
                         <div class="mx-auto">
@@ -34,12 +34,12 @@
                         <div class="text-center text-lg">
                             <div class="inline-flex items-center">
                                 <div class="w-1/2">
-                                    <div><span class="text-red-600">오늘</span>가격</div>
+                                    <div><span class="today">오늘</span>가격</div>
                                     <div>{{ info.priceToday }}원</div>
                                 </div>
                                 <img src="/src/assets/arrow.png" class="inline-block mx-1 w-1/12">
                                 <div class="w-1/2">
-                                    <div><span class="text-blue-600">내일</span>가격</div>
+                                    <div><span class="tomorrow">내일</span>가격</div>
                                     <div>{{ info.priceTomorrow }}원</div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                     </div>
 
                 </div>
-                <div class=" p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center"
+                <div class=" p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-lg flex items-center justify-center"
                     v-else>
                     {{ info }}
                 </div>
@@ -55,17 +55,17 @@
         </Carousel>
         <div v-else class="mt-4 flex items-center justify-center">
             <div
-                class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center">
+                class="p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-lg flex items-center justify-center">
                 {{ todayMention[3] }}
             </div>
         </div>
         <div class="mt-8 text-2xl w-4/5 mx-auto">
-            <span class="text-blue-600 text-4xl">내일</span> 꼭! 사세요
+            <span class="tomorrow text-4xl">내일</span> 꼭! 사세요
         </div>
         <Carousel :autoplay="3000" :wrap-around="true" class="mt-4" v-if="notTomorrowProduct != 3">
             <Slide v-for="(info2, tomorrowIndex) in tomorrowSlide" :key="tomorrowIndex">
                 <!-- slide:배열의 각요소 index:배열의 인덱스 -->
-                <div class=" p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
+                <div class=" p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm grid grid-cols-4 "
                     v-if="tomorrowIndex == 0">
                     <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-24 my-auto">
                         <div class="mx-auto">
@@ -79,19 +79,19 @@
                         <div class="text-center text-lg">
                             <div class="inline-flex items-center">
                                 <div class="w-1/2">
-                                    <div><span class="text-red-600">오늘</span>가격</div>
+                                    <div><span class="today">오늘</span>가격</div>
                                     <div>{{ info2.priceToday }}원</div>
                                 </div>
                                 <img src="/src/assets/arrow.png" class="inline-block mx-1 w-1/12">
                                 <div class="w-1/2">
-                                    <div><span class="text-blue-600">내일</span>가격</div>
+                                    <div><span class="tomorrow">내일</span>가격</div>
                                     <div>{{ info2.priceTomorrow }}원</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center"
+                <div class="p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-lg flex items-center justify-center"
                     v-else>
                     {{ info2 }}
                 </div>
@@ -99,20 +99,20 @@
         </Carousel>
         <div v-else class="mt-4 flex items-center justify-center">
             <div
-                class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-sm flex items-center justify-center">
+                class="p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-36 text-lg flex items-center justify-center">
                 {{ todayMention[3] }}
             </div>
         </div>
         <div class="mt-8 text-2xl w-4/5 mx-auto">
-            <span class="text-red-600 text-4xl">오늘!</span> 구매하기좋아요
+            <span class="today text-4xl">오늘!</span> 구매하기좋아요
         </div>
         <Carousel :autoplay="2500" :wrap-around="true" class="mt-4 mb-24">
             <Slide v-for="(content, cardIndex) in cardInfo.data" :key="cardIndex">
                 <div
-                    class="p-2 border border-gray-300 rounded-lg shadow-2xl dark:bg-gray-800 dark:border-gray-700 w-4/5 h-48 text-sm grid grid-cols-3">
+                    class="p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-4/5 h-48 text-sm grid grid-cols-3">
                     <div
                         class="col-span-1 flex border border-gray-300 items-center justify-center rounded-lg bg-white h-28 my-auto relative">
-                        <!-- 메달 이미지를 상위 태그의 우측 상단에 배치합니다. -->
+
                         <img v-if="cardIndex === 0" src="/src/assets/gold.png" class="absolute top-0 -right-1 w-10 mt-1"
                             style="z-index: 0;" />
                         <img v-else-if="cardIndex === 1" src="/src/assets/sliver.png"
@@ -120,7 +120,7 @@
                         <img v-else-if="cardIndex === 2" src="/src/assets/bronze.png"
                             class="absolute top-0 -right-1 w-10 mt-1" style="z-index: 0;" />
 
-                        <!-- 이미지 컨테이너와 실제 이미지는 유지됩니다. -->
+
                         <div class="image-container relative">
                             <img :src="`${content.nickname}.png`" class="w-14" />
                         </div>
@@ -136,9 +136,9 @@
                                     </div>
 
                                     <div class="h-1/3 rounded-lg bg-white mt-3 w-40 mx-auto">
-                                        <span class="text-black text-sm">{{ content.priceTomorrow }}원</span>
-                                        <span class="mx-1 text-sm">&gt;</span>
-                                        <span class="text-red-600 text-sm">{{ content.priceToday }}원</span>
+                                        <span class="text-black text-md">{{ content.priceTomorrow }}원</span>
+                                        <span class="mx-1 text-md">&gt;</span>
+                                        <span class="text-black text-md">{{ content.priceToday }}원</span>
                                     </div>
                                     <div class="h-1/3 rounded-lg bg-white mt-3  w-40 mx-auto text-red-600"
                                         v-if="content.ratio >= 0">
@@ -209,10 +209,9 @@ watchEffect(() => {
 });
 
 
-const todayMention = ref(['가격이 내일 오를 거에요. 오늘이 최저가!', '가격이 계속 떨어지고 있어요!', '앞으로 가격이 많이 오를거에요!', '추천할 만한 품목이 없어요...'])
-const tomorrowMention = ref(['가격이 계속 하락세에 있어요!(가격이 오르더라도, 앞으론 더오를거에요...)', '가격이 상승세에 있지만, 내일부터 떨어질 거에요!', '내일 구매하시면, 가격이 떨어질 거에요!', '추천할 만한 품목이 없어요...'])
+const todayMention = ref(['내일은 비싸져요. 오늘이 최저가!', '가격이 계속 내려가고 있어요!', '앞으로 가격이 오를 거에요!', '추천할 만한 품목이 없어요....'])
+const tomorrowMention = ref(['가격이 계속 하락세에 있어요!', '지금은 올라도, 내일은 떨어져요!', '내일 사면, 가격이 떨어질 거예요!', '추천할 만한 품목이 없어요....'])
 //받아오는 요청의 멘션 상태에 따라 보여줄 배열.
-//현재 배열3번상태에 따른 템플릿코드에 v-if문 존재하지 않음. 나중에 바꾸기 필요.
 
 const todaySlide = ref([])
 const tomorrowSlide = ref([])
@@ -279,5 +278,13 @@ const callCardInfo = () => {
 <style>
 .all-font {
     font-family: "HSBombaram3.0";
+}
+
+.today {
+    color: #FFA500;
+}
+
+.tomorrow {
+    color: #800080;
 }
 </style>
