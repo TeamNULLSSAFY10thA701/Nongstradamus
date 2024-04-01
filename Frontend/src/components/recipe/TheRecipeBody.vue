@@ -99,7 +99,7 @@
   <!-- 라디오버튼 end -->
 
   <div class="recipe-list grid grid-cols-2">
-    <ul v-for="recipe in AllRecipes[currentPage - 1]" :key="recipe">
+    <ul v-for="recipe in AllRecipes" :key="recipe">
       <!-- 각 레시피 카드 -->
       <div
         class="m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
@@ -108,13 +108,11 @@
         <div class="flex flex-col items-center py-3 bg-yellow-100/50">
           <div class="relative">
             <!-- Youtube 아이콘 -->
-            <div v-if="recipe.youtubelink !== 0">
               <img  
                 src="@/image/youtube.png"
                 class="youtube-icon absolute top-0 left-0 w-5 h-5 rounded-full shadow-lg"
-                @click="gotoVideo(recipe.youtubelink)"
+                @click="searchYoutube(recipe.title)"
                 alt="Youtube icon">
-            </div>
             <!-- 레시피 이미지 -->
             <img class="recipe-img w-20 h-20 mb-3 rounded-full shadow-lg" :src="recipe.image" alt="Recipe image">
           </div>
@@ -287,13 +285,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { getRecipeData, getRecipeDetailData, youtubeApiKey } from "@/api/recipe";
 import axios from 'axios'
 
 const selectedData = ref(null);
-const AllRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 o)
-const unpagedRecipes = ref([]); // 모든 레시피들의 정보(페이지네이션 x)
+const AllRecipes = ref([]); // 각 페이지 레시피들의 정보
 const dynamicHTML = ref()
 const pages = ref([1,2,3,4,5])
 const selectedIngredient = ref()
@@ -304,21 +301,63 @@ onMounted(() => {
   getAllRecipeData();
 });
 
+
+// ---------------pagination--------------
+const currentPage = ref(1);
+const totalPages = 5;
+
+function nextPage() {
+  if (currentPage.value < totalPages) {
+    currentPage.value++;
+    highlightcurPage(currentPage.value)
+  }
+}
+
+function curPage(page) {
+  currentPage.value = page 
+  highlightcurPage(currentPage.value)
+}
+
+function highlightcurPage(page) {
+  const curp = document.getElementsByClassName("curpage");
+  Array.from(curp).forEach((element) => {
+    if (element.innerText == page) {
+      element.classList.remove("bg-white");
+      element.classList.add("bg-yellow-100/50");
+    } else {
+      element.classList.remove("bg-yellow-100/50");
+      element.classList.add("bg-white");
+    }
+  });
+}
+
+function prevPage() {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+    highlightcurPage(currentPage.value)
+  }
+}
+
+//------------------------------데이터 추출------------------------------------
+
+watch(currentPage, (newPage, oldPage) => {
+  getAllRecipeData()
+}, { deep: true });
+
+
 // 가격이 가장 많이 하락한 재료를 기반으로 한 20개의 레시피 정보를 가져옴
 // 페이지네이션으로 인해 총 5페이지가 존재하며, 각 페이지에는 4개의 레시피가 존재
 const getAllRecipeData = () => {
-  for (let i = 0; i < 5; i++) {
-    getRecipeData(
-      i,
+      getRecipeData(
+      currentPage.value - 1,
       async (response) => {
-        const tempData = []; // 페이지네이션을 위한 배열
+        AllRecipes.value = []
 
         for (let j = 0; j < response.data.data.length; j++) {
           try {
             const jsonrecipe = response.data.data[j];
             // 각 레시피의 상세 정보를 비동기적으로 가져옴
             const detaildata = await getRecipeDetail(jsonrecipe.idx);
-            const youtubeLink = await searchYoutube(jsonrecipe.title)
 
             // 페이지네이션 적용하지 않은 레시피들 정리용 json 형식
             const tempRecipe = {
@@ -332,23 +371,18 @@ const getAllRecipeData = () => {
               fat: detaildata.fat,
               natrium: detaildata.natrium,
               protein: detaildata.protein,
-              youtubelink : youtubeLink
             };
             
-            tempData.push(tempRecipe);
-            unpagedRecipes.value.push(tempRecipe);
+            AllRecipes.value.push(tempRecipe);
           } catch (error) {
             console.error("Error fetching recipe detail:", error);
           }
         }
-        // 모든 레시피 정보를 처리한 후에 AllRecipes에 추가
-        AllRecipes.value.push(tempData);
       },
       (error) => {
         console.log(error);
       }
     );
-  }
 };
 
 // 모달 창의 상태 변경
@@ -382,6 +416,18 @@ const getRecipeDetail = (idx) => {
 // 라디오 버튼 클릭 상태 저장 변수(칼로리(energy), 단백질, 지방, 나트륨)
 const radioClickCount = ref([0, 0, 0, 0]);
 const ingredients = ['칼로리', '단백질', '지방', '나트륨']
+
+
+
+// 페이지 이동시 정렬 초기화
+const initRadio = () => {
+  radioClickCount.value = [0, 0, 0, 0]
+  upArrow.classList.remove("text-red-500");
+  upArrow.classList.add("text-black");
+  downArrow.classList.remove("text-blue-500");
+  downArrow.classList.add("text-black");
+  selectedState.value=null
+}
 
 // 라디오 버튼 클릭 시 색 변화
 const handleRadioClick = (index) => {
@@ -421,10 +467,8 @@ const handleRadioClick = (index) => {
 const alignRecipe = (radioidx, order) => {
   
   const tempIngredients  = ['energy', 'protein', 'fat', 'natrium'] // 정렬 기준
-  const tempRecipes = []
-  const alignedRecipes = []
   
-  unpagedRecipes.value.sort((a, b) => {
+  AllRecipes.value.sort((a, b) => {
     const ingredA = calculateIngredients(a, tempIngredients[radioidx]);
     const ingredB = calculateIngredients(b, tempIngredients[radioidx]);
 
@@ -436,53 +480,12 @@ const alignRecipe = (radioidx, order) => {
     }
     })
     
-  const chunkSize = 4
-  for (let i = 0; i < unpagedRecipes.value.length; i += chunkSize) {
-    alignedRecipes.push(unpagedRecipes.value.slice(i, i + chunkSize));
-  }
-  AllRecipes.value = alignedRecipes
 };
 
 // 각 레시피의 단백질 함량을 계산하는 함수
 const calculateIngredients = (recipe, ingredient) => {
     let ingredValue = recipe[ingredient]
     return ingredValue;
-}
-
-// ---------------pagination--------------
-const currentPage = ref(1);
-const totalPages = 5;
-
-function nextPage() {
-  if (currentPage.value < totalPages) {
-    currentPage.value++;
-    highlightcurPage(currentPage.value)
-  }
-}
-
-function curPage(page) {
-  currentPage.value = page 
-  highlightcurPage(currentPage.value)
-}
-
-function highlightcurPage(page) {
-  const curp = document.getElementsByClassName("curpage");
-  Array.from(curp).forEach((element) => {
-    if (element.innerText == page) {
-      element.classList.remove("bg-white");
-      element.classList.add("bg-yellow-100/50");
-    } else {
-      element.classList.remove("bg-yellow-100/50");
-      element.classList.add("bg-white");
-    }
-  });
-}
-
-function prevPage(page) {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-    highlightcurPage(currentPage.value)
-  }
 }
 
 //------------------------------ youtube ---------------------------
@@ -498,15 +501,22 @@ async function searchYoutube(title) {
       } 
     });
     const videos = response.data.items;
+    console.log(videos)
     if (videos.length > 0) {
-      return `https://www.youtube.com/embed/${videos[0].id.videoId}`
+      return gotoVideo(`https://www.youtube.com/embed/${videos[0].id.videoId}`);
     } else {
+      showAlert("이 레시피와 관련된 영상을 찾을 수 없습니다.");
       return 0;
     }
   } catch (error) {
-    console.error('Error searching YouTube:', error);
+    showAlert("이 레시피와 관련된 영상을 찾을 수 없습니다.");
     return 0;
   }
+}
+
+function showAlert(message) {
+  // 알림창을 표시하는 코드를 작성합니다.
+  alert(message);
 }
 
 async function gotoVideo(link) {
