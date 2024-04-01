@@ -7,10 +7,12 @@ from prophet import Prophet
 import warnings
 import lightgbm as lgb
 import matplotlib.pyplot as plt
+import matplotlib
 import seaborn as sns
 from sklearn.impute import KNNImputer
 from nongstradmus_database import connection
-
+# matplotlib.rcParams['font.family'] ='Malgun Gothic'
+# matplotlib.rcParams['axes.unicode_minus'] =False
 
 # RMSE 계산
 def rmse(y, y_):
@@ -98,7 +100,7 @@ def do_process(conn, product, grade, start_date, end_date,
 
     all_data = pd.concat((train, test)).reset_index(drop=True)
     all_data = pd.get_dummies(all_data)
-    print(all_data)
+
     res_date = all_data['date']  # 마지막에 lgb결과 나타낼 자료# 로 복사
     all_data.drop('date', axis=1, inplace=True)
 
@@ -150,7 +152,7 @@ def do_process(conn, product, grade, start_date, end_date,
     # Fill between lines for upper and lower bands
     # plt.fill_between(res_date[-365:], lgb_lower_band, lgb_upper_band, color='gray', label='Prediction Band')
 
-
+    plt.title("{}번 품목:{} 등급:{}".format(product[0], product[1], grade))
     plt.show()
 
     # 예측 데이터 저장
@@ -159,7 +161,7 @@ def do_process(conn, product, grade, start_date, end_date,
     productIds = [product[0]] * n_test
     ratios = pd.DataFrame({'price': lgb_res}).pct_change(1).mul(100)[-n_test:]
     ratios = ratios.price.to_list()
-    ratios[0] = 0
+    ratios[0] = (lgb_pred[0] - lgb_train_pred[-1]) / lgb_train_pred[-1] * 100
 
     result = pd.DataFrame({"date": pd.date_range(start=today, end=future_day),
                            "price": lgb_pred,
@@ -167,7 +169,7 @@ def do_process(conn, product, grade, start_date, end_date,
                            'grade': grades,
                            'productId': productIds})
 
-    result.to_sql(name='pricePredict', con=conn, index=False, if_exists='append')
+    # result.to_sql(name='pricePredict', con=conn, index=False, if_exists='append')
     print(result)
     conn.commit()
 
