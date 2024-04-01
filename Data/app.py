@@ -36,7 +36,7 @@ def calculate_price():
     global_oil = global_oil.sort_values(by='date' ,ascending=True)
 
     # 저장될 날짜들의 데이터 삭제
-    # session.execute(delete(price_predict).where(price_predict.c.date.between(start_date, end_date)))
+    session.execute(delete(price_predict).where(price_predict.c.date.between(start_date, end_date)))
 
     for product in products:
         trade = pandas.read_sql(trade_get_stmt(product[0], start_date, end_date), conn)
