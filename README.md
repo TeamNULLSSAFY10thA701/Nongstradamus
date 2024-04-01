@@ -97,7 +97,7 @@
 - 레시피 재료와 조리방법을 확인할 수 있습니다.
 - 영양소 순으로 레시피를 정렬할 수 있습니다.
 
-<img src="./images/detail.gif" alt="디테일"  width="200px" height="400px">
+<img src="./images/predict.gif" alt="예측페이지"  width="200px" height="400px">
 
 ### 상세 가격 예측
 - 농산물별로 과거 가격과 예측 가격을 차트를 통해 확인할 수 있습니다.
