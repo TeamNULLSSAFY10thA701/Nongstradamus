@@ -277,7 +277,7 @@ public class MainServiceImpl implements MainService{
             }
         });
         RecommendDto data = new RecommendDto();
-        if(tomorrowRecommend != null && productPrices.get(0).getName().equals(((ProductPriceDto)tomorrowRecommend.getData()).getName())){
+        if(tomorrowRecommend != null && productPrices.get(0).getName().equals(((RecommendDto)tomorrowRecommend.getData()).getName())){
             productPrices.remove(0);
         }
         data.setName(productPrices.get(0).getName());
@@ -336,7 +336,7 @@ public class MainServiceImpl implements MainService{
             }
         });
         RecommendDto data = new RecommendDto();
-        if(todayRecommend != null && productPrices.get(0).getName().equals(((ProductPriceDto) todayRecommend.getData()).getName())){
+        if(todayRecommend != null && productPrices.get(0).getName().equals(((RecommendDto) todayRecommend.getData()).getName())){
             productPrices.remove(0);
         }
         data.setName(productPrices.get(0).getName());
