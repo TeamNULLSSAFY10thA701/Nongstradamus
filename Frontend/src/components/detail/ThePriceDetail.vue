@@ -263,7 +263,7 @@
         </div>
         <!-- 카테고리별 농산물 테이블 -->
 
-        <div v-if="clickState" class="mb-16">
+        <div v-if="clickState" class="mb-20">
             <div class="flex justify-center items-center mt-12">
                 <div
                     class="w-full h-3/5 max-w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -365,6 +365,7 @@ onMounted(() => {
     callFutureGrainPricesAllData()
     callFutureFruitPricesAllData()
     callFutureYellowCropPricesAllData()
+
 });
 
 // --------------------------------------------------------------------------------onMounted-------------------------------------------------------
@@ -815,6 +816,7 @@ const transferVegetableReaf = () => {
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
     clickState.value = false;
+    vegetableLeafclickEvent(FutureVegetableLeafPricesAllData.value.table[0].nickname, FutureVegetableLeafPricesAllData.value.table[0].name)
 };
 
 const transferVegetableFruit = () => {
@@ -825,6 +827,7 @@ const transferVegetableFruit = () => {
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
     clickState.value = false;
+    vegetableFruitclickEvent(FutureVegetableFruitPricesAllData.value.table[0].nickname, FutureVegetableFruitPricesAllData.value.table[0].name)
 };
 
 const transferVegetableRoot = () => {
@@ -835,6 +838,7 @@ const transferVegetableRoot = () => {
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
     clickState.value = false;
+    vegetableRootclickEvent(FutureVegetableRootPricesAllData.value.table[0].nickname, FutureVegetableRootPricesAllData.value.table[0].name)
 };
 
 const transferGrain = () => {
@@ -845,6 +849,7 @@ const transferGrain = () => {
     categoryFruitState.value = false;
     categoryYellowCropState.value = false;
     clickState.value = false;
+    grainclickEvent(FutureGrainPricesAllData.value.table[0].nickname, FutureGrainPricesAllData.value.table[0].name)
 };
 
 const transferFruit = () => {
@@ -855,6 +860,7 @@ const transferFruit = () => {
     categoryFruitState.value = true;
     categoryYellowCropState.value = false;
     clickState.value = false;
+    fruitclickEvent(FutureFruitPricesAllData.value.table[0].nickname, FutureFruitPricesAllData.value.table[0].name)
 };
 
 const transferYellowCrop = () => {
@@ -865,6 +871,7 @@ const transferYellowCrop = () => {
     categoryFruitState.value = false;
     categoryYellowCropState.value = true;
     clickState.value = false;
+    yellowCropclickEvent(FutureYellowCropPricesAllData.value.table[0].nickname, FutureYellowCropPricesAllData.value.table[0].name)
 };
 // 농산물 종류 라디오 버튼을 눌렀을 때, 상태를 나타내는 메서드들
 
@@ -925,6 +932,7 @@ const callFutureVegetableLeafPricesAllData = () => {
             FutureVegetableLeafPricesAllData.value.msg = data.data.msg;
             FutureVegetableLeafPricesAllData.value.code = data.data.code;
             FutureVegetableLeafPricesAllData.value.table = data.data.data.table;
+            vegetableLeafclickEvent(FutureVegetableLeafPricesAllData.value.table[0].nickname, FutureVegetableLeafPricesAllData.value.table[0].name)
         },
         (error) => {
             console.error(error);
