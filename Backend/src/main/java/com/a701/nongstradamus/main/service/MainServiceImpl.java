@@ -277,6 +277,9 @@ public class MainServiceImpl implements MainService{
             }
         });
         RecommendDto data = new RecommendDto();
+        if(tomorrowRecommend != null && productPrices.get(0).getName().equals(((ProductPriceDto)tomorrowRecommend.getData()).getName())){
+            productPrices.remove(0);
+        }
         data.setName(productPrices.get(0).getName());
         data.setNickname(productPrices.get(0).getNickname());
         data.setUnit(productPrices.get(0).getUnit());
@@ -333,6 +336,9 @@ public class MainServiceImpl implements MainService{
             }
         });
         RecommendDto data = new RecommendDto();
+        if(todayRecommend != null && productPrices.get(0).getName().equals(((ProductPriceDto) todayRecommend.getData()).getName())){
+            productPrices.remove(0);
+        }
         data.setName(productPrices.get(0).getName());
         data.setNickname(productPrices.get(0).getNickname());
         data.setUnit(productPrices.get(0).getUnit());
