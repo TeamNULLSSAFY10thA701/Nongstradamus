@@ -503,7 +503,15 @@ async function searchYoutube(title) {
     const videos = response.data.items;
     console.log(videos)
     if (videos.length > 0) {
-      return gotoVideo(`https://www.youtube.com/embed/${videos[0].id.videoId}`);
+      for (let video of videos) {
+        if (video.snippet.title.includes(title)) {
+          return gotoVideo(`https://www.youtube.com/embed/${video.id.videoId}`);
+          }
+        }
+
+      showAlert("이 레시피와 관련된 영상을 찾을 수 없습니다.");
+      return 0;
+
     } else {
       showAlert("이 레시피와 관련된 영상을 찾을 수 없습니다.");
       return 0;
