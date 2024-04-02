@@ -24,23 +24,18 @@
                     v-if="todayIndex == 0">
                     <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-24 my-auto">
                         <div class="mx-auto">
-                            <img :src="info.img" class="w-14" />
+                            <img :src="info.img" class="w-20" />
                         </div>
                     </div>
                     <div class="col-span-3 flex items-center justify-center flex-col">
                         <div class="text-center text-lg">
-                            <span class="text-lg">{{ info.name }}({{ info.unit }})</span>
+                            <span class="text-2xl">{{ info.name }}({{ info.unit }})</span>
                         </div>
-                        <div class="text-center text-lg">
+                        <div class="text-center text-2xl">
                             <div class="inline-flex items-center">
-                                <div class="w-1/2">
+                                <div>
                                     <div><span class="today">오늘</span>가격</div>
                                     <div>{{ info.priceToday }}원</div>
-                                </div>
-                                <img src="/src/assets/arrow.png" class="inline-block mx-1 w-1/12">
-                                <div class="w-1/2">
-                                    <div><span class="tomorrow">내일</span>가격</div>
-                                    <div>{{ info.priceTomorrow }}원</div>
                                 </div>
                             </div>
                         </div>
@@ -69,21 +64,17 @@
                     v-if="tomorrowIndex == 0">
                     <div class="col-span-1 flex items-center justify-center rounded-lg bg-white h-24 my-auto">
                         <div class="mx-auto">
-                            <img :src="info2.img" class="w-14" />
+                            <img :src="info2.img" class="w-20" />
                         </div>
                     </div>
                     <div class="col-span-3 flex items-center justify-center flex-col">
                         <div class="text-center text-lg">
-                            <span class="text-lg">{{ info2.name }}({{ info2.unit }})</span>
+                            <span class="text-2xl">{{ info2.name }}({{ info2.unit }})</span>
                         </div>
-                        <div class="text-center text-lg">
+                        <div class="text-center text-2xl">
                             <div class="inline-flex items-center">
-                                <div class="w-1/2">
-                                    <div><span class="today">오늘</span>가격</div>
-                                    <div>{{ info2.priceToday }}원</div>
-                                </div>
-                                <img src="/src/assets/arrow.png" class="inline-block mx-1 w-1/12">
-                                <div class="w-1/2">
+
+                                <div>
                                     <div><span class="tomorrow">내일</span>가격</div>
                                     <div>{{ info2.priceTomorrow }}원</div>
                                 </div>
