@@ -27,9 +27,15 @@ public class ProductPriceDto {
         for (int i = 1; i < 11; i++) {
             double avg = (avgPrices[i - 1] + avgPrices[i] + avgPrices[i + 1]) / 3.0;
             if (avg <= average * 0.9) {
-                trends[i - 1] = -1;
+                trends[i - 1]--;
             } else if (avg >= average * 1.1) {
-                trends[i - 1] = 1;
+                trends[i - 1]++;
+            }
+            double ratio = (avgPrices[i] - avgPrices[i-1]) / (double) avgPrices[i-1];
+            if(ratio <= - 0.1){
+                trends[i-1] -= 2;
+            }else if(ratio >= 0.1){
+                trends[i-1] += 2;
             }
         }
         for(int size = 8; size >= 4; size -= 2){
