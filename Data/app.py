@@ -105,7 +105,7 @@ def sayHello():
     print("Hello!")
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(calculate_price, 'cron', hour="13", minute="34")
+scheduler.add_job(calculate_price, 'cron', hour="00", minute="00")
 scheduler.start()
 
 if __name__ == "__main__":
