@@ -5,7 +5,7 @@
                 <span class="today">오늘</span>의 농산물
             </div>
             <div class="text-xs text-right mt-6">
-                매일 오전 12시에 갱신됩니다.
+                매일 오전 4시에 갱신됩니다.
             </div>
             <div class="text-xs text-right">
                 갱신까지 앞으로 {{ remainingTime }} ({{ currentTime }}기준)
@@ -177,9 +177,14 @@ const updateRemainingTime = () => {
     const period = currentHours >= 12 ? '오후' : '오전'
     const hour = currentHours > 12 ? currentHours - 12 : currentHours
 
-    // 갱신 시간 설정 (오전 12시)
+    // 갱신 시간 설정 (오전 4시)
     const refreshTime = new Date(now);
-    refreshTime.setHours(24, 0, 0, 0); // 24시로 설정하여 다음 날 오전 12시로 설정
+    refreshTime.setHours(4, 0, 0, 0); // 오전 4시로 설정
+
+    // 만약 현재 시간이 오전 4시 이후라면 다음 날 오전 4시로 설정
+    if (currentHours >= 4) {
+        refreshTime.setDate(refreshTime.getDate() + 1);
+    }
 
     // 현재 시간부터 갱신까지 남은 시간 계산 (분 단위)
     const timeDiff = Math.ceil((refreshTime.getTime() - now.getTime()) / (1000 * 60));
