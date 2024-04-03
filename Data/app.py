@@ -2,13 +2,15 @@ import numpy as np
 import pandas as pd
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
-from sqlalchemy import delete
+from sqlalchemy import delete, Table, MetaData, Column, Date, Integer, Double, between
 
 from nongstradmus_database import connection, price_history_get_stmt, product_get_stmt, wholesale_market_get_stmt, \
     trade_get_stmt, domestic_oil_get_stmt, global_oil_get_stmt, weather_get_stmt, light_gbm
 from sqlalchemy.orm import Session
 import datetime
 import pandas
+
+from nongstradmus_database.price_predict import price_predict_get_stmt
 
 app = Flask(__name__)
 
@@ -35,8 +37,24 @@ def calculate_price():
     domestic_oil = domestic_oil.sort_values(by='date' ,ascending=True)
     global_oil = global_oil.sort_values(by='date' ,ascending=True)
 
-    # 저장될 날짜들의 데이터 삭제
-    session.execute(delete(price_predict).where(price_predict.c.date.between(start_date, end_date)))
+    price_predict = Table('pricePredict', MetaData(),
+                          Column("pricePredictId", Integer, nullable=False, primary_key=True),
+                          Column("date", Date, nullable=False),
+                          Column("price", Integer, nullable=False),
+                          Column("ratio", Double, nullable=False),
+                          Column("grade", Integer, nullable=False),
+                          Column("productId", Integer, nullable=False)
+                          )
+
+    # Get today's date
+    today = datetime.date.today()
+
+    # Construct the delete query
+    delete_query = delete(price_predict).where(price_predict.c.date <= today)
+
+    # Execute the delete query using a session object
+    session.execute(delete_query)
+    session.commit()
 
     for product in products:
         trade = pandas.read_sql(trade_get_stmt(product[0], start_date, end_date), conn)
@@ -77,7 +95,6 @@ def calculate_price():
             # 결측치 보간
             price_history = price_history.interpolate()
 
-
             print(product, grade, "계산 시작")
             light_gbm.do_process(conn, product, grade, start_date, end_date,
                                  domestic_oil, global_oil, price_history, wholesale_market, trade, weather)
@@ -88,9 +105,8 @@ def sayHello():
     print("Hello!")
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(calculate_price, 'cron', hour="00", minute="00")
+scheduler.add_job(calculate_price, 'cron', hour="04", minute="00")
 scheduler.start()
 
 if __name__ == "__main__":
     app.run()
-
