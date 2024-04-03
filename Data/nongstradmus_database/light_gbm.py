@@ -53,7 +53,7 @@ def prophet_features(df, n_train):
 def do_process(conn, product, grade, start_date, end_date,
                domestic_oil, global_oil, price_history, wholesale_market, trade, weather):
     today = datetime.date.today()
-    future_day = today + datetime.timedelta(days=14)
+    future_day = today + datetime.timedelta(days=28)
 
     ### 테이블 병합
     dataframes = [price_history, domestic_oil, global_oil]
@@ -127,7 +127,7 @@ def do_process(conn, product, grade, start_date, end_date,
     lgb_pred = model_lgb.predict(test.values)
 
     lgb_res = np.concatenate((lgb_train_pred,lgb_pred))
-    sns.lineplot(x=res_date, y=lgb_res, color='b', linestyle='--')
+    # sns.lineplot(x=res_date, y=lgb_res, color='b', linestyle='--')
 
     # 예측 범위 계산 코드 (예시: 95% 신뢰 구간)
     lgb_train_lower, lgb_train_upper = np.percentile(lgb_train_pred, [2.5, 97.5])
@@ -152,8 +152,8 @@ def do_process(conn, product, grade, start_date, end_date,
     # Fill between lines for upper and lower bands
     # plt.fill_between(res_date[-365:], lgb_lower_band, lgb_upper_band, color='gray', label='Prediction Band')
 
-    plt.title("{}번 품목:{} 등급:{}".format(product[0], product[1], grade))
-    plt.show()
+    # plt.title("{}번 품목:{} 등급:{}".format(product[0], product[1], grade))
+    # plt.show()
 
     # 예측 데이터 저장
     n_test = test.shape[0]
@@ -169,7 +169,7 @@ def do_process(conn, product, grade, start_date, end_date,
                            'grade': grades,
                            'productId': productIds})
 
-    # result.to_sql(name='pricePredict', con=conn, index=False, if_exists='append')
+    result.to_sql(name='pricePredict', con=conn, index=False, if_exists='append')
     print(result)
     conn.commit()
 
