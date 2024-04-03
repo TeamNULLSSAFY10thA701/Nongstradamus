@@ -51,9 +51,9 @@
 
 <br>
 
-<img src="/images/main2-1.gif" alt="메인페이지1"  width="200px" height="400px">
-<img src="/images/main2-2.gif" alt="메인페이지2"  width="200px" height="400px">
-<img src="/images/main2-3.gif" alt="메인페이지3"  width="200px" height="400px">
+<img src="/images/main2-1.gif" alt="메인페이지1"  width="300px" height="200px">
+<img src="/images/main2-2.gif" alt="메인페이지2"  width="300px" height="200px">
+<img src="/images/main2-3.gif" alt="메인페이지3"  width="300px" height="200px">
 
 ### 알뜰 상품 추천
 - 어제와 비교해서 오늘 하락폭이 가장 큰 농산물 1개를 추천합니다.
@@ -63,7 +63,7 @@
 
 <br>
 
-<img src="/images/recipe2-1.gif" alt="레시피1"  width="200px" height="400px">
+<img src="/images/recipe2-1.gif" alt="레시피1"  width="300px" height="600px">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### 레시피 추천
@@ -73,7 +73,7 @@
 
 <br>
 
-<img src="/images/predict2-1.gif" alt="예측페이지"  width="200px" height="400px">
+<img src="/images/predict2-1.gif" alt="예측페이지"  width="300px" height="600px">
 
 ### 상세 가격 예측
 - 농산물별로 과거 가격과 예측 가격을 차트를 통해 확인할 수 있습니다.
