@@ -44,12 +44,14 @@
 
 ### FrontEnd & BackEnd
 
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2.1-green?style=flat&logo=spring)](https://spring.io/projects/spring-boot)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2.3-green?style=flat&logo=spring)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-17-orange?style=flat&logo=java)](https://www.oracle.com/java/)
-[![MariaDB](https://img.shields.io/badge/MariaDB-10.11.6-yellow?style=flat&logo=mariadb)](https://mariadb.org/)
-[![Vue.js](https://img.shields.io/badge/Vue.js-3.4.21-brightgreen?style=flat&logo=vue.js)](https://vuejs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![MariaDB](https://img.shields.io/badge/MariaDB-10.11.7-yellow?style=flat&logo=mariadb)](https://mariadb.org/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.9.2-brightgreen?style=flat&logo=vue.js)](https://vuejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.11.1-green?style=flat&logo=node.js)](https://nodejs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.1-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 [![Flask](https://img.shields.io/badge/Flask-3.0.2-lightgrey?style=flat&logo=flask)](https://flask.palletsprojects.com/)
+[![Python](https://img.shields.io/badge/Python-3.9.13-blue?style=flat&logo=python)](https://www.python.org/)
 
 
 
@@ -64,14 +66,15 @@
 ### Tools
 
 [![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-2023.3.2-red?style=flat&logo=intellij-idea)](https://www.jetbrains.com/idea/)
-[![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-1.85.1-blue.svg?style=flat&logo=visual-studio-code)](https://code.visualstudio.com/)
+[![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-1.82.7-blue.svg?style=flat&logo=visual-studio-code)](https://code.visualstudio.com/)
 
 ### Infra
 
 [![AWS EC2](https://img.shields.io/badge/AWS_EC2-gray?style=flat&logo=amazon-aws)](https://aws.amazon.com/ec2/)
-[![Docker](https://img.shields.io/badge/Docker-24.0.7-blue?style=flat&logo=docker)](https://www.docker.com/)
+[![Docker](https://img.shields.io/badge/Docker-26.0.0-blue?style=flat&logo=docker)](https://www.docker.com/)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04.06-purple?style=flat&logo=ubuntu)](https://ubuntu.com/)
-[![Jenkins](https://img.shields.io/badge/Jenkins-2.3.1-red?style=flat&logo=jenkins)](https://www.jenkins.io/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-2.449-red?style=flat&logo=jenkins)](https://www.jenkins.io/)
+[![Nginx](https://img.shields.io/badge/Nginx-1.24.0-green?style=flat&logo=nginx)](https://nginx.org/)
 
 ## 🏛️ 아키텍처
 
