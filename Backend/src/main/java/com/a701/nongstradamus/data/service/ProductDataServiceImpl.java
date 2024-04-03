@@ -36,7 +36,7 @@ public class ProductDataServiceImpl implements ProductDataService{
 
     @Scheduled(cron = "0 0 18 * * *")
     @Override
-//    @Scheduled(cron = "0 46 15 * * *")
+//    @Scheduled(cron = "0 0 14 * * *")
     public void updateProductData()  {
         System.out.println("소매 가격 데이터 수집 시작");
         List<ProductEntity> products = productRepository.findAll();
@@ -87,7 +87,7 @@ public class ProductDataServiceImpl implements ProductDataService{
         System.out.println("데이터 정제 시작");
         for (ProductEntity product : products){
             System.out.println(product);
-            for(int day = 10; day >= 0; day--){
+            for(int day = 14; day >= 0; day--){
                 LocalDate today = LocalDate.now().minusDays(day);
                 for(int grade = 1; grade <= 4; grade++) {
                     List<PriceHistoryEntity> logs = priceHistoryRepository.findAllByProductAndDateAndGrade(
