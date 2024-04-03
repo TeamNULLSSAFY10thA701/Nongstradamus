@@ -126,7 +126,7 @@
                                         {{ content.name }} ({{ content.unit }})
                                     </div>
 
-                                    <div class="h-1/3 rounded-lg bg-white mt-3 w-40 mx-auto">
+                                    <div class="h-1/3 rounded-lg bg-white mt-3 w-50 mx-auto">
                                         <span class="text-black text-md">{{ content.priceTomorrow }}원</span>
                                         <span class="mx-1 text-md">&gt;</span>
                                         <span class="text-black text-md">{{ content.priceToday }}원</span>
