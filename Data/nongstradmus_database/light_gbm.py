@@ -1,16 +1,18 @@
+import datetime
 from functools import reduce
 
 import numpy as np
 import pandas as pd
 from prophet import Prophet
-import matplotlib.pyplot as plt
-import seaborn as sns
 import warnings
 import lightgbm as lgb
-from sqlalchemy.orm import Session
-
-from nongstradmus_database import connection, price_history_get_stmt
-
+import matplotlib.pyplot as plt
+import matplotlib
+import seaborn as sns
+from sklearn.impute import KNNImputer
+from nongstradmus_database import connection
+# matplotlib.rcParams['font.family'] ='Malgun Gothic'
+# matplotlib.rcParams['axes.unicode_minus'] =False
 
 # RMSE 계산
 def rmse(y, y_):
@@ -50,35 +52,15 @@ def prophet_features(df, n_train):
 
 def do_process(conn, product, grade, start_date, end_date,
                domestic_oil, global_oil, price_history, wholesale_market, trade, weather):
-
-    # 필요없는 ID 제거
-    domestic_oil.drop(['domesticOilPriceId'], axis=1, inplace=True)
-    global_oil.drop(['globalOilPriceId'], axis=1, inplace=True)
-    trade.drop(['tradeId'], axis=1, inplace=True)
-    weather.drop(['weatherId'], axis=1, inplace=True)
-    weather.drop(['productId'], axis=1, inplace=True)
-    weather.drop(['code'], axis=1, inplace=True)
-
-    # date형식으로 변경
-    domestic_oil['date'] = pd.to_datetime(domestic_oil['date'])
-    global_oil['date'] = pd.to_datetime(global_oil['date'])
-    trade['date'] = pd.to_datetime(trade['date'])
-    weather['date'] = pd.to_datetime(weather['date'])
-    price_history['date'] = pd.to_datetime(price_history['date'])
-
-    # 날짜 순으로 정렬
-    domestic_oil = domestic_oil.sort_values(by='date' ,ascending=True)
-    global_oil = global_oil.sort_values(by='date' ,ascending=True)
-    trade = trade.sort_values(by='date' ,ascending=True)
-    weather = weather.sort_values(by='date' ,ascending=True)
-    price_history = price_history.sort_values(by='date' ,ascending=True)
+    today = datetime.date.today()
+    future_day = today + datetime.timedelta(days=28)
 
     ### 테이블 병합
-    dataframes = [price_history, domestic_oil, global_oil, trade, weather]
+    dataframes = [price_history, domestic_oil, global_oil]
     train = reduce(lambda left,right: pd.merge(left,right,how='left', on='date'), dataframes)
-    train = train.fillna(0)
+    train.dropna()
 
-    test_dates = pd.DataFrame({'date':pd.date_range(start=start_date, end=end_date)})
+    test_dates = pd.DataFrame({'date':pd.date_range(start=today, end=future_day)})
     test = pd.concat([train,test_dates]).reset_index()
 
     # sns.lineplot(x=train['date'], y=train['price'], color='r', linestyle='--', marker='o')
@@ -118,6 +100,7 @@ def do_process(conn, product, grade, start_date, end_date,
 
     all_data = pd.concat((train, test)).reset_index(drop=True)
     all_data = pd.get_dummies(all_data)
+
     res_date = all_data['date']  # 마지막에 lgb결과 나타낼 자료# 로 복사
     all_data.drop('date', axis=1, inplace=True)
 
@@ -144,7 +127,7 @@ def do_process(conn, product, grade, start_date, end_date,
     lgb_pred = model_lgb.predict(test.values)
 
     lgb_res = np.concatenate((lgb_train_pred,lgb_pred))
-    # sns.lineplot(x=res_date[-365:-335], y=lgb_res[-365:-335], color='b', linestyle='--')
+    # sns.lineplot(x=res_date, y=lgb_res, color='b', linestyle='--')
 
     # 예측 범위 계산 코드 (예시: 95% 신뢰 구간)
     lgb_train_lower, lgb_train_upper = np.percentile(lgb_train_pred, [2.5, 97.5])
@@ -169,7 +152,7 @@ def do_process(conn, product, grade, start_date, end_date,
     # Fill between lines for upper and lower bands
     # plt.fill_between(res_date[-365:], lgb_lower_band, lgb_upper_band, color='gray', label='Prediction Band')
 
-
+    # plt.title("{}번 품목:{} 등급:{}".format(product[0], product[1], grade))
     # plt.show()
 
     # 예측 데이터 저장
@@ -178,15 +161,16 @@ def do_process(conn, product, grade, start_date, end_date,
     productIds = [product[0]] * n_test
     ratios = pd.DataFrame({'price': lgb_res}).pct_change(1).mul(100)[-n_test:]
     ratios = ratios.price.to_list()
-    ratios[0] = 0
+    ratios[0] = (lgb_pred[0] - lgb_train_pred[-1]) / lgb_train_pred[-1] * 100
 
-    result = pd.DataFrame({"date": test['date'],
+    result = pd.DataFrame({"date": pd.date_range(start=today, end=future_day),
                            "price": lgb_pred,
                            'ratio': ratios,
                            'grade': grades,
                            'productId': productIds})
 
-
     result.to_sql(name='pricePredict', con=conn, index=False, if_exists='append')
+    print(result)
+    conn.commit()
 
     return
